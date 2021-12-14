@@ -55,11 +55,9 @@ ul a:hover{
   text-align: center  ;
   color: white;
   background-color: #0a3d52;
-<<<<<<< HEAD
-=======
+  background-color: #0a3d52;
   position: fixed;
   left: 0;
->>>>>>> a11a42cef084f5251fe35486f592b32b70d4fc38
   bottom: 0;
   width: 100%;
 }
