@@ -49,8 +49,11 @@ ul a:hover{
 }
 
 .footer-panel {
+  text-align: center  ;
   color: white;
   background-color: #0a3d52;
-  width: 100%;
+  position: fixed;
+  left: 0;
   bottom: 0;
+  width: 100%;
 }
