@@ -1,7 +1,10 @@
-*{transition:all 0.3s ease-in-out;}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   display: flexbox;
 }
@@ -9,6 +12,7 @@ body {
   display: flex;
   overflow:hidden;
   background-color: brown;
+  align-items: center;
 }
 
 .nav-menu{
@@ -44,13 +48,11 @@ ul a:hover{
 }
 
 .contents, .footer-panel {
-  border: 1px solid black;
   padding: 10px;
 }
 
 .footer-panel {
   color: white;
   background-color: #0a3d52;
-  width: 100%;
   bottom: 0;
 }
