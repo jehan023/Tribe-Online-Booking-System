@@ -12,7 +12,7 @@ body {
 }
 nav {
 	position: fixed;
-	z-index: 10;
+	z-index: 1;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -75,9 +75,15 @@ nav .icon-burger .line {
 	border-radius: 3px;
 	transition: all .3s ease-in-out;
 }
+nav ul li a.active {
+	background-color: rgb(167, 103, 103);
+    color:white;
+	border-radius: 25px;
+}
 nav ul li a:hover {
     background-color: burlywood;
     color:darkblue;
+	border-radius: 25px;
 }
 .contents {
     font-family: 'Montserrat', sans-serif;
@@ -99,7 +105,11 @@ nav ul li a:hover {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 740px) {
+	nav {
+		height: 60px;
+		width: auto;
+	}
 	nav .logo {
 		float: none;
 		width: auto;
@@ -108,7 +118,7 @@ nav ul li a:hover {
 	nav .links {
 		float: none;
 		position: fixed;
-		z-index: 9;
+		z-index: 1;
 		left: 0;
 		right: 0;
 		top: 60px;
@@ -118,9 +128,12 @@ nav ul li a:hover {
 		flex-direction: column;
 		justify-content: space-evenly;
 		background-color: rgba(0,0,0,.8);
-		overflow: hidden;
+		overflow: scroll;
 		box-sizing: border-box;
 		transition: all .5s ease-in-out;
+	}
+	.links::-webkit-scrollbar {
+		display: none;
 	}
 	nav .links a {
 		font-size: 20px;
@@ -139,5 +152,9 @@ nav ul li a:hover {
 	}
 	nav :checked ~ .icon-burger .line:nth-child(2) {
 		opacity: 0;
+	}
+	img {
+		height: 30%;
+		width: 100%;
 	}
 }
