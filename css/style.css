@@ -99,11 +99,8 @@ nav ul li a:hover {
     background-color: #0a3d52;
     left: 0;
     bottom: 0;
-    width: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    position: fixed;
+    width: 100%;
 }
 @media screen and (max-width: 740px) {
 	nav {
@@ -157,4 +154,89 @@ nav ul li a:hover {
 		height: 30%;
 		width: 100%;
 	}
+}
+/*Image slider*/
+#slider, .wrap, .slide-content{
+  margin:0;
+  padding:0;
+  font-family: Cabin, Helvetica, sans-serif;
+  width:100%;
+  height:100vh;
+  overflow-x:hidden;
+}
+.wrap{
+  position:relative;
+}
+
+.slide{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0s;
+}
+
+.slide1{background-image: url('https://www.thepoortraveler.net/wp-content/uploads/2012/06/Bay-yo-Rice-Terraces.jpg');}
+.slide2{background-image: url('https://www.eaglenews.ph/wp-content/uploads/2016/10/31bcb22f-83c8-4fb9-b653-3ab3171ec180.jpg');}
+.slide3{background-image: url('https://gttp.imgix.net/224489/x/0/17-best-sagada-tourist-spots-hanging-coffins-and-caves-in-the-mountains-2.jpg');}
+
+.slide-content{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.slide-content span{
+  font-size: 5rem;
+  color:#fff;
+  background-color:rgba(0,0,0, .6);
+  padding:10px 20px;
+}
+
+.dir-control{
+  cursor: pointer;
+  position:absolute;
+  top:50%;
+  margin-top:-30px;
+  width:0;
+  height:0;
+  z-index:5;
+}
+.fa {
+display:inline-block;
+ line-height: 50px;
+ background-color:rgba(0,0,0, .3);
+ width:50px;
+ height:56px;
+ color:white;
+ text-align: center;
+ vertical-align: bottom;
+}
+
+#dir-control-left{
+  left:0;
+  margin-left:30px;
+}
+
+#dir-control-right{
+  right:0;
+  margin-right:60px;
+}
+.slider-active{
+  visibility:hidden;
+  opacity:0;
+}
+.slide.slide-is-active{
+  visibility:visible;
+  opacity: 1;
+}
+
+.slide-transition{
+  transition: all .5s ease-in-out;
 }
