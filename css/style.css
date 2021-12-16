@@ -5,14 +5,9 @@ body {
 	padding: 0px;
 	margin: 0px;
 }
-.container {
-	margin-top: 60px;
-	margin-bottom: 0px;
-}
-.container img {
-	display: block;
-	width: 100%;
-}
+
+/*----------NAVIGATION------------------------------------------*/
+
 nav {
 	position: fixed;
 	z-index: 10;
@@ -88,11 +83,58 @@ nav ul li a:hover {
     color:darkblue;
 	border-radius: 25px;
 }
+
+/*----------CONTENTS------------------------------------------*/
+
 .contents {
     font-family: 'Montserrat', sans-serif;
     margin-top: 60px;
 	display: block;
 }
+.container {
+	margin-top: 60px;
+	margin-bottom: 0px;
+}
+.container img {
+	display: block;
+	width: 100%;
+}
+.book-trip-panel {
+	margin:10px 10% 10px 10%;
+}
+.radio-trip {
+	display: inline-block;
+	margin-right: 20px;
+}
+.booking-panel {
+	width: 100%;
+}
+.dropdown, .booking-date-holder, .passenger, .button-panel, .depart, .return, .line {
+	display: inline-block;
+	height: 100%;
+}
+.dropdown {
+	width: 80px;
+}
+.btn-book er-alert {
+	padding: 8px 0px;
+}
+.reminders-panel, .manage-my-booking-button-holder {
+	display: inline;
+}
+.reminders-panel {
+	width: 80%;
+	background-color: brown;
+}
+.reminder {
+	padding-top: 30px;
+	align-items: center;
+}
+.reminders-panel p {
+	margin: 0px;
+}
+/*----------FOOTER------------------------------------------*/
+
 footer {
     font-family: 'Montserrat', sans-serif;
     text-align: center  ;
@@ -133,6 +175,20 @@ footer {
 	font-size: 25px;
 	width: 40px !important;
 }
+.footer-panel {
+	width: 100%;
+  	margin: 0 auto;
+}
+.footer-list-about, .footer-list-guidelines, .footer-list-support {
+	width: auto;
+  	display: inline-flex;
+	height: 100%;
+}
+.footer-panel ul {
+	text-align: left;
+}
+
+/*----------MEDIA SCREEN RESPONSIVE------------------------------------------*/
 
 @media screen and (max-width: 740px) {
 	nav {
@@ -182,8 +238,18 @@ footer {
 	nav :checked ~ .icon-burger .line:nth-child(2) {
 		opacity: 0;
 	}
+	.footer-list-about, .footer-list-guidelines, .footer-list-support {
+		width: auto;
+		display: block;
+		height: auto;
+	}
+	.footer-panel ul {
+		text-align: center;
+	}
 }
-/*Image slider*/
+
+/*----------IMAGE SLIDER------------------------------------------*/
+
 #slider, .wrap, .slide-content{
   margin:0;
   padding:0;

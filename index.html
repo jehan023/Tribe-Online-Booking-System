@@ -23,7 +23,6 @@
         <ul class="links">
             <li><a href="index.html" class="active">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
             <li><a href="login.html">Login</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
@@ -35,44 +34,109 @@
 
     <!--Body Contents-->
     <div class="contents">
-      <div class="wrap">
-        <div id="dir-control-left" class="dir-control"><i class="fa fa-angle-left fa-5x" aria-hidden="true"></i></div>
-        <div id="slider">
-            <div class="slide slide1">
-                <div class="slide-content">
-                    <span>Image One</span>
+        <!--Image Slider-->
+        <div class="wrap">
+                <div id="dir-control-left" class="dir-control"><i class="fa fa-angle-left fa-5x" aria-hidden="true"></i></div>
+            <div id="slider">
+                <div class="slide slide1">
+                    <div class="slide-content">
+                        <span>Image One</span>
+                    </div>
+                </div>
+                <div class="slide slide2">
+                    <div class="slide-content">
+                        <span>Image Two</span>
+                    </div>
+                </div>
+                <div class="slide slide3">
+                    <div class="slide-content">
+                        <span>Image Three</span>
+                    </div>
                 </div>
             </div>
-            <div class="slide slide2">
-                <div class="slide-content">
-                    <span>Image Two</span>
+            <div id="dir-control-right" class="dir-control"><i class="fa fa-angle-right fa-5x" aria-hidden="true"></i></div>
+        </div>
+
+        <!--Booking Panel-->
+        <div class="book-trip-panel">
+            <div class="trip">
+                <div class="radio-trip">
+                    <input type="radio" name="radiobtn-trip-choice" id="radio-round-trip" value="round-trip"><label for="radio-round-trip">Round-Trip</label>
+                </div>
+                <div class="radio-trip">
+                    <input type="radio" name="radiobtn-trip-choice" id="radio-one-way" value="one-way"><label for="radio-one-way">One-Way</label>
                 </div>
             </div>
-            <div class="slide slide3">
-                <div class="slide-content">
-                    <span>Image Three</span>
+            <div class="booking-panel">
+                <div class="dropdown">
+                    <select class="dropdown-list er-alert" name="origin" id="selOrigin"></select>
+                </div>
+                <div class="dropdown">
+                    <select class="dropdown-list er-alert" name="origin" id="selDestination"></select>
+                </div>
+                <div class="booking-date-holder">
+                    <div class="depart">
+                        <input type="text" class="datepicker er-alert" name="txtDepartingOn" id="txtDepartingOn" placeholder="Depart" readonly/>
+                    </div>
+                    <span>-</span>
+                    <div class="return">
+                        <input type="text" class="datepicker er-alert" name="txtReturningOn" id="txtReturningOn" placeholder="Return" readonly/>
+                    </div>
+                    <i class="far fa-calendar-alt"></i>
+                    <div class="line"></div>
+                </div>
+                <div class="passenger">
+                    <strong>Passengers</strong>
+                    <input type="button" class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus">
+                    <span class="txt-count" id="spanPassengerCount">1</span>
+                    <input type="button" class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus">
+                </div>
+                <div class="button-panel">
+                    <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' />
+                </div>
+            </div>
+            <!--Reminder Panel-->
+            <div class="reminder">
+                <div class="reminders-panel">
+                    <p><strong>Reminders:</strong></p>
+                    <ul class="reminder-notes">
+                        <li>Limited trips are available online as of the moment.</li>
+                        <li>We do not accept Smart Padala, nor any other offline methods of payment for tickets bought online.</li>
+                        <li>Passengers availing student discounts, senior citizen discounts and PWD discounts must purchase their tickets from our terminal ticket booths.</li>
+                    </ul>
+                </div>
+                <div class="manage-my-booking-button-holder">
+                    <input type='button' class="manage-my-booking-button" data-toggle="modal" data-target="#modal-manage-bookings" onclick="Focus()" value="Manage My Bookings" id="btnManageBooking">
                 </div>
             </div>
         </div>
-        <div id="dir-control-right" class="dir-control"><i class="fa fa-angle-right fa-5x" aria-hidden="true"></i></div>
-      </div>
     </div>
+    
     <!--Footer-->
     <footer>
         <div class="footer-panel">
-            <ul class="footer-list" data-preamble="About">
-                <li><a href="/MissionVision.html">Our Story</a></li>
-                <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terminal-directory-modal">Terminal Directory</a></li>
-                <li><a href="/RouteMap.html">Route Map</a></li>
-                <li><a href="/JoOpenings.aspx">Careers</a></li>
-            </ul>
-            <ul class="footer-list" data-preamble="Guidelines">
-                <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
-                <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terms">Terms and Conditions</a></li>
-            </ul>
-            <ul class="footer-list" data-preamble="Support">
-                <li><a href="/GeneralInquiries.aspx">Contact Us</a></li>
-            </ul>
+            <div class="footer-list-about">
+                <ul class="footer-list" data-preamble="About">
+                    <li><strong>About</strong></li>
+                    <li><a href="/MissionVision.html">Our Story</a></li>
+                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terminal-directory-modal">Terminal Directory</a></li>
+                    <li><a href="/RouteMap.html">Route Map</a></li>
+                    <li><a href="/JoOpenings.aspx">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-list-guidelines">
+                <ul class="footer-list" data-preamble="Guidelines">
+                    <li><strong>Guidelines</strong></li>
+                    <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
+                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terms">Terms and Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-list-support">
+                <ul class="footer-list" data-preamble="Support">
+                    <li><strong>Support</strong></li>
+                    <li><a href="/GeneralInquiries.aspx">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
         <div class="social-media-panel">
             <ul class="social-media-list">
