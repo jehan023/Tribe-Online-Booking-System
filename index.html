@@ -78,26 +78,26 @@
                     <div class="depart">
                         <input type="text" class="datepicker er-alert" name="txtDepartingOn" id="txtDepartingOn" placeholder="Depart" readonly/>
                     </div>
-                    <span>-</span>
+                    <div class="date-line">-</div>
                     <div class="return">
                         <input type="text" class="datepicker er-alert" name="txtReturningOn" id="txtReturningOn" placeholder="Return" readonly/>
                     </div>
                     <i class="far fa-calendar-alt"></i>
-                    <div class="line"></div>
+                    <div class="booking-date-line"></div>
                 </div>
                 <div class="passenger">
                     <strong>Passengers</strong>
-                    <input type="button" class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus">
+                    <input type="button" class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" value="-">
                     <span class="txt-count" id="spanPassengerCount">1</span>
-                    <input type="button" class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus">
+                    <input type="button" class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" value="+">
                 </div>
                 <div class="button-panel">
                     <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' />
                 </div>
             </div>
             <!--Reminder Panel-->
-            <div class="reminder">
-                <div class="reminders-panel">
+            <div class="reminders-panel">
+                <div class="reminders">
                     <p><strong>Reminders:</strong></p>
                     <ul class="reminder-notes">
                         <li>Limited trips are available online as of the moment.</li>

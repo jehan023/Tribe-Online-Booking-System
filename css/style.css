@@ -100,7 +100,7 @@ nav ul li a:hover {
 	width: 100%;
 }
 .book-trip-panel {
-	margin:10px 10% 10px 10%;
+	margin:10px 18% 10px 18%;
 }
 .radio-trip {
 	display: inline-block;
@@ -108,31 +108,54 @@ nav ul li a:hover {
 }
 .booking-panel {
 	width: 100%;
+	margin-top: 10px;
+	display: flex;
+	border: 1px solid black;
 }
-.dropdown, .booking-date-holder, .passenger, .button-panel, .depart, .return, .line {
-	display: inline-block;
-	height: 100%;
+.dropdown, .booking-date-holder, .passenger {
+	margin-right: 15px;
+}
+.booking-date-holder {
+	display: block;
+}
+.booking-date-line {
+	margin-top: 3px;
+	background-color: black;
+	border: 1px solid black;
 }
 .dropdown {
-	width: 80px;
+	width: 15%;
+	box-sizing: border-box;
 }
-.btn-book er-alert {
+.return, .depart, .date-line, .far {
+	display: inline-block;
+}
+.btn-book {
 	padding: 8px 0px;
-}
-.reminders-panel, .manage-my-booking-button-holder {
-	display: inline;
+	width: 75px;
 }
 .reminders-panel {
-	width: 80%;
-	background-color: brown;
+	margin-top: 15px;
+	display: flex;
 }
-.reminder {
-	padding-top: 30px;
-	align-items: center;
+.reminders-panel, .manage-my-booking-button-holder, .reminders {
+	border: 1px solid black;
 }
-.reminders-panel p {
+.reminders p {
 	margin: 0px;
 }
+.reminders {
+	width: 80%;
+}
+.manage-my-booking-button-holder {
+	width: 20%;
+}
+.manage-my-booking-button {
+	height: 30%;
+	width: 100%;
+	margin-top: 10%;
+}
+
 /*----------FOOTER------------------------------------------*/
 
 footer {
@@ -226,7 +249,7 @@ footer {
 	nav :checked ~ .links {
 		bottom: 0;
 	}
-	nav .icon-burger {
+	nav .icon-burger, .line{
 		display: block;
 	}
 	nav :checked ~ .icon-burger .line:nth-child(1) {
