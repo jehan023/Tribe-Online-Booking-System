@@ -4,6 +4,7 @@
 body {
 	padding: 0px;
 	margin: 0px;
+    background-color: #0a3d52;
 }
 
 /*----------NAVIGATION------------------------------------------*/
@@ -90,6 +91,8 @@ nav ul li a:hover {
     font-family: 'Montserrat', sans-serif;
     margin-top: 60px;
 	display: block;
+	padding-bottom: 15px;
+    background-color: white;
 }
 .container {
 	margin-top: 60px;
@@ -168,8 +171,8 @@ footer {
 	width: auto;
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 	display: block;
 }
 .footer-list a {
