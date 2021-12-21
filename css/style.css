@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 * {
 	box-sizing: border-box;
 }  
@@ -361,3 +362,25 @@ footer {
 .slide-transition{
   transition: all .5s ease-in-out;
 }
+/*----------MISSION VISION---------------------------------------*/
+.mission-vision{
+	padding-bottom: 0;
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.mission-vision h1{
+	padding-left: 125px;
+
+}
+.mission-vision h2{
+	padding-left: 175px;
+
+}
+.mission-vision p{
+	padding-left: 200px;
+	list-style-type: none;
+
+}
+
+
