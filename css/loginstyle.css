@@ -2,7 +2,6 @@
 
 * {
 	box-sizing: border-box;
-	font-family: Raleway, sans-serif;
 }
 
 .container {
@@ -55,8 +54,7 @@
 .screen__background__shape2 {
 	height: 210px;
 	width: 210px;
-	background: #d22752
-    ;	
+	background: #d22752;	
 	top: -172px;
 	right: 0;	
 	border-radius: 32px;
@@ -82,7 +80,7 @@
 
 .login {
 	padding: 30px;
-	padding-top: 90px;
+	padding-top: 75px;
     height: 100%;
 }
 
@@ -92,8 +90,8 @@
 }
 
 .login-panel-logo img {
-    height: 125px;
-    width: 125px;
+    height: 130px;
+    width: 130px;
     display: block;
     margin-left: auto;
     margin-right: auto 

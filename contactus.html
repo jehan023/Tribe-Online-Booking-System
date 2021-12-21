@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us · Tribe Transport</title>
+    <title>Contact Us · Tribe Transport</title>
     
     <link rel="icon" href="images\logo.png" type="image/icon type">
 
@@ -34,43 +34,51 @@
 
     <!--Body Contents-->
     <div class="contents">
-        <div class="wrap">
-            <div id="dir-control-left" class="dir-control"><i class="fa fa-angle-left fa-5x" aria-hidden="true"></i></div>
-            <div id="slider">
-                <div class="slide slide1">
-                    <div class="slide-content">
-                        <span>Image One</span>
+        <div class="career-form-panel">
+            <div class="inquiries-holder -contact-us-form">
+                <h1>CONTACT US</h1>
+                <p>Do you have any questions, comments, or suggestions for us?</p>
+                <p>We are more than happy to hear from you. Kindly fill-out the form below.</p>
+
+                
+                <span id="ContactContent_lblTerms" style="display: none;">false</span>
+
+                <div class="inquiries-form">
+                    <div class="contact-form-panel">
+                        <input name="ctl00$ContactContent$txtName" type="text" id="ContactContent_txtName" placeholder="Name" />
+                        <span id="ContactContent_RequiredFieldValidator3" style="visibility:hidden;">Name is required</span>
                     </div>
-                </div>
-                <div class="slide slide2">
-                    <div class="slide-content">
-                        <span>Image Two</span>
+
+                    <div class="contact-form-panel">
+                        <input name="ctl00$ContactContent$txtCompany" type="text" id="ContactContent_txtCompany" placeholder="Company" />
+                        <span id="ContactContent_RequiredFieldValidator1" style="visibility:hidden;">Company is required</span>
                     </div>
-                </div>
-                <div class="slide slide3">
-                    <div class="slide-content">
-                        <span>Image Three</span>
+
+                    <div class="contact-form-panel">
+                        <input name="ctl00$ContactContent$txtEmail" type="text" id="ContactContent_txtEmail" placeholder="Email Address" />
+
+                        <span id="ContactContent_RequiredFieldValidator2" style="visibility:hidden;">Email is required</span>
+
+                        <span id="ContactContent_RegularExpressionValidator1" style="visibility:hidden;">Invalid Email</span>
                     </div>
+
+                    <textarea name="ctl00$ContactContent$txtMessage" rows="8" cols="20" id="ContactContent_txtMessage" placeholder="Message or Inquiry"></textarea>
+                    <div class="form-panel">
+                        <span id="ContactContent_RequiredFieldValidator4" style="visibility:hidden;">Message is required</span>
+                    </div>
+
+                    <div class="attach">
+                        <input type="checkbox" id="chkAttachment" value="value" />
+                        Insert Attachment</div>
+                    <div id="divAttachment">
+                        <div id="dropzoneEmailAttachment" action="UploadEmailAttachment.ashx" class="dropzone"></div>
+                    </div>
+
+                    
+                    <p>Please read and accept the <a id='btnAccept' href="#privacy-policy-popup-covid" data-toggle="modal" style="cursor: pointer">Terms and Conditions</a>.</p>
+                    <input type="submit" name="ctl00$ContactContent$btnSubmit" value="Submit" id="ContactContent_btnSubmit" />
                 </div>
             </div>
-        <div id="dir-control-right" class="dir-control"><i class="fa fa-angle-right fa-5x" aria-hidden="true"></i></div>
-        </div>
-        <div class="mission-vision">
-            <h1>Our Mission, Vision & Values</h1>
-            <h2>Mission</h2>
-            <p>Partner with the government agencies in their advocacy to encourage the owners’ of private vehicles to confidently patronize the public transportation</p>
-            <h2>Vision</h2>
-            <p>To service the riding public with outmost safety through a reliable, efficient, comfortable, and environmentally friendly vehicles with experienced and well-mannered drivers and staff.</p>
-            <h2>Values</h2>
-            <p><b>T</b>ransparent</p>
-            <p><b>R</b>esponsible</p>
-            <p><b>I</b>ntegrity</p>
-            <p><b>B</b>alanced</p>
-            <p><b>E</b>nriching</p>
-            <p><b>C</b>reative</p>
-            <p><b>O</b>pen-minded</p>
-            <p><b>O</b>ptimistic</p>
-            <p><b>P</b>rayer</p>
         </div>
     </div>
 
