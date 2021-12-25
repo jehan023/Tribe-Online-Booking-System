@@ -1,3 +1,8 @@
+<?php
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,18 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard · Tribe Transport</title>
 
-    <link rel="icon" href="../images/logo.png" type="image/icon type">
+    <link rel="icon" href="images/logo.png" type="image/icon type">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="../css/dashboardstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboardstyle.css">
 </head>
 
 <body>
     <div class="app-body">
         <aside class="app-sidebar">
             <div class="app-logo sticky-top">
-                <img src="../images/logo.png" width="50px" height="50px">
+                <img src="images/logo.png" width="50px" height="50px">
                 <h5><strong>Tribe</strong> Dashboard</h5>
             </div>
             <div class="app-sidenav">
@@ -81,7 +86,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign out</a>
+                    <a class="nav-link" href="logout.php" onclick="return confirm('Are You sure you want to logout?');">Log out</a>
                 </li>
             </ul>
         </header>
@@ -107,5 +112,4 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
 </body>
-
 </html>
