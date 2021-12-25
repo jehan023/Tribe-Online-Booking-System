@@ -1,0 +1,187 @@
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ibmplexsans/v8/zYX9KVElMYYaJe8bpLHnCwDKjXr8AIFsdP3pBms.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/s/ibmplexsans/v8/zYX9KVElMYYaJe8bpLHnCwDKjQ76AIFsdP3pBms.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* define native CSS variables here */
+:root {
+  --color-dark1: #161616;
+  --color-dark2: #262626;
+  --color-dark3: #393939;
+
+  --color-white: rgba(255, 255, 255);
+  --color-white1: rgba(255, 255, 255, 0.75);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 14px;
+  background-color: #262626;
+}
+
+a {
+  text-decoration: none;
+}
+
+.app-body {
+  /* Two column layout spanning 100 percent of viewport. */
+  display: grid;
+  background-color: white;
+  height: 100vh;
+  grid-template-areas:
+    "app-sidebar-area app-header-area"
+    "app-sidebar-area app-main-area";
+
+  /* Fix width of left column and let right column span complete width */
+  grid-template-columns: 16rem 1fr;
+
+  /* Fix height of top row and let bottom row span complete height */
+  grid-template-rows: 3.5rem 1fr;
+}
+
+.app-sidebar {
+  display: grid;
+  grid-area: app-sidebar-area;
+  grid-template-areas:
+    "app-logo-area"
+    "app-sidenav-area";
+  grid-template-rows: 3.5rem 1fr;
+
+  font-weight: bold;
+  background-color: var(--color-dark2);
+  color: var(--color-white1);
+
+  padding-bottom: 3rem;
+}
+
+.app-header {
+  display: grid;
+  grid-area: app-header-area;
+  grid-template-areas: "app-header-left-menu-area app-header-right-menu-area";
+  background-color: var(--color-dark1);
+  color: var(--color-white1);
+  align-content: center;
+  height: 60px;
+}
+
+.app-main {
+  display: grid;
+  grid-area: app-main-area;
+
+  padding: 1rem 1rem 0 1rem;
+  align-content: start;
+}
+
+.app-logo {
+  display: flex;
+  grid-area: app-logo-area;
+  color: var(--color-white);
+  background-color: var(--color-dark1);
+  align-content: center;
+  padding: 0 1rem;
+  height: 60px;
+  padding-top: 5px;
+}
+
+.app-logo h5 {
+  margin: auto;
+}
+
+.app-header-right-menu {
+  grid-area: app-header-right-menu-area;
+  justify-self: end;
+  padding-right: 15px;
+}
+
+.app-sidenav {
+  display: grid;
+  grid-area: app-sidenav-area;
+  grid-template-areas: ".";
+  margin-top: 25px;
+}
+
+/* change the default bootstrap nav-link color */
+.app-header .nav-link,
+.app-header .dropdown-item,
+.app-sidebar .nav-link {
+  color: var(--color-white1);
+}
+
+/* change the default bootstrap nav-link hover color, background color */
+.app-header a:hover,
+.app-sidebar a:hover {
+  color: var(--color-white);
+  background-color: var(--color-dark3);
+}
+
+/* change the default boostrap drop-down menu background color */
+.app-header .dropdown-menu {
+  background-color: var(--color-dark2);
+}
+
+/* let the nested menu items be indented */
+.app-sidebar ul ul a {
+  padding-left: 2rem !important;
+}
+
+/* move the default dropdown caret to the end after link text */
+.app-sidebar .dropdown-toggle {
+  position: relative;
+}
+
+.app-sidebar .dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  transition: 0.1s;
+}
+
+/* make the top part stay sticky to top while scrolling down to see more content */
+.app-sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.app-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+/* let the 'main' area be independently scrollable when there is content beyond the viewport */
+.app-main,
+.app-sidenav {
+  overflow: auto;
+}
+
+/* let the sidebar be independently scrollable when there is content beyond the viewport */
+.app-main,
+.app-sidenav {
+  overflow-y: auto;
+}

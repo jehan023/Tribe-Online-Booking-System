@@ -39,17 +39,17 @@
         <div class="container">
             <div class="screen">
                 <div class="screen__content">
-                    <form class="login">
+                    <form class="login" method="POST">
                         <div class="login-panel-logo">
                             <img src="images/logo.png" alt="logo">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Username">
+                            <input type="text" name="username_input" class="login__input" placeholder="Username">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" class="login__input" placeholder="Password">
+                            <input type="password" name="password_input"class="login__input" placeholder="Password">
                         </div>
                         <button class="button login__submit">
                             <span class="button__text">Member Log In</span>
