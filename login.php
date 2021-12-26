@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login · Tribe Transport</title>
     
-    <link rel="icon" href="images\logo.png" type="image/icon type">
+    <link rel="icon" href="images/logo.png" type="image/icon type">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-    <link rel="stylesheet" type="text/css" href="css\style.css">
-    <link rel="stylesheet" type="text/css" href="css\loginstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/loginstyle.css">
         
 </head>
 <body>
@@ -40,13 +40,14 @@
             require('db.php');
             session_start();
             // When form submitted, check and create user session.
-            if (isset($_POST['username_input'])) {
+            if (isset($_POST['username_input']) && isset($_POST['password_input'])) {
                 $username = stripslashes($_REQUEST['username_input']);    // removes backslashes
                 $username = mysqli_real_escape_string($con, $username);
                 $password = stripslashes($_REQUEST['password_input']);
                 $password = mysqli_real_escape_string($con, $password);
+                
                 // Check user is exist in the database
-                $query    = "SELECT * FROM users WHERE username='$username' AND pass='$password'";
+                $query    = "SELECT * FROM users WHERE username='$username' AND pass='".md5($password)."'";
                 $result = mysqli_query($con, $query) or die(mysql_error());
                 $rows = mysqli_num_rows($result);
                 if ($rows == 1) {
@@ -54,14 +55,10 @@
                     // Redirect to user dashboard page
                     header("Location: dashboard.php");
                 } else {
-                    echo "</center><div class='form'>
-                        <center>
-                        <br><br>
-                        <h3>Incorrect Username/password.</h3>
-                        <p class='link'>Click here to <a href='login.php'><strong>Login</strong></a> again.</p>
-                        <br><br>
-                        </center>
-                        </div>";
+                    echo "<script>
+                    alert('Incorrect Username/password.');
+                    window.location.href='login.php';
+                    </script>";
                 }
             } else {
         ?>
@@ -75,12 +72,13 @@
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" name="username_input" class="login__input" placeholder="Username">
+                            <input type="text" name="username_input" class="login__input" placeholder="Username" required>
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password_input" class="login__input" placeholder="Password">
+                            <input type="password" name="password_input" class="login__input" placeholder="Password" required>
                         </div>
+
                         <button class="button login__submit">
                             <span class="button__text">Member Log In</span>
                             <i class="button__icon fas fa-chevron-right"></i>

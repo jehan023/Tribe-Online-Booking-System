@@ -1,5 +1,6 @@
 <?php
 //include auth_session.php file on all user panel pages
+require('db.php');
 include("auth_session.php");
 ?>
 
@@ -73,6 +74,11 @@ include("auth_session.php");
         </aside>
 
         <header class="app-header">
+            <ul class="nav app-header-left-menu">
+                <li class="nav-item">
+                    <a class="nav-link">Welcome, <strong><?php echo $_SESSION['username']; ?></strong></a>
+                </li>
+            </ul>
             <ul class="nav app-header-right-menu">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -92,16 +98,44 @@ include("auth_session.php");
         </header>
 
         <main class="app-main">
-            <h4>Contents</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Vitae impedit modi sed sit repudiandae magnam id? Vel natus explicabo amet
-                facere quam, eius ducimus illo nesciunt soluta iure quod dolores!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Vitae impedit modi sed sit repudiandae magnam id? Vel natus explicabo amet
-                facere quam, eius ducimus illo nesciunt soluta iure quod dolores!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Vitae impedit modi sed sit repudiandae magnam id? Vel natus explicabo amet
-                facere quam, eius ducimus illo nesciunt soluta iure quod dolores!</p>
+            <div class="addUserAcct">
+            <?php
+            // When form submitted, insert values into the database.
+            if (isset($_REQUEST['username'])) {
+                // removes backslashes
+                $username = stripslashes($_REQUEST['username']);
+                //escapes special characters in a string
+                $username = mysqli_real_escape_string($con, $username);
+                $password = stripslashes($_REQUEST['password']);
+                $password = mysqli_real_escape_string($con, $password);
+                $create_datetime = date("Y-m-d H:i:s");
+                $query = "INSERT into `users` (username, pass, created_at) VALUES ('$username', '" . md5($password) . "', '$create_datetime')";
+                $result = mysqli_query($con, $query);
+                if ($result) {
+                    echo "<script>
+                    alert('Registration Complete.');
+                    window.location.href='dashboard.php';
+                    </script>";
+                }
+                else {
+                    echo "<script>
+                    alert('Missing fields, please fill-up all.');
+                    window.location.href='dashboard.php';
+                    </script>";
+                }
+            }
+            else {
+            ?>
+                <form class="form" action="" method="post">
+                    <h1 class="login-title">Registration</h1>
+                    <input type="text" class="login-input" name="username" placeholder="Username" required />
+                    <input type="password" class="login-input" name="password" placeholder="Password" required>
+                    <input type="submit" name="submit" value="Register" class="login-button">
+                </form>
+            <?php
+            }
+            ?>
+            </div>
         </main>
     </div>
 

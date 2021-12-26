@@ -113,6 +113,11 @@ a {
   justify-self: end;
   padding-right: 15px;
 }
+.app-header-left-menu {
+  grid-area: app-header-left-menu-area;
+  justify-self: start;
+  padding-left: 15px;
+}
 
 .app-sidenav {
   display: grid;
