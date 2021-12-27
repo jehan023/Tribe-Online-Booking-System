@@ -2,6 +2,7 @@
 //include auth_session.php file on all user panel pages
 require('db.php');
 include("auth_session.php");
+include('process.php')
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,8 @@ include("auth_session.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="css/dashboardstyle.css">
+    <script type="text/javascript" src="js/dashboardscript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -86,7 +89,7 @@ include("auth_session.php");
                         Manage
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" id="add-new-account-nav-btn">Add new account</a>
+                        <a class="dropdown-item" href="#" id="add-new-account-nav-btn" onclick="showDiv('dash-addUserAcct')">Add new account</a>
                         <div class="dropdown-divider">Access</div>
                         <a class="dropdown-item" href="#" id="edit-account-nav-btn">Edit account</a>
                     </div>
@@ -98,43 +101,30 @@ include("auth_session.php");
         </header>
 
         <main class="app-main">
-            <div class="addUserAcct">
-            <?php
-            // When form submitted, insert values into the database.
-            if (isset($_REQUEST['username'])) {
-                // removes backslashes
-                $username = stripslashes($_REQUEST['username']);
-                //escapes special characters in a string
-                $username = mysqli_real_escape_string($con, $username);
-                $password = stripslashes($_REQUEST['password']);
-                $password = mysqli_real_escape_string($con, $password);
-                $create_datetime = date("Y-m-d H:i:s");
-                $query = "INSERT into `users` (username, pass, created_at) VALUES ('$username', '" . md5($password) . "', '$create_datetime')";
-                $result = mysqli_query($con, $query);
-                if ($result) {
-                    echo "<script>
-                    alert('Registration Complete.');
-                    window.location.href='dashboard.php';
-                    </script>";
-                }
-                else {
-                    echo "<script>
-                    alert('Missing fields, please fill-up all.');
-                    window.location.href='dashboard.php';
-                    </script>";
-                }
-            }
-            else {
-            ?>
-                <form class="form" action="" method="post">
-                    <h1 class="login-title">Registration</h1>
-                    <input type="text" class="login-input" name="username" placeholder="Username" required />
-                    <input type="password" class="login-input" name="password" placeholder="Password" required>
-                    <input type="submit" name="submit" value="Register" class="login-button">
-                </form>
-            <?php
-            }
-            ?>
+            <div id="dash-addUserAcct" class="hidden">
+                    <form method="POST" action="" id="register_form">
+                        <h1>Add User Account</h1>
+                        <div <?php if (isset($name_error)): ?> class="form_error" <?php endif ?> >
+                        <input type="text" class="register-input" name="username" placeholder="Username" value="<?php echo $username; ?>" required>
+                        <?php if (isset($name_error)): ?>           
+                            <span><?php echo $name_error; ?></span>
+                        <?php endif ?>
+                        </div>
+                        <div>
+                            <input type="password" class="register-input" name="confirm-password" id="password" placeholder="Password" onkeyup='check();' required/>
+                        </div>
+                        <div>
+                            <input type="password" class="register-input" name="password" id="confirm_password" placeholder="Confirm Password" onkeyup='check();' required/>
+                            <span id='message'></span>
+                        </div>
+                        <div>
+                            <button type="submit" name="register" id="reg_btn">Register</button>
+            
+                            <?php if (isset($pass_error)): ?>
+                            <span id='message'><?php echo $pass_error; ?></span>
+                            <?php endif ?>
+                        </div>
+                    </form>
             </div>
         </main>
     </div>

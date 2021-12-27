@@ -1,3 +1,7 @@
+<?php
+    require('db.php');
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,8 +41,6 @@
     <div class="contents">
         <!--LOGIN PHP codes-->
         <?php
-            require('db.php');
-            session_start();
             // When form submitted, check and create user session.
             if (isset($_POST['username_input']) && isset($_POST['password_input'])) {
                 $username = stripslashes($_REQUEST['username_input']);    // removes backslashes
@@ -47,13 +49,14 @@
                 $password = mysqli_real_escape_string($con, $password);
                 
                 // Check user is exist in the database
-                $query    = "SELECT * FROM users WHERE username='$username' AND pass='".md5($password)."'";
-                $result = mysqli_query($con, $query) or die(mysql_error());
+                $query    = "SELECT * FROM users WHERE username='$username' AND pass='$password'";
+                $result = mysqli_query($con, $query) or die(mysqli_connect_error());
                 $rows = mysqli_num_rows($result);
                 if ($rows == 1) {
                     $_SESSION['username'] = $username;
                     // Redirect to user dashboard page
-                    header("Location: dashboard.php");
+                    //header("Location: dashboard.php");
+                    echo("<script>location.href = 'dashboard.php';</script>");
                 } else {
                     echo "<script>
                     alert('Incorrect Username/password.');

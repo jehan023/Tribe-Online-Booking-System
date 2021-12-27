@@ -127,7 +127,7 @@ nav ul li a:hover {
 	border: 1px solid black;
 }
 .dropdown {
-	width: 15%;
+	width: 10%;
 	box-sizing: border-box;
 }
 .return, .depart, .date-line, .far {
@@ -168,6 +168,9 @@ nav ul li a:hover {
 	border: none;
 	width: 100%;
 	padding: 18px;
+}
+.passenger {
+	width: 20%;
 }
 
 /*----------FOOTER------------------------------------------*/

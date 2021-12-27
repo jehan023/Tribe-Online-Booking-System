@@ -88,8 +88,7 @@ a {
 .app-main {
   display: grid;
   grid-area: app-main-area;
-
-  padding: 1rem 1rem 0 1rem;
+  padding-top: 10px;
   align-content: start;
 }
 
@@ -189,4 +188,64 @@ a {
 .app-main,
 .app-sidenav {
   overflow-y: auto;
+}
+
+/* REGISTRATION FORM */
+#dash-addUserAcct {
+  background-color: grey;
+  height: 100vh;
+}
+#register_form h1 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+#register_form {
+  width: 37%;
+  margin: 100px auto;
+  padding-bottom: 30px;
+  border: 1px solid #918274;
+  border-radius: 15px;
+  background: white;
+}
+#register_form input {
+  width: 80%;
+  height: 35px;
+  margin: 5px 10%;
+  font-size: 1.1em;
+  padding: 4px;
+  font-size: .9em;
+}
+.form_error span {
+  width: 80%;
+  height: 35px;
+  margin: 3px 10%;
+  font-size: 1em;
+  color: red;
+}
+.form_error input {
+  border: 1px solid red;
+}
+#reg_btn {
+  height: 35px;
+  width: 80%;
+  margin: 5px 10%;
+  color: white;
+  background: #3B5998;
+  border: none;
+  border-radius: 5px;
+}
+#message {
+  width: 80%;
+  height: 35px;
+  margin: 3px 10%;
+  font-size: 1em;
+}
+
+/* HIDE or SHOW DIV*/
+.unhidden {
+  display: block;
+}
+.hidden {
+  display: none;
 }

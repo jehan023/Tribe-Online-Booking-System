@@ -6,11 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home · Tribe Transport</title>
     
-    <link rel="icon" href="images\logo.png" type="image/icon type">
+    <link rel="icon" href="images/logo.png" type="image/icon type">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-    <link rel="stylesheet" type="text/css" href="css\style.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>
+        var i = 1;
+        function buttonPlus() {
+            document.getElementById('labelPassengerCount').value = ++i;
+        }
+        function buttonMinus() {
+            if (document.getElementById('labelPassengerCount').value > 1) {
+                document.getElementById('labelPassengerCount').value = --i;
+            }
+        }
+        function showValue() {
+            alert(document.getElementById('labelPassengerCount').value);
+        }
+    </script>
+    <script type="text/javascript" src="js/script.js"></script>
+    
 </head>
 <body>
     <!--Header-->
@@ -89,12 +104,14 @@
                 </div>
                 <div class="passenger">
                     <strong>Passengers</strong>
-                    <input type="button" class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" value="-">
-                    <span class="txt-count" id="spanPassengerCount">1</span>
-                    <input type="button" class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" value="+">
+                    
+                    <button class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" onclick="buttonMinus()">-</button>
+                    <input type="button" class="txt-count" id="labelPassengerCount" value="1" readonly/>
+                    <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>
+                    
                 </div>
                 <div class="button-panel">
-                    <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' />
+                    <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' onclick="showValue()" />
                 </div>
             </div>
             <!--Reminder Panel-->
