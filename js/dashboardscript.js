@@ -10,14 +10,10 @@ var check = function () {
 }
 
 function showDiv (dashContent) {
-    //document.getElementById(dashContent).style.display = 'block';
-    if (document.getElementById(dashContent).className == "unhidden") {
-        document.getElementById(dashContent).className = "hidden"
-    } else {
-        document.getElementById(dashContent).className = "unhidden";
+    var unhiddenDiv = document.getElementsByClassName("unhidden");
+    var i;
+    for (i = 0; i < unhiddenDiv.length; i++) { 
+        unhiddenDiv[i].className = 'hidden'; 
     }
+    document.getElementById(dashContent).className = "unhidden";
 }
-
-/*var unhiddenDiv = document.getElementsByClassName("unhidden");
-var i;
-for (i = 0; i < unhiddenDiv.length; i++) { unhiddenDiv[i].style.display = 'block'; } */

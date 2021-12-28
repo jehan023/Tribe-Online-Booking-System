@@ -32,23 +32,23 @@ include('process.php')
             <div class="app-sidenav">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="genReports-nav-btn">General Reports</a>
+                        <a class="nav-link" href="#general_reports" id="genReports-nav-btn" onclick="showDiv('dash-generalReports')">General Reports</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="tripSchedules-nav-btn">Trip Schedules</a>
+                        <a class="nav-link" href="#trip_schedules" id="tripSchedules-nav-btn" onclick="showDiv('dash-tripSchedules')">Trip Schedules</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="rentInquiries-nav-btn">Rent Inquiries</a>
+                        <a class="nav-link" href="#rent_inquiries" id="rentInquiries-nav-btn" onclick="showDiv('dash-rentInquiries')">Rent Inquiries</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="busStatus-nav-btn">Bus Status</a>
+                        <a class="nav-link" href="#bus_status" id="busStatus-nav-btn" onclick="showDiv('dash-busStatus')">Bus Status</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="bookings-nav-btn">Bookings</a>
+                        <a class="nav-link" href="#bookings" id="bookings-nav-btn" onclick="showDiv('dash-bookings')">Bookings</a>
                     </li>
 
                     <li class="nav-item">
@@ -89,9 +89,9 @@ include('process.php')
                         Manage
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" id="add-new-account-nav-btn" onclick="showDiv('dash-addUserAcct')">Add new account</a>
+                        <a class="dropdown-item" href="#add_new_user_acct" id="add-new-account-nav-btn" onclick="showDiv('dash-addUserAcct')">Add new account</a>
                         <div class="dropdown-divider">Access</div>
-                        <a class="dropdown-item" href="#" id="edit-account-nav-btn">Edit account</a>
+                        <a class="dropdown-item" href="#edit_acct" id="edit-account-nav-btn">Edit account</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -101,7 +101,7 @@ include('process.php')
         </header>
 
         <main class="app-main">
-            <div id="dash-addUserAcct" class="hidden">
+            <div id="dash-addUserAcct" class="unhidden">
                     <form method="POST" action="" id="register_form">
                         <h1>Add User Account</h1>
                         <div <?php if (isset($name_error)): ?> class="form_error" <?php endif ?> >
@@ -126,6 +126,79 @@ include('process.php')
                         </div>
                     </form>
             </div>
+
+            <div id="dash-generalReports" class="hidden"><h3>General Report</h3></div>
+
+            <div id="dash-tripSchedules" class="hidden">
+                <div class="trip-schedules-dataview">
+                    <h3>Trip Schedules</h3>
+                    <?php
+                        $result = mysqli_query($con,"SHOW TABLES LIKE 'trips'");
+                        if($result->num_rows == 1) {
+                            echo "Table exists";
+                        } else {
+                            echo "Table does not exist...";
+                            $query = "CREATE TABLE IF NOT EXISTS trips (`created_date` datetime NOT NULL)";
+                            $new = mysqli_query($con, $query);
+                            $result = mysqli_query($con,"SHOW TABLES LIKE 'trips'");
+                            if($result->num_rows == 1) {
+                                echo "Table now exists.";
+                            }
+                        }
+                    ?>
+                </div>
+                <div id="insert-new-trip-schedule" class="new-trip-panel">
+                    <form method="POST" action="" id="insert-trip-form">
+                        <h1>Add New Trip</h1>
+                        <div class="first-row">
+                            <div class="orig-dest">
+                                <label>Origin</label><br>
+                                <input type="text" class="newTrip-input" id="insert-trip-origin" name="origin" required>
+                            </div>
+                            <div class="orig-dest">
+                                <label>Destination</label><br>
+                                <input type="text" class="newTrip-input" id="insert-trip-destination" name="destination" required>
+                            </div>
+                        </div>
+                        <div class="sec-row">
+                            <div class="date-time">
+                                <label>Date</label><br>
+                                <input type="date" class="newTrip-input" id="insert-trip-date" name="date" required>
+                            </div>
+                            <div class="date-time">
+                                <label>Time</label><br>
+                                <input type="time" class="newTrip-input" id="insert-trip-time" name="time" required>
+                            </div>
+                        </div>
+                        <div class="third-row">
+                            <div class="bus-info">
+                                <label>Bus Code</label><br>
+                                <input type="text" class="newTrip-input" id="insert-trip-buscode" name="buscode" required>
+                            </div>
+                            <div class="bus-info">
+                                <label>Bus Plate Number</label><br>
+                                <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" required>
+                            </div>
+                            <div class="bus-info">
+                                <label>Seats</label><br>
+                                <input type="number" class="newTrip-input" id="insert-trip-seats" name="seats" required>
+                            </div>
+                        </div>
+                        <div class="trip-btn">
+                            <button type="submit" name="insertTrip" id="insertTrip_btn">Add Trip</button>
+                            <button type="reset" name="reset-btn" id="reset_btn">Reset</button>
+                            <button type="button" name="cancel-btn" id="cancel_btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="dash-busStatus" class="hidden"><h3>Bus Status</h3></div>
+
+            <div id="dash-rentInquiries" class="hidden"><h3>Rent Inquiries</h3></div>
+
+            <div id="dash-bookings" class="hidden"><h3>Bookings</h3></div>
+
         </main>
     </div>
 

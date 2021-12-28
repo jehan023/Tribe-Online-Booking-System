@@ -204,7 +204,7 @@ a {
   width: 37%;
   margin: 100px auto;
   padding-bottom: 30px;
-  border: 1px solid #918274;
+  border: 1px solid grey;
   border-radius: 15px;
   background: white;
 }
@@ -248,4 +248,86 @@ a {
 }
 .hidden {
   display: none;
+}
+
+/* ------ TRIP SCHEDULE ----------- */
+
+/* ------ INSERT NEW TRIP SCHEDULE ----------- */
+#insert-new-trip-schedule {
+  background-color: grey;
+  padding: 10px;
+}
+#insert-trip-form {
+  width: 80%;
+  margin: 20px auto;
+  padding: 30px 25px 30px 25px;
+  border: 1px solid grey;
+  border-radius: 30px;
+  background: wheat;
+}
+.new-trip-panel h1 {
+  border-bottom: 2px solid rgb(35, 35, 35);
+  margin-bottom: 10px;
+}
+.orig-dest, .date-time, .bus-info, #insertTrip_btn, #reset_btn, #cancel_btn  {
+  display: inline-block;
+  box-sizing: border-box;
+  padding-right: 15px;
+}
+.orig-dest, .date-time {
+  width: 50%
+}
+.bus-info {
+  width: 33.33%;
+}
+.first-row, .sec-row, .third-row, .trip-btn {
+  display: flex;
+  margin-bottom: 10px;
+}
+.trip-btn {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+#insertTrip_btn {
+  height: 35px;
+  width: 33.33%;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: white;
+  background: green;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+#reset_btn {
+  height: 35px;
+  width: 33.33%;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: white;
+  background: #3B5998;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+#cancel_btn {
+  height: 35px;
+  width: 33.33%;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: white;
+  background: rgb(145, 43, 43);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.new-trip-panel label {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.newTrip-input {
+  width: 100%;
+  border-radius: 5px;
+  border-color: rgb(86, 86, 86);
+  font-size: 1.2em;
 }
