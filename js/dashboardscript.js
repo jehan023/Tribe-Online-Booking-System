@@ -8,7 +8,7 @@ var check = function () {
         document.getElementById('message').innerHTML = '*password not match!';
     }
 }
-
+//Show and Hide div contents in Dashboard Container
 function showDiv (dashContent) {
     var unhiddenDiv = document.getElementsByClassName("unhidden");
     var i;
@@ -16,4 +16,13 @@ function showDiv (dashContent) {
         unhiddenDiv[i].className = 'hidden'; 
     }
     document.getElementById(dashContent).className = "unhidden";
+}
+//Show and hide '+ New Trip' button and trip form panel
+function showTripForm() {
+    document.getElementById('add_trip_btn').style.display = "none";
+    document.getElementById('insert-new-trip-schedule').style.display = "block";
+}
+function hideTripForm() {
+    document.getElementById('add_trip_btn').style.display = "block";
+    document.getElementById('insert-new-trip-schedule').style.display = "none";
 }

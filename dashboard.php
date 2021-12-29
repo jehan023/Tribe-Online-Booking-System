@@ -2,7 +2,8 @@
 //include auth_session.php file on all user panel pages
 require('db.php');
 include("auth_session.php");
-include('process.php')
+include('register_process.php');
+include('addtrip_process.php');
 ?>
 
 <!DOCTYPE html>
@@ -132,32 +133,28 @@ include('process.php')
             <div id="dash-tripSchedules" class="hidden">
                 <div class="trip-schedules-dataview">
                     <h3>Trip Schedules</h3>
-                    <?php
-                        $result = mysqli_query($con,"SHOW TABLES LIKE 'trips'");
-                        if($result->num_rows == 1) {
-                            echo "Table exists";
-                        } else {
-                            echo "Table does not exist...";
-                            $query = "CREATE TABLE IF NOT EXISTS trips (`created_date` datetime NOT NULL)";
-                            $new = mysqli_query($con, $query);
-                            $result = mysqli_query($con,"SHOW TABLES LIKE 'trips'");
-                            if($result->num_rows == 1) {
-                                echo "Table now exists.";
-                            }
-                        }
-                    ?>
+                    <div class="trip-nav">
+                        <form action="" id="search-trip-schedules">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                        <div class="add_btn_div">
+                            <button type="button" name="add-trip-btn" id="add_trip_btn" onclick="showTripForm()">+ New Trip</button>
+                        </div>
+                    </div>
                 </div>
+
                 <div id="insert-new-trip-schedule" class="new-trip-panel">
                     <form method="POST" action="" id="insert-trip-form">
                         <h1>Add New Trip</h1>
                         <div class="first-row">
                             <div class="orig-dest">
                                 <label>Origin</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-origin" name="origin" required>
+                                <input type="text" class="newTrip-input" id="insert-trip-origin" name="origin" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
                             <div class="orig-dest">
                                 <label>Destination</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-destination" name="destination" required>
+                                <input type="text" class="newTrip-input" id="insert-trip-destination" name="destination" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
                         </div>
                         <div class="sec-row">
@@ -173,23 +170,57 @@ include('process.php')
                         <div class="third-row">
                             <div class="bus-info">
                                 <label>Bus Code</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-buscode" name="buscode" required>
+                                <input type="text" class="newTrip-input" id="insert-trip-buscode" name="buscode" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
                             <div class="bus-info">
                                 <label>Bus Plate Number</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" required>
+                                <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" pattern="[P][U][V][-][0-9]{4}" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
                             <div class="bus-info">
                                 <label>Seats</label><br>
-                                <input type="number" class="newTrip-input" id="insert-trip-seats" name="seats" required>
+                                <input type="number" class="newTrip-input" id="insert-trip-seats" name="seats" value="" required>
                             </div>
                         </div>
                         <div class="trip-btn">
                             <button type="submit" name="insertTrip" id="insertTrip_btn">Add Trip</button>
                             <button type="reset" name="reset-btn" id="reset_btn">Reset</button>
-                            <button type="button" name="cancel-btn" id="cancel_btn">Cancel</button>
+                            <button type="button" name="cancel-btn" id="cancel_btn" onclick="hideTripForm()">Cancel</button>
                         </div>
                     </form>
+                </div>
+
+                <div class="trip-schedules">
+                    <?php
+                        $trip_table = mysqli_query($con,"SELECT * FROM trips");
+
+                        echo "<table class='trip-schedules-table'>
+                        <tr>
+                            <th>Trip ID</th>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Bus Code</th>
+                            <th>Bus Plate No.</th>
+                            <th>Seats</th>
+                        </tr>";
+
+                        while($row = mysqli_fetch_array($trip_table))
+                        {
+                            echo "<tr>";
+                            echo "<td>" . $row['trip_id'] . "</td>";
+                            echo "<td>" . $row['trip_orig'] . "</td>";
+                            echo "<td>" . $row['trip_dest'] . "</td>";
+                            echo "<td>" . $row['trip_date'] . "</td>";
+                            echo "<td>" . $row['trip_time'] . "</td>";
+                            echo "<td>" . $row['bus_code'] . "</td>";
+                            echo "<td>" . $row['bus_plateno'] . "</td>";
+                            echo "<td>" . $row['seats'] . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</table>";
+                    ?>
+
                 </div>
             </div>
 

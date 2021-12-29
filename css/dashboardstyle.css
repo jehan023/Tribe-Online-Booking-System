@@ -251,11 +251,37 @@ a {
 }
 
 /* ------ TRIP SCHEDULE ----------- */
-
+.trip-nav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+#search-trip-schedules{
+  float: left;
+  display: block;
+  height: 35px;
+  margin-left: 5%;
+  margin-right:auto;
+}
+#search-trip-schedules input {
+  height: 35px;
+  border-radius: 5px;
+}
+#add_trip_btn {
+  display: block;
+  float: right;
+  height: 35px;
+  margin-right: 5%;
+  margin-left:auto;
+  color: white;
+  background: brown;
+  border-radius: 5px;
+  font-weight: bold;
+}
 /* ------ INSERT NEW TRIP SCHEDULE ----------- */
 #insert-new-trip-schedule {
-  background-color: grey;
+  background-color: rgb(209, 209, 209);
   padding: 10px;
+  display: none;
 }
 #insert-trip-form {
   width: 80%;
@@ -330,4 +356,21 @@ a {
   border-radius: 5px;
   border-color: rgb(86, 86, 86);
   font-size: 1.2em;
+}
+
+/* ------ TRIP SCHEDULES TABLE -------*/
+.trip-schedules {
+  display: block;
+  width: 100%;
+}
+.trip-schedules-table {
+  border: 1px solid black;
+  table-layout:fixed;
+  width:95%;
+  margin:25px auto;
+
+}
+.trip-schedules-table th, td {
+  border: 1px solid black;
+  padding:5px;
 }
