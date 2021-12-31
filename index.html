@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script>
+        //function for passenger count +/-
         var i = 1;
         function buttonPlus() {
             document.getElementById('labelPassengerCount').value = ++i;
@@ -107,8 +108,7 @@
                     
                     <button class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" onclick="buttonMinus()">-</button>
                     <input type="button" class="txt-count" id="labelPassengerCount" value="1" readonly/>
-                    <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>
-                    
+                    <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>  
                 </div>
                 <div class="button-panel">
                     <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' onclick="showValue()" />

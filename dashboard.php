@@ -18,9 +18,23 @@ include('addtrip_process.php');
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/dashboardstyle.css">
     <script type="text/javascript" src="js/dashboardscript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            window.history.replaceState("","",window.location.href)
+        });
+        /*$("#register_form").submit(function(e) {
+            e.preventDefault(); // <==stop page refresh==>
+        });*/
+        $("#insert-trip-form").submit(function(e) {
+            e.preventDefault(); // <==stop page refresh==>
+        });
+    </script>
 </head>
 
 <body>
@@ -134,8 +148,8 @@ include('addtrip_process.php');
                 <div class="trip-schedules-dataview">
                     <h3>Trip Schedules</h3>
                     <div class="trip-nav">
-                        <form action="" id="search-trip-schedules">
-                            <input type="text" placeholder="Search.." name="search">
+                        <form action="" class="search-trip-schedules">
+                            <input type="text" placeholder="Search..." name="search">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                         <div class="add_btn_div">

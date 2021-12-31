@@ -240,6 +240,7 @@ a {
   height: 35px;
   margin: 3px 10%;
   font-size: 1em;
+  color: red;
 }
 
 /* HIDE or SHOW DIV*/
@@ -262,20 +263,46 @@ a {
   margin-left: 5%;
   margin-right:auto;
 }
-#search-trip-schedules input {
+.search-trip-schedules input[type=text] {
+  margin-left: 5%;
+  padding: 10px;
   height: 35px;
-  border-radius: 5px;
+  font-size: 17px;
+  float: left;
+  width: 50%;
+  background: #f1f1f1;
+}
+.search-trip-schedules button {
+  float: left;
+  height: 35px;
+  width: 5%;
+  padding: auto;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+.search-trip-schedules button:hover {
+  background: #0b7dda;
+  border: 2px solid black;
+  border-left: none;
 }
 #add_trip_btn {
   display: block;
   float: right;
   height: 35px;
+  width: 100px;
   margin-right: 5%;
   margin-left:auto;
   color: white;
   background: brown;
-  border-radius: 5px;
+  border: none;
   font-weight: bold;
+}
+#add_trip_btn:hover {
+  background: rgb(214, 14, 14);
+  border: 2px solid black;
 }
 /* ------ INSERT NEW TRIP SCHEDULE ----------- */
 #insert-new-trip-schedule {
@@ -287,8 +314,7 @@ a {
   width: 80%;
   margin: 20px auto;
   padding: 30px 25px 30px 25px;
-  border: 1px solid grey;
-  border-radius: 30px;
+  border: none;
   background: wheat;
 }
 .new-trip-panel h1 {

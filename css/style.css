@@ -172,6 +172,12 @@ nav ul li a:hover {
 .passenger {
 	width: 20%;
 }
+#labelPassengerCount {
+	background-color: #f3f3f3;
+	color: black;
+	border: none;
+	font-weight: bold;
+}
 
 /*----------FOOTER------------------------------------------*/
 
@@ -179,7 +185,7 @@ footer {
     font-family: 'Montserrat', sans-serif;
     text-align: center  ;
     color: white;
-    background-color: #0a3d52;
+    background-color: #293241;
     left: 0;
     bottom: 0;
 	width: auto;

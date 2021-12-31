@@ -15,10 +15,6 @@ if (isset($_POST['insertTrip'])) {
 
     $result = mysqli_query($con, "SHOW TABLES LIKE 'trips'");
     if ($result->num_rows == 1) {
-        echo "<script>
-        alert('Table exist.');
-        </script>";
-
         if (mysqli_query($con, $trip_query)) {
             echo "<script>
                 alert('Trip Schedule Insertion Complete.');
@@ -30,10 +26,6 @@ if (isset($_POST['insertTrip'])) {
                 </script>";
         }
     } else {
-        echo "<script>
-        alert('Table not exist.');
-        </script>";
-
         $query = "CREATE TABLE IF NOT EXISTS trips (
             trip_id int(7) zerofill NOT NULL AUTO_INCREMENT,
             trip_orig varchar(50) NOT NULL,
@@ -49,10 +41,6 @@ if (isset($_POST['insertTrip'])) {
         $new = mysqli_query($con, $query);
         $new_result = mysqli_query($con, "SHOW TABLES LIKE 'trips'");
         if ($new_result->num_rows == 1) {
-            echo "<script>
-            alert('Table now exist.');
-            </script>";
-
             if (mysqli_query($con, $trip_query)) {
                 echo "<script>
                     alert('Trip Schedule Insertion Complete.');
