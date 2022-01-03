@@ -5,7 +5,7 @@
 body {
 	padding: 0px;
 	margin: 0px;
-    background-color: #0a3d52;
+    background-color: #293241;
 }
 
 /*----------NAVIGATION------------------------------------------*/
@@ -779,6 +779,9 @@ footer {
 	padding: 16px 16px 16px 24px; }
 
 /*----------STEP 3: PASSENGER TICKET INFO---------------------------------------*/
+#seats-modal-block {
+	display: none;
+}
 .ticket-block {
 	background: #f7f7f7;
 	margin: 5px 15% 5px 15%;

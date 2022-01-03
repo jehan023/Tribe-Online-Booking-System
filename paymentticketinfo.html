@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Step 3 · Tribe Transport</title>
-    
+
     <link rel="icon" href="images/logo.png" type="image/icon type">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-        
+
+    <script>
+        function hideModal(seatplan) {
+            document.getElementById(seatplan).style.display = "none";
+        }
+        function showModal(seatplan) {
+            document.getElementById(seatplan).style.display = "block";
+        }
+    </script>
 </head>
+
 <body>
     <!--Header-->
     <nav>
@@ -38,9 +48,12 @@
             <label class="step-guide"><strong>Step 3:</strong> Choose your preferred seat</label>
         </div>
         <div id="PaymentTicketInfoContent_pnlTicketInfo">
-            <input name="ctl00$PaymentTicketInfoContent$tbClientID" type="hidden" id="PaymentTicketInfoContent_tbClientID" style="display: none;" />
-            <input name="ctl00$PaymentTicketInfoContent$tbScheduleBusTypeID" type="hidden" id="PaymentTicketInfoContent_tbScheduleBusTypeID" style="display: none;" value="346116" />
-            <input name="ctl00$PaymentTicketInfoContent$tbWebId" type="hidden" id="PaymentTicketInfoContent_tbWebId" style="display: none;" value="1927" />
+            <input name="ctl00$PaymentTicketInfoContent$tbClientID" type="hidden"
+                id="PaymentTicketInfoContent_tbClientID" style="display: none;" />
+            <input name="ctl00$PaymentTicketInfoContent$tbScheduleBusTypeID" type="hidden"
+                id="PaymentTicketInfoContent_tbScheduleBusTypeID" style="display: none;" value="346116" />
+            <input name="ctl00$PaymentTicketInfoContent$tbWebId" type="hidden" id="PaymentTicketInfoContent_tbWebId"
+                style="display: none;" value="1927" />
             <div id="PaymentTicketInfoContent_divSummaryInfo" class="ticket-block">
                 <div class='ticket-panel' id='divTicketInfo'>
                     <div class='ticket-details'>
@@ -49,23 +62,24 @@
                             <i class='fas fa-caret-right'></i>
                             <h1>DESTINATION</h1>
                         </div>
-        
+
                         <div class='ticket-data'>
                             <label class='schedule-data' data-preamble=' Schedule'>DEPARTURE</label>
                             <label class='time-data' data-preamble='Time: '>08:30 AM</label>
                             <label class='date-data' data-preamble='Date: '>01/05/2022</label>
                             <label class='pass-data' data-preamble='No. of Passengers: '>1</label>
-                            <button type='button' class='btn-pick-seat' data-schedule-bustype-id='346116' data-trip-count='first' data-origin='CUBAO' data-destination='BAGUIO'>Pick Seats</button>
+                            <button type='button' class='btn-pick-seat' onclick="showModal('seats-modal-block')">Pick Seats</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="pick-seat-block">
+        <div class="pick-seat-block" id="seats-modal-block">
             <div id="modalPickSeats" class="pick-seat-hide">
                 <div class="modal-holder">
-                <a href="#!" id="closeSeatPlan" class="close" data-dismiss="modal"><img src="images/btn-close.png"></a>
+                    <a href="#!" id="closeSeatPlan" class="close" data-dismiss="modal"><img src="images/btn-close.png"
+                            onclick="hideModal('seats-modal-block')"></a>
                     <div class="route-panel">
                         <h1 id="PickSeatOrigin">ORIGIN</h1>
                         <i class="fas fa-caret-right"></i>
@@ -112,34 +126,38 @@
                             <div class="spacing"></div>&nbsp;
                             <a href="#!" class="btn-seat" data-seat-no="19"><span>19</span></a>&nbsp;
                             <a href="#!" class="btn-seat" data-seat-no="20"><span>20</span></a>&nbsp;
-                            
-                        <div id="divSaveSeatAnnotation"></div>
-                        <button type="button" class="btn-save-pick-seat" id="btnSaveSeats" data-trip-count="test">Save</button>
-                    </div>
-                    <div class="legend-panel">
-                        <div class="legend-item">
-                            <span class="legend-square"></span>
-                            <label>Booked seats</label>
+
+                            <div id="divSaveSeatAnnotation"></div>
+                            <button type="button" class="btn-save-pick-seat" id="btnSaveSeats"
+                                data-trip-count="test">Save</button>
                         </div>
-                        <div class="legend-item">
-                            <span class="legend-square"></span>
-                            <label>Selected seats</label>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-square"></span>
-                            <label>Available seats</label>
+                        <div class="legend-panel">
+                            <div class="legend-item">
+                                <span class="legend-square"></span>
+                                <label>Booked seats</label>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-square"></span>
+                                <label>Selected seats</label>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-square"></span>
+                                <label>Available seats</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="pick-seat-footer-block">
-            <div class="form-footer-panel">
-                <a href="paymentpassengerinfo.html" class="booking-back-button" id="btnBack"><i class="fas fa-long-arrow-alt-left"></i>Back to Step 2</a>
-    
-                <div class="pass-info-button">
-                    <input type="submit" name="ctl00$PaymentTicketInfoContent$btnShowSummary" value="Next" id="PaymentTicketInfoContent_btnShowSummary" class="btn-pick" />
+            <div class="pick-seat-footer-block">
+                <div class="form-footer-panel">
+                    <a href="paymentpassengerinfo.html" class="booking-back-button" id="btnBack"><i
+                            class="fas fa-long-arrow-alt-left"></i>Back to Step 2</a>
+
+                    <div class="pass-info-button">
+                        <input type="submit" name="ctl00$PaymentTicketInfoContent$btnShowSummary" value="Next"
+                            id="PaymentTicketInfoContent_btnShowSummary" class="btn-pick" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,7 +170,8 @@
                 <ul class="footer-list" data-preamble="About">
                     <li><strong>About</strong></li>
                     <li><a href="aboutus.html">Our Story</a></li>
-                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terminal-directory-modal">Terminal Directory</a></li>
+                    <li><a href="#!" class="btn-terminal" data-toggle="modal"
+                            data-target="#terminal-directory-modal">Terminal Directory</a></li>
                     <li><a href="/RouteMap.html">Route Map</a></li>
                     <li><a href="/JoOpenings.aspx">Careers</a></li>
                 </ul>
@@ -161,7 +180,8 @@
                 <ul class="footer-list" data-preamble="Guidelines">
                     <li><strong>Guidelines</strong></li>
                     <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
-                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terms">Terms and Conditions</a></li>
+                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terms">Terms and
+                            Conditions</a></li>
                 </ul>
             </div>
             <div class="footer-list-support">
@@ -173,8 +193,10 @@
         </div>
         <div class="social-media-panel">
             <ul class="social-media-list">
-                <li><a href="https://web.facebook.com/TribeBusRental" target="_blank" class="social-fb"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="mailto:bookings.tribes@gmail.com" target="_blank" class="social-gmail"><i class="fab fa-google"></i></a></li>
+                <li><a href="https://web.facebook.com/TribeBusRental" target="_blank" class="social-fb"><i
+                            class="fab fa-facebook-f"></i></a></li>
+                <li><a href="mailto:bookings.tribes@gmail.com" target="_blank" class="social-gmail"><i
+                            class="fab fa-google"></i></a></li>
             </ul>
         </div>
         <p class="company-address">[---INSERT ADDRESS---] Metro Manila, Philippines</p>
@@ -184,4 +206,5 @@
         </ul>
     </footer>
 </body>
+
 </html>
