@@ -115,7 +115,7 @@ nav ul li a:hover {
 	margin-top: 10px;
 	display: flex;
 }
-.dropdown, .booking-date-holder, .passenger {
+.orig-dropdown, .dest-dropdown, .booking-date-holder, .passenger {
 	margin-right: 15px;
 }
 .booking-date-holder {
@@ -123,12 +123,22 @@ nav ul li a:hover {
 }
 .booking-date-line {
 	margin-top: 3px;
+	width: 100%;
 	background-color: black;
 	border: 1px solid black;
 }
-.dropdown {
-	width: 10%;
+.orig-dropdown, .dest-dropdown {
+	width: 18%;
 	box-sizing: border-box;
+}
+.dropdown-list{
+	width: 100%;
+}
+.return, .depart {
+	width: 44%;
+}
+.datepicker {
+	width: 100%;
 }
 .return, .depart, .date-line, .far {
 	display: inline-block;

@@ -21,9 +21,45 @@
                 document.getElementById('labelPassengerCount').value = --i;
             }
         }
-        function showValue() {
-            alert(document.getElementById('labelPassengerCount').value);
+        //check for radio button selected then hide/show return date input
+        function checkRadio(trip) {
+            var ret = document.getElementById("return-selection");
+            var line = document.getElementById("date-dash");
+            var dep = document.getElementById("depart-selection");
+            var icon = document.getElementById("datepicker-icon");
+            if(trip == "one-way") {
+                ret.style.display = "none";
+                line.style.display = "none";
+                dep.style.width = '88%';
+                icon.style.width = '6%';
+            } else {
+                ret.style.display = "inline-block";
+                line.style.display = "inline-block";
+                dep.style.width = '44%';
+                icon.style.width = 'auto';
+            }
         }
+        //Populate destination drop down list
+        function configureDropDownLists(orig,dest) {
+            var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];
+            dest.options.length = 0;
+            if(orig.value == '') {
+                dest.options.length = 0;
+            } else {
+                for (i = 0; i < points.length; i++) {
+                    if(orig.value != points[i]) {
+                        createOption(dest, points[i], points[i]);
+                    }
+                }
+            }
+        }
+        function createOption(dest, text, value) {
+            var opt = document.createElement('option');
+            opt.value = value;
+            opt.text = text;
+            dest.options.add(opt);
+        }
+
     </script>
     <script type="text/javascript" src="js/script.js"></script>
     
@@ -77,42 +113,51 @@
 
         <!--Booking Panel-->
         <div class="book-trip-panel">
-            <div class="trip">
-                <div class="radio-trip">
-                    <input type="radio" name="radiobtn-trip-choice" id="radio-round-trip" value="round-trip"><label for="radio-round-trip">Round-Trip</label>
-                </div>
-                <div class="radio-trip">
-                    <input type="radio" name="radiobtn-trip-choice" id="radio-one-way" value="one-way"><label for="radio-one-way">One-Way</label>
-                </div>
-            </div>
-            <div class="booking-panel">
-                <div class="dropdown">
-                    <select class="dropdown-list er-alert" name="origin" id="selOrigin"></select>
-                </div>
-                <div class="dropdown">
-                    <select class="dropdown-list er-alert" name="origin" id="selDestination"></select>
-                </div>
-                <div class="booking-date-holder">
-                    <div class="depart">
-                        <input type="text" class="datepicker er-alert" name="txtDepartingOn" id="txtDepartingOn" placeholder="Depart" readonly/>
+            <form method="POST" action="" id="book-trip-search-form">
+                <div class="trip">
+                    <div class="radio-trip">
+                        <input type="radio" name="radiobtn-trip-choice" id="radio-round-trip" value="round-trip" onclick="checkRadio('round-trip')"><label for="radio-round-trip">Round-Trip</label>
                     </div>
-                    <div class="date-line">-</div>
-                    <div class="return">
-                        <input type="text" class="datepicker er-alert" name="txtReturningOn" id="txtReturningOn" placeholder="Return" readonly/>
+                    <div class="radio-trip">
+                        <input type="radio" name="radiobtn-trip-choice" id="radio-one-way" value="one-way" onclick="checkRadio('one-way')" required><label for="radio-one-way">One-Way</label>
                     </div>
-                    <i class="far fa-calendar-alt"></i>
-                    <div class="booking-date-line"></div>
                 </div>
-                <div class="passenger">
-                    <strong>Passengers</strong>
-                    
-                    <button class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" onclick="buttonMinus()">-</button>
-                    <input type="button" class="txt-count" id="labelPassengerCount" value="1" readonly/>
-                    <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>  
-                </div>
-                <div class="button-panel">
-                    <input type='button' class="btn-book er-alert" value='Search' id='btnSearch' onclick="showValue()" />
-                </div>
+                <div class="booking-panel">
+                    <div class="orig-dropdown">
+                        <select class="dropdown-list" name="origin" id="selOrigin" onchange="configureDropDownLists(this,document.getElementById('selDestination'))" required>
+                            <option value="">--- Select Origin ---</option>
+                            <option value="FAIRVIEW, QC">FAIRVIEW, QC</option>
+                            <option value="BONTOC, MT. PROVINCE">BONTOC, MT. PROVINCE</option>
+                        </select>
+                    </div>
+                    <div class="dest-dropdown">
+                        <select class="dropdown-list" name="origin" id="selDestination" required>
+                            <option value="">--- Select Destination ---</option>
+                        </select>
+                    </div>
+                    <div class="booking-date-holder">
+                        <div class="depart" id="depart-selection">
+                            <input type="date" class="datepicker" name="txtDepartingOn" id="txtDepartingOn" placeholder="Depart" required/>
+                        </div>
+                        <div class="date-line" id="date-dash">-</div>
+                        <div class="return" id="return-selection">
+                            <input type="date" class="datepicker" name="txtReturningOn" id="txtReturningOn" placeholder="Return" required/>
+                        </div>
+                        <i class="far fa-calendar-alt" id="datepicker-icon"></i>
+                        <div class="booking-date-line"></div>
+                    </div>
+                    <div class="passenger">
+                        <strong>Passengers</strong>
+                        
+                        <button class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" onclick="buttonMinus()">-</button>
+                        <input type="button" class="txt-count" id="labelPassengerCount" value="1" readonly/>
+                        <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>  
+                    </div>
+                    <div class="button-panel">
+                        <input type='submit' class="btn-book er-alert" value='Search' id='btnSearch'/>
+                    </div>
+            </form>
+
             </div>
             <!--Reminder Panel-->
             <div class="reminders-panel">
@@ -139,8 +184,6 @@
                     <li><strong>About</strong></li>
                     <li><a href="aboutus.html">Our Story</a></li>
                     <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terminal-directory-modal">Terminal Directory</a></li>
-                    <li><a href="/RouteMap.html">Route Map</a></li>
-                    <li><a href="/JoOpenings.aspx">Careers</a></li>
                 </ul>
             </div>
             <div class="footer-list-guidelines">
