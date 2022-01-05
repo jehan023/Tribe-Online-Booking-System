@@ -11,7 +11,7 @@ if (isset($_POST['search_trip_btn'])) {
 
 	$_SESSION['origin'] = $_POST['origin'];
 	$_SESSION['destination'] = $_POST['destination'];
-	$$_SESSION['depart_sched'] = $_POST['DepartingOn'];
+	$_SESSION['date_depart'] = $trip_date;
 	$_SESSION['trip_type'] = $_POST['radiobtn-trip-choice'];
 	$_SESSION['passenger_count'] = $_POST['passenger-count'];
 
