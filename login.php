@@ -26,7 +26,7 @@
             <strong>Tribe</strong> Transport
         </div>
         <ul class="links">
-            <li><a href="index.html">Book Trip</a></li>
+            <li><a href="index.php">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
             <li><a href="login.php" class="active">Login</a></li>
         </ul>

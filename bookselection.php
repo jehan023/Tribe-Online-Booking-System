@@ -1,10 +1,14 @@
+<?php
+    require('db.php');
+    include('indexsearch_trip.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us · Tribe Transport</title>
+    <title>Step 1 · Tribe Transport</title>
     
     <link rel="icon" href="images/logo.png" type="image/icon type">
 
@@ -22,7 +26,7 @@
         </div>
         <ul class="links">
             <li><a href="index.php">Book Trip</a></li>
-            <li><a href="rent.html">Rent</a></li>
+            <li><a href="rent.html" class="active">Rent</a></li>
             <li><a href="login.php">Login</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
@@ -34,51 +38,51 @@
 
     <!--Body Contents-->
     <div class="contents">
-        <div class="career-form-panel">
-            <div class="inquiries-holder -contact-us-form">
-                <h1>CONTACT US</h1>
-                <p>Do you have any questions, comments, or suggestions for us?</p>
-                <p>We are more than happy to hear from you. Kindly fill-out the form below.</p>
-
+        <div class="step-panel">
+            <label class="step-guide"><strong>Step 1:</strong> Choose a departure schedule</label>
+        </div>
+        <!--Available Schedule Date Picker-->
+        <div class="available-sched">
+            <label class="available-sched-label">Available Schedule Date: <select class="dropdown-list-date-sched" id="availableDateSched"></select></label>
+        </div>
+        <div class="booking-details">
+            <!--Route Panel-->
+            <div class="route-panel">
+                <h1 id="BookSelectionContent_lblOrigin"><?php echo $_SESSION['origin']; ?></h1>
+                <i class="fas fa-caret-right"></i>
                 
-                <span id="ContactContent_lblTerms" style="display: none;">false</span>
+                <h1 id="BookSelectionContent_lblDestination"><?php echo $_SESSION['destination']; ?></h1>
 
-                <div class="inquiries-form">
-                    <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtName" type="text" id="ContactContent_txtName" placeholder="Name" />
-                        <span id="ContactContent_RequiredFieldValidator3" style="visibility:hidden;">Name is required</span>
-                    </div>
-
-                    <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtCompany" type="text" id="ContactContent_txtCompany" placeholder="Company" />
-                        <span id="ContactContent_RequiredFieldValidator1" style="visibility:hidden;">Company is required</span>
-                    </div>
-
-                    <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtEmail" type="text" id="ContactContent_txtEmail" placeholder="Email Address" />
-
-                        <span id="ContactContent_RequiredFieldValidator2" style="visibility:hidden;">Email is required</span>
-
-                        <span id="ContactContent_RegularExpressionValidator1" style="visibility:hidden;">Invalid Email</span>
-                    </div>
-
-                    <textarea name="ctl00$ContactContent$txtMessage" rows="8" cols="20" id="ContactContent_txtMessage" placeholder="Message or Inquiry"></textarea>
-                    <div class="form-panel">
-                        <span id="ContactContent_RequiredFieldValidator4" style="visibility:hidden;">Message is required</span>
-                    </div>
-
-                    <div class="attach">
-                        Insert Attachment<br>
-                        <input type="file" id="chkAttachment" value="value" />
-                    </div>
-                    <div id="divAttachment">
-                        <div id="dropzoneEmailAttachment" action="UploadEmailAttachment.ashx" class="dropzone"></div>
-                    </div>
-
-                    
-                    <p>Please read and accept the <a id='btnAccept' href="#privacy-policy-popup-covid" data-toggle="modal" style="cursor: pointer">Terms and Conditions</a>.</p>
-                    <input type="submit" name="ctl00$ContactContent$btnSubmit" value="Submit" id="ContactContent_btnSubmit" />
-                </div>
+            </div>
+            <div class="secondary-info-detail">
+                <label id="BookSelectionContent_txtDeparture" data-preamble="|"><?php echo $_SESSION['date_depart']; ?></label>
+                <label id="BookSelectionContent_lblTravelType" data-preamble="|"><?php echo $_SESSION['trip_type']; ?></label>
+                <label id="BookSelectionContent_lblPassengers">Total Passenger: <?php echo $_SESSION['passenger_count']; ?></label>
+            </div>
+        </div>
+        <!--Table of Schedule on Selected Date-->
+        <div class="schedule-block">
+            <div id='divScheduleLoader'>
+                <img src="images/ajax-spinner.gif" />
+            </div>
+            <div id="BookSelectionContent_divScheduleAnnotation"></div>
+            <div id="divSchedule">
+                <table class="table table-responsive tbl-booking-schedule">
+                    <tbody>
+                        <tr>
+                            <th>Departure Time</th>
+                            <th>Available Seats</th>
+                            <th>Fare</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>08:30 AM</td>
+                            <td>0</td>
+                            <td>₱576.00</td>
+                            <td>FULLY BOOKED</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

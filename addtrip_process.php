@@ -6,12 +6,13 @@ if (isset($_POST['insertTrip'])) {
     $destination = $_POST['destination'];
     $date = $_POST['date'];
     $time = $_POST['time'];
+    $fare = $_POST['fare'];
     $bus_code = $_POST['buscode'];
     $bus_plate = $_POST['plateno'];
     $seats = $_POST['seats'];
 
-    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, bus_code, bus_plateno, seats) 
-        VALUES ('$origin', '$destination', '$date', ' $time', '$bus_code', '$bus_plate', '$seats')";
+    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, fare, bus_code, bus_plateno, seats) 
+        VALUES ('$origin', '$destination', '$date', '$time', '$fare', '$bus_code', '$bus_plate', '$seats')";
 
     $result = mysqli_query($con, "SHOW TABLES LIKE 'trips'");
     if ($result->num_rows == 1) {
@@ -19,6 +20,14 @@ if (isset($_POST['insertTrip'])) {
             echo "<script>
                 alert('Trip Schedule Insertion Complete.');
                 </script>";
+
+            echo "<script>
+            console.log('adding');
+            </script>";
+            $last_id = mysqli_insert_id($con);
+            echo "<script>
+            console.log($last_id);
+            </script>";
         }
         else {
             echo "<script>
@@ -32,6 +41,7 @@ if (isset($_POST['insertTrip'])) {
             trip_dest varchar(50) NOT NULL,
             trip_date date NOT NULL,
             trip_time varchar(10) NOT NULL,
+            fare decimal(6,2) NOT NULL,
             bus_code varchar(10) NOT NULL,
             bus_plateno varchar(8) NOT NULL,
             seats int(5) NOT NULL,

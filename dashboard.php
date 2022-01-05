@@ -34,6 +34,31 @@ include('addtrip_process.php');
         $("#insert-trip-form").submit(function(e) {
             e.preventDefault(); // <==stop page refresh==>
         });
+
+        //Populate destination drop down list
+        function configureDropDownLists(orig,dest) {
+            var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];
+            dest.options.length = 1;
+            if(orig.value == '') {
+                dest.options.length = 1;
+            } else {
+                for (i = 0; i < points.length; i++) {
+                    if(orig.value != points[i]) {
+                        createOption(dest, points[i], points[i]);
+                    }
+                }
+            }
+        }
+        function createOption(dest, text, value) {
+            var opt = document.createElement('option');
+            opt.value = value;
+            opt.text = text;
+            dest.options.add(opt);
+        }
+        //Set input number to two decimal places
+        function setTwoNumberDecimal(fare) {
+            fare.value = parseFloat(fare.value).toFixed(2);
+        }
     </script>
 </head>
 
@@ -164,11 +189,19 @@ include('addtrip_process.php');
                         <div class="first-row">
                             <div class="orig-dest">
                                 <label>Origin</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-origin" name="origin" onkeyup="this.value = this.value.toUpperCase();" required>
+                                <!-- <input type="text" class="newTrip-input" id="insert-trip-origin" name="origin" onkeyup="this.value = this.value.toUpperCase();" required> -->
+                                <select class="newTrip-input" id="insert-trip-origin" name="origin" onchange="configureDropDownLists(this,document.getElementById('insert-trip-destination'))" required>
+                                    <option value="">--- Select Origin ---</option>
+                                    <option value="FAIRVIEW, QC">FAIRVIEW, QC</option>
+                                    <option value="BONTOC, MT. PROVINCE">BONTOC, MT. PROVINCE</option>
+                                </select>
                             </div>
                             <div class="orig-dest">
                                 <label>Destination</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-destination" name="destination" onkeyup="this.value = this.value.toUpperCase();" required>
+                                <!-- <input type="text" class="newTrip-input" id="insert-trip-destination" name="destination" onkeyup="this.value = this.value.toUpperCase();" required> -->
+                                <select class="newTrip-input" id="insert-trip-destination" name="destination" required>
+                                    <option value="">--- Select Destination ---</option>
+                                </select>
                             </div>
                         </div>
                         <div class="sec-row">
@@ -180,6 +213,10 @@ include('addtrip_process.php');
                                 <label>Time</label><br>
                                 <input type="time" class="newTrip-input" id="insert-trip-time" name="time" required>
                             </div>
+                            <div class="date-time">
+                                <label>Fare</label><br>
+                                <input type="number" class="newTrip-input" id="insert-trip-fare" name="fare" placeholder="0.00" step="0.01" onchange="setTwoNumberDecimal(this)" required>
+                            </div>
                         </div>
                         <div class="third-row">
                             <div class="bus-info">
@@ -188,10 +225,10 @@ include('addtrip_process.php');
                             </div>
                             <div class="bus-info">
                                 <label>Bus Plate Number</label><br>
-                                <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" pattern="[P][U][V][-][0-9]{4}" onkeyup="this.value = this.value.toUpperCase();" required>
+                                <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" placeholder="ABC-1234" pattern="[A-Z][A-Z][A-Z][-][0-9]{4}" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
                             <div class="bus-info">
-                                <label>Seats</label><br>
+                                <label>Seats Capacity</label><br>
                                 <input type="number" class="newTrip-input" id="insert-trip-seats" name="seats" value="" required>
                             </div>
                         </div>
@@ -214,6 +251,7 @@ include('addtrip_process.php');
                             <th>Destination</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Fare</th>
                             <th>Bus Code</th>
                             <th>Bus Plate No.</th>
                             <th>Seats</th>
@@ -227,6 +265,7 @@ include('addtrip_process.php');
                             echo "<td>" . $row['trip_dest'] . "</td>";
                             echo "<td>" . $row['trip_date'] . "</td>";
                             echo "<td>" . $row['trip_time'] . "</td>";
+                            echo "<td>" . $row['fare'] . "</td>";
                             echo "<td>" . $row['bus_code'] . "</td>";
                             echo "<td>" . $row['bus_plateno'] . "</td>";
                             echo "<td>" . $row['seats'] . "</td>";
@@ -242,7 +281,61 @@ include('addtrip_process.php');
 
             <div id="dash-rentInquiries" class="hidden"><h3>Rent Inquiries</h3></div>
 
-            <div id="dash-bookings" class="hidden"><h3>Bookings</h3></div>
+            <div id="dash-bookings" class="hidden">
+                <h3>Bookings</h3>
+                
+                <?php
+                        /*$names_arr = array(1,2,3,4,5,6,);
+                        // Separate Array by " , "
+                        $new_arr = [];
+                        $new_arr[] = 23;
+
+                        $merge = array_merge($names_arr, $new_arr);
+                        sort($merge);
+                        $names_str = implode(", ", $merge);
+
+                        $book_insert_query = "INSERT INTO bookings (trip_id, max_seats, avail_seats, book_seats) 
+                        VALUES (12,45,40,'".$names_str."')";
+                        
+                        if (mysqli_query($con, $book_insert_query)) {
+                            echo "<script>
+                                alert('Bookings Insertion Complete.');
+                                </script>";
+                        }
+                        else {
+                            echo "<script>
+                                alert('ERROR: Could not able to execute $book_insert_query');
+                                </script>";
+                        }*/
+
+                        $booking_table = mysqli_query($con,"SELECT * FROM bookings");
+
+                        echo "<table class='trip-schedules-table'>
+                        <tr>
+                            <th>Trip ID</th>
+                            <th>Max Seats</th>
+                            <th>Available Seats</th>
+                            <th>Booked Seats</th>
+                        </tr>";
+
+                        while($row = mysqli_fetch_array($booking_table))
+                        {
+                            echo "<tr>";
+                            echo "<td>" . $row['trip_id'] . "</td>";
+                            echo "<td>" . $row['max_seats'] . "</td>";
+                            echo "<td>" . $row['avail_seats'] . "</td>";
+                            echo "<td>" . $row['book_seats'] . "</td>";
+                            echo "</tr>";
+
+                            foreach (explode(',',$row['book_seats']) as $seatdata){
+                                echo $seatdata;
+                            };
+                            echo ' count = '.count(explode(',',$row['book_seats']));
+                            echo '<br>';
+                        }
+                        echo "</table>";
+                    ?>
+            </div>
 
         </main>
     </div>
