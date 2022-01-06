@@ -98,24 +98,19 @@ include('indexsearch_trip.php');
             <div id="slider">
                 <div class="slide slide1">
                     <div class="slide-content">
-                        <span>Image One</span>
                     </div>
                 </div>
                 <div class="slide slide2">
                     <div class="slide-content">
-                        <span>Image Two</span>
                     </div>
                 </div>
                 <div class="slide slide3">
                     <div class="slide-content">
-                        <span>Image Three</span>
                     </div>
                 </div>
             </div>
             <div id="dir-control-right" class="dir-control"><i class="fa fa-angle-right fa-5x" aria-hidden="true"></i></div>
-        </div>
-
-        
+        </div>        
 
         <!--Booking Panel-->
         <div class="book-trip-panel">
@@ -175,9 +170,6 @@ include('indexsearch_trip.php');
                         <li>Passengers availing student discounts, senior citizen discounts and PWD discounts must purchase their tickets from our terminal ticket booths.</li>
                     </ul>
                 </div>
-                <div class="manage-my-booking-button-holder">
-                    <input type='button' class="manage-my-booking-button" data-toggle="modal" data-target="#modal-manage-bookings" onclick="Focus()" value="Manage My Bookings" id="btnManageBooking">
-                </div>
             </div>
         </div>
     </div>
@@ -189,7 +181,7 @@ include('indexsearch_trip.php');
                 <ul class="footer-list" data-preamble="About">
                     <li><strong>About</strong></li>
                     <li><a href="aboutus.html">Our Story</a></li>
-                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terminal-directory-modal">Terminal Directory</a></li>
+                    <li><a href="https://www.google.com/maps/place/14+Bristol+St,+Novaliches,+Quezon+City,+1121+Metro+Manila/@14.7199402,121.0622425,18.25z/data=!4m5!3m4!1s0x3397b0897431ba59:0x54ab05f740403529!8m2!3d14.7200523!4d121.0633057" class="btn-terminal" target="_blank">Terminal Directory</a></li>
                 </ul>
             </div>
             <div class="footer-list-guidelines">

@@ -362,10 +362,10 @@ footer {
 .fa {
  display:inline-block;
  line-height: 50px;
- background-color:rgba(0,0,0, .3);
+ background-color:transparent;
  width:50px;
  height:56px;
- color:white;
+ color:gray;
  text-align: center;
  vertical-align: bottom;
 }
