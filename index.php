@@ -148,10 +148,10 @@ include('indexsearch_trip.php');
                         <div class="booking-date-line"></div>
                     </div>
                     <div class="passenger">
-                        <strong>Passengers:</strong>
+                        <strong>Passenger: 1</strong>
                         
                         <!-- <button class="btn-count subtract-passenger er-alert" data-passenger_type="adult" id="btnAdultMinus" onclick="buttonMinus()">-</button> -->
-                        <input type="number" class="txt-count" name="passenger-count" id="labelPassengerCount" placeholder='1' maxlength="3" size="3" required/>
+                        <input type="text" class="txt-count" name="passenger-count" id="labelPassengerCount" value=1 maxlength="1" size="1" readonly/>
                         <!-- <button class="btn-count add-passenger er-alert" data-passenger_type="adult" id="btnAdultPlus" onclick="buttonPlus()">+</button>  -->
                     </div>
                     <div class="button-panel">

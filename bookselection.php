@@ -14,7 +14,16 @@
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-        
+    
+    <script>
+        function saveTripID(id) {
+            alert(id);
+            if (confirm('Are you sure to reserve on this schedule?') == true) {
+                localStorage.setItem("reserve_trip_id", id);
+                window.location.href = "paymentpassengerinfo.php";
+            }
+        }
+    </script>
 </head>
 <body>
     <!--Header-->
@@ -57,7 +66,7 @@
             <div class="secondary-info-detail">
                 <label id="BookSelectionContent_txtDeparture" data-preamble="|"><?php echo $_SESSION['date_depart']; ?></label>
                 <label id="BookSelectionContent_lblTravelType" data-preamble="|"><?php echo $_SESSION['trip_type']; ?></label>
-                <label id="BookSelectionContent_lblPassengers">Total Passenger: <?php echo $_SESSION['passenger_count']; ?></label>
+                <label id="BookSelectionContent_lblPassengers">Passenger: <?php echo $_SESSION['passenger_count']; ?></label>
             </div>
         </div>
         <!--Table of Schedule on Selected Date-->
@@ -75,12 +84,35 @@
                             <th>Fare</th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <td>08:30 AM</td>
-                            <td>0</td>
-                            <td>₱576.00</td>
-                            <td>FULLY BOOKED</td>
-                        </tr>
+
+                        <?php 
+                            //$reserve_trip_id = '';
+
+                            $trip_search = "SELECT * FROM trips WHERE trip_orig='".$_SESSION['origin']."' AND trip_dest='".$_SESSION['destination']."' AND trip_date='".$_SESSION['date_depart']."'
+                            ORDER BY trip_time ";
+
+                            $result_trip_search = mysqli_query($con, $trip_search);
+
+                            if (mysqli_num_rows($result_trip_search) > 0) {
+                                while($row = mysqli_fetch_array($result_trip_search))
+                                {
+                                    echo "<tr>";
+                                    echo "<td>" . date('h:i A', strtotime($row['trip_time'])) . "</td>";
+                                    echo "<td>" . $row['seats'] . "</td>";
+                                    echo "<td>" . $row['fare'] . "</td>";
+                                    if ($row['seats'] > 0){
+                                        //echo "<td><button class='btn-reserveseat' onclick=\"location.href='paymentpassengerinfo.html'\">Reserve a Seat</button></td>";
+                                        echo "<td><button class='btn-reserveseat' onclick=\"saveTripID(".$row['trip_id'].")\">Reserve a Seat</button></td>";
+                                    } else {
+                                        echo "<td>Full</td>";
+                                    }
+                                    echo "</tr>";   
+                                }
+                            } else {
+                                echo "<tr><td>No data available.</td></tr>";
+                            }
+                        ?>
+
                     </tbody>
                 </table>
             </div>

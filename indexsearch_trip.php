@@ -27,6 +27,7 @@ if (isset($_POST['search_trip_btn'])) {
 	} else {
 		echo "<script>
 			alert('No Trip Schedule found.');
+			window.location.href='index.php';
 			</script>";
 	}
 }

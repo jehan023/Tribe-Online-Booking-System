@@ -1,3 +1,6 @@
+<?php
+    require('db.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +13,21 @@
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-        
+    
+    <script>
+        var reserve_id = localStorage.getItem("reserve_trip_id");
+        console.log('Reserve Trip ID: '+reserve_id);
+
+        function checkemail(email,reemail) {
+            if (document.getElementById(email).value == document.getElementById(reemail).value) {
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = ' *email matched.';
+            } else {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = ' *email not match!';
+            }
+        }
+    </script>
 </head>
 <body>
     <!--Header-->
@@ -37,80 +54,68 @@
         <div class="step-panel">
             <label class="step-guide"><strong>Step 2:</strong> Passenger Information</label>
         </div>
-    
-        <div id="PaymentPassengerInfoContent_pnlPassengerInfo">
-    
-            <div class="passenger-info-block">
-    
-                <div class="pass-info-form-group">
-    
-                    <div id="PaymentPassengerInfoContent_divAnnotation"></div>
-    
-                    <div class="pass-info-form">
+
+        <?php //echo "<script>alert($reserve_trip_id);</script>"; ?>
+
+        <div class="passenger-info-block">
+            <form method="POST" class="pass-info-form-group">
+                <div class="pass-info-form-fields">
+                    <div class="pass-info-form1">
                         <div class="data-form">
-                            <label><span class="required">*</span>First Name:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtFName" type="text" id="PaymentPassengerInfoContent_txtFName" />
-                            <span id="PaymentPassengerInfoContent_validatorName" class="required-field" style="display:none;">First name is required</span>
+                            <label>First Name:</label>
+                            <input name="reserve_pFname" type="text" id="PaymentPassengerInfoContent_txtFName" placeholder="First Name" required/>
                         </div>
-    
+
                         <div class="data-form">
                             <label>Middle Name:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtMName" type="text" id="PaymentPassengerInfoContent_txtMName" />
+                            <input name="reserve_pMname" type="text" id="PaymentPassengerInfoContent_txtMName" placeholder="Middle Name"/>
                             
                         </div>
-    
+
                         <div class="data-form">
                             <label><span class="required">*</span>Last Name:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtLName" type="text" id="PaymentPassengerInfoContent_txtLName" data-preamble="Last Name:" />
-                            <span id="PaymentPassengerInfoContent_RequiredFieldValidator2" class="required-field" style="display:none;">Last name is required</span>
+                            <input name="reserve_pLname" type="text" id="PaymentPassengerInfoContent_txtLName" placeholder="Last Name" required/>
                         </div>
-    
+
                         <div class="data-form">
-                            <label><span class="required">*</span>City</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtCity" type="text" id="PaymentPassengerInfoContent_txtCity" data-preamble="City" />
-                            <span id="PaymentPassengerInfoContent_validatorCity" class="required-field" style="display:none;">City is required</span>
+                            <label>City</label>
+                            <input name="reserve_pCity" type="text" id="PaymentPassengerInfoContent_txtCity" placeholder="City" required/>
                         </div>
                     </div>
-    
-                    <div class="pass-info-form">
+
+                    <div class="pass-info-form2">
                         <div class="data-form">
-                            <label><span class="required">*</span>Email:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtEmail" type="email" id="PaymentPassengerInfoContent_txtEmail" />
-                            <span id="PaymentPassengerInfoContent_validatorEmail" class="required-field" style="display:none;">Email is required</span>
-                            <span id="PaymentPassengerInfoContent_validatorEmailRegex" class="required-field" style="display:none;">Email is invalid</span>
+                            <label>Email:</label>
+                            <input name="reserve_pEmail" type="email" id="PaymentPassengerInfoContent_txtEmail" placeholder="juandelacruz@gmail.com"
+                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" required/>
                         </div>
-    
+
                         <div class="data-form">
-                            <label><span class="required">*</span>Confirm Email:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtReEmail" type="email" id="PaymentPassengerInfoContent_txtReEmail" />
-                            <span id="PaymentPassengerInfoContent_RequiredFieldValidator3" class="required-field" style="display:none;">Please retype your email</span>
-                            <span id="PaymentPassengerInfoContent_emailComparer" class="required-field" style="visibility:hidden;">Email does not match</span>
+                            <label>Confirm Email:<span id="message" class="required-field"></span></label>
+                            <input name="reserve_pReEmail" type="email" id="PaymentPassengerInfoContent_txtReEmail" placeholder="juandelacruz@gmail.com" 
+                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" required/>
                         </div>
-    
+
                         <div class="data-form">
-                            <label><span class="required">*</span>Mobile No.:</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtMobileNo" type="text" id="PaymentPassengerInfoContent_txtMobileNo" class="numeric" />
-                            <span id="PaymentPassengerInfoContent_validatorMobile" class="required-field" style="display:none;">Mobile no. is required</span>
-                            <span id="PaymentPassengerInfoContent_validatorMobileRegex" class="required-field" style="display:none;">Mobile number cannot contain spaces</span>
-                            <span id="PaymentPassengerInfoContent_validatorMobileLength" class="required-field" style="display:none;">Minimum 11 digits is required</span>
+                            <label>Mobile No.:</label>
+                            <input name="reserve_pMobile" type="tel" id="PaymentPassengerInfoContent_txtMobileNo" class="numeric" placeholder="09xxxxxxxx" pattern="[0][9][0-9]{9}" required/>
                         </div>
-    
+
                         <div class="data-form">
-                            <label><span class="required">*</span>Full Address</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtFullAddress" type="text" id="PaymentPassengerInfoContent_txtFullAddress" data-preamble="FullAddress" />
-                            <span id="PaymentPassengerInfoContent_validatorFullAddress" class="required-field" style="display:none;">Full address is required</span>
+                            <label>Full Address</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtFullAddress" type="text" id="PaymentPassengerInfoContent_txtFullAddress" placeholder="Full Address" required/>
                         </div>
                     </div>
                 </div>
-    
+                
                 <div class="form-footer-panel">
-                    <a href="bookselection.html" class="booking-back-button"><i class="fas fa-long-arrow-alt-left"></i> Back to Step 1</a>
+                    <a href="bookselection.php" class="booking-back-button"><i class="fas fa-long-arrow-alt-left"></i> Back to Step 1</a>
     
                     <div class="pass-info-button">
-                        <input type="submit" name="ctl00$PaymentPassengerInfoContent$btnNext2" value="Next" id="btnNext2" class="btn-next" />
+                        <input type="submit" name="btnNext2" value="Next" id="btnNext2" class="btn-next" />
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 

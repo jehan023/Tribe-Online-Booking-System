@@ -183,12 +183,8 @@ nav ul li a:hover {
 .passenger {
 	width: 18%;
 }
-.txt-count input {
-	background-color: #f3f3f3;
-	color: black;
-	font-weight: bold;
-	font-size: 15px;
-	border: 1px solid black;
+input.txt-count {
+	display: none;
 }
 /*----------FOOTER------------------------------------------*/
 
@@ -421,7 +417,15 @@ footer {
 .available-sched {
 	padding: 15px 15% 12px 15%;
 }
-
+.btn-reserveseat {
+	background: brown;
+	color: white;
+	height: 50px;
+	font-family: 'Montserrat', sans-serif;
+	border: transparent;
+	border-radius: 10px;
+	cursor: pointer;
+}
 
 .booking-details {
 	border-bottom: 1px solid #000;
@@ -526,268 +530,54 @@ footer {
 	padding: 80px 0px; }
 
 /*----------STEP 2: PAYMENT PASSENGER INFO---------------------------------------*/
-.passenger-info-block {
-	margin: 5px 15% 5px 15%;
-	padding: 40px 0px; }
-.passenger-info-block > .pass-info-form-group {
+.pass-info-form-group {
+	display: block;
+	padding: 0px 15% 0px 15%;
+}
+.pass-info-form-fields {
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	width: 100%; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form {
-	flex-grow: 0;
-	flex-shrink: 0;
-	flex-basis: calc(50% - 45px);
-	max-width: calc(50% - 45px);
-	min-width: calc(50% - 45px);
-	margin-right: 45px; }
-	.passenger-info-block > .pass-info-form-group > .pass-info-form:last-of-type {
-	margin-right: 0px;
-	margin-left: 45px; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form {
-	position: relative; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > input[type="text"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > input[type="email"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > input[type="tel"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > label {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	color: #000; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > label > .required {
-	color: brown;
-	margin-right: 4px; }
-.passenger-info-block > .pass-info-form-group > .pass-info-form > .data-form > .required-field {
-	font-size: 0.875rem;
-	line-height: 1.618;
-	color: brown;
-	position: absolute;
-	top: 4px;
-	right: 0; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	width: 100%; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form {
-	flex-grow: 0;
-	flex-shrink: 0;
-	flex-basis: calc(50% - 45px);
-	max-width: calc(50% - 45px);
-	min-width: calc(50% - 45px);
-	margin-right: 45px; }
-	.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form:last-of-type {
-	margin-right: 0px;
-	margin-left: 45px; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form {
-	position: relative; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="text"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="email"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="tel"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > label {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	color: #000; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > label > .required {
-	color: brown;
-	margin-right: 4px; }
-.passenger-info-block > #PaymentPassengerInfo1Content_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > .required-field {
-	font-size: 0.875rem;
-	line-height: 1.618;
-	color: brown;
-	position: absolute;
-	top: 4px;
-	right: 0; }
-.passenger-info-block > .btn-additional-pass {
-	font-size: 1rem;
-	line-height: 1.618;
-	font-weight: 500;
-	-webkit-transition: .3s all ease-in-out;
-	-moz-transition: .3s all ease-in-out;
-	transition: .3s all ease-in-out;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding: 12px 26px;
-	background: brown;
-	text-decoration: none;
-	color: #fff;
-	margin: 40px 0px 72px 0px;
-	display: inline-block; }
-.passenger-info-block > .form-footer-panel {
-	width: 100%;
-	display: flex;
-	justify-content: space-between; }
-	.passenger-info-block > .form-footer-panel > .pass-info-button > input[type="submit"] {
-	font-size: 1rem;
-	line-height: 1.618;
-	font-weight: 500;
-	-webkit-transition: .3s all ease-in-out;
-	-moz-transition: .3s all ease-in-out;
-	transition: .3s all ease-in-out;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding: 12px 26px;
-	background: brown;
-	text-decoration: none;
-	color: #fff;
+}
+.pass-info-form1 {
 	display: inline-block;
-	border: none;
-	cursor: pointer; }
-	.passenger-info-block > .form-footer-panel > .pass-info-button > input[type="submit"]:hover {
-	background-color: #0a3d52; }
-	.passenger-info-block > .form-footer-panel > .booking-back-button {
-	font-size: 1rem;
-	line-height: 1.618;
-	font-weight: 500;
-	-webkit-transition: .3s all ease-in-out;
-	-moz-transition: .3s all ease-in-out;
-	transition: .3s all ease-in-out;
-	color: brown;
-	text-decoration: none;
-	margin-top: 10px;
-	margin-left: 0px; }
-	.passenger-info-block > .form-footer-panel > .booking-back-button > i {
-		margin-right: 8px; }
-	.passenger-info-block > .form-footer-panel > .booking-back-button:hover {
-		margin-left: 8px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group {
+	width: 50%;
+	margin-top: 15px;
+	box-sizing: border-box;
+	padding-right: 5%;
+}
+.pass-info-form2 {
+	display: inline-block;
+	width: 50%;
+	margin-top: 15px;
+	box-sizing: border-box;
+	padding-left: 5%;
+}
+.data-form label, .data-form input {
+	display: block;
+	width: 100%;
+	font-size: 1.25rem;
+	line-height: 1.7;
+}
+.form-footer-panel {
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	width: 100%; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form {
-	flex-grow: 0;
-	flex-shrink: 0;
-	flex-basis: calc(50% - 45px);
-	max-width: calc(50% - 45px);
-	min-width: calc(50% - 45px);
-	margin-right: 45px; }
-	.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form:last-of-type {
-	margin-right: 0px;
-	margin-left: 45px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form {
-	position: relative; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="text"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
+	margin-top: 20px;
+	justify-content: space-between;
+}
+.booking-back-button {
+	font-size: 1.15rem;
+	padding: 10px 0px 10px 0px;
+	height: 50px;
 	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="email"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > input[type="tel"] {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #000;
-	color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	padding: 10px 12px;
-	box-sizing: border-box;
-	margin-bottom: 32px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > label {
-	font-size: 1.125rem;
-	line-height: 1.618;
-	color: #000; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > label > .required {
-	color: brown;
-	margin-right: 4px; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAdditionalPassengers > .pass-info-form-group > .pass-info-form > .data-form > .required-field {
-	font-size: 0.875rem;
-	line-height: 1.618;
-	color: brown;
-	position: absolute;
-	top: 4px;
-	right: 0; }
-.passenger-info-block > #PaymentPassengerInfoContent_divAnnotation {
-	margin-bottom: 40px; }
-	.passenger-info-block > #PaymentPassengerInfoContent_divAnnotation > .alert.alert-danger {
-	padding: 16px 16px 16px 24px; }
+}
+#btnNext2 {
+	display: block;
+	font-size: 1.15rem;
+	height: 50px;
+	width: 100px;
+	background: brown;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
 /*----------STEP 3: PASSENGER TICKET INFO---------------------------------------*/
 #seats-modal-block {
