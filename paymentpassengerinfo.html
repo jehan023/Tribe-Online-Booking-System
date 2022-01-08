@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2 · Tribe Transport</title>
+    
+    <link rel="icon" href="images/logo.png" type="image/icon type">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+</head>
+<body>
+    <!--Header-->
+    <nav>
+        <input id="nav-toggle" type="checkbox">
+        <div class="logo">
+            <img src="images/logo.png">
+            <strong>Tribe</strong> Transport
+        </div>
+        <ul class="links">
+            <li><a href="index.php">Book Trip</a></li>
+            <li><a href="rent.html" class="active">Rent</a></li>
+            <li><a href="login.php">Login</a></li>
+        </ul>
+        <label for="nav-toggle" class="icon-burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </label>
+    </nav>
+
+    <!--Body Contents-->
+    <div class="contents">
+        <div class="step-panel">
+            <label class="step-guide"><strong>Step 2:</strong> Passenger Information</label>
+        </div>
+    
+        <div id="PaymentPassengerInfoContent_pnlPassengerInfo">
+    
+            <div class="passenger-info-block">
+    
+                <div class="pass-info-form-group">
+    
+                    <div id="PaymentPassengerInfoContent_divAnnotation"></div>
+    
+                    <div class="pass-info-form">
+                        <div class="data-form">
+                            <label><span class="required">*</span>First Name:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtFName" type="text" id="PaymentPassengerInfoContent_txtFName" />
+                            <span id="PaymentPassengerInfoContent_validatorName" class="required-field" style="display:none;">First name is required</span>
+                        </div>
+    
+                        <div class="data-form">
+                            <label>Middle Name:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtMName" type="text" id="PaymentPassengerInfoContent_txtMName" />
+                            
+                        </div>
+    
+                        <div class="data-form">
+                            <label><span class="required">*</span>Last Name:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtLName" type="text" id="PaymentPassengerInfoContent_txtLName" data-preamble="Last Name:" />
+                            <span id="PaymentPassengerInfoContent_RequiredFieldValidator2" class="required-field" style="display:none;">Last name is required</span>
+                        </div>
+    
+                        <div class="data-form">
+                            <label><span class="required">*</span>City</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtCity" type="text" id="PaymentPassengerInfoContent_txtCity" data-preamble="City" />
+                            <span id="PaymentPassengerInfoContent_validatorCity" class="required-field" style="display:none;">City is required</span>
+                        </div>
+                    </div>
+    
+                    <div class="pass-info-form">
+                        <div class="data-form">
+                            <label><span class="required">*</span>Email:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtEmail" type="email" id="PaymentPassengerInfoContent_txtEmail" />
+                            <span id="PaymentPassengerInfoContent_validatorEmail" class="required-field" style="display:none;">Email is required</span>
+                            <span id="PaymentPassengerInfoContent_validatorEmailRegex" class="required-field" style="display:none;">Email is invalid</span>
+                        </div>
+    
+                        <div class="data-form">
+                            <label><span class="required">*</span>Confirm Email:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtReEmail" type="email" id="PaymentPassengerInfoContent_txtReEmail" />
+                            <span id="PaymentPassengerInfoContent_RequiredFieldValidator3" class="required-field" style="display:none;">Please retype your email</span>
+                            <span id="PaymentPassengerInfoContent_emailComparer" class="required-field" style="visibility:hidden;">Email does not match</span>
+                        </div>
+    
+                        <div class="data-form">
+                            <label><span class="required">*</span>Mobile No.:</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtMobileNo" type="text" id="PaymentPassengerInfoContent_txtMobileNo" class="numeric" />
+                            <span id="PaymentPassengerInfoContent_validatorMobile" class="required-field" style="display:none;">Mobile no. is required</span>
+                            <span id="PaymentPassengerInfoContent_validatorMobileRegex" class="required-field" style="display:none;">Mobile number cannot contain spaces</span>
+                            <span id="PaymentPassengerInfoContent_validatorMobileLength" class="required-field" style="display:none;">Minimum 11 digits is required</span>
+                        </div>
+    
+                        <div class="data-form">
+                            <label><span class="required">*</span>Full Address</label>
+                            <input name="ctl00$PaymentPassengerInfoContent$txtFullAddress" type="text" id="PaymentPassengerInfoContent_txtFullAddress" data-preamble="FullAddress" />
+                            <span id="PaymentPassengerInfoContent_validatorFullAddress" class="required-field" style="display:none;">Full address is required</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-footer-panel">
+                    <a href="bookselection.html" class="booking-back-button"><i class="fas fa-long-arrow-alt-left"></i> Back to Step 1</a>
+    
+                    <div class="pass-info-button">
+                        <input type="submit" name="ctl00$PaymentPassengerInfoContent$btnNext2" value="Next" id="btnNext2" class="btn-next" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Footer-->
+    <footer>
+        <div class="footer-panel">
+            <div class="footer-list-about">
+                <ul class="footer-list" data-preamble="About">
+                    <li><strong>About</strong></li>
+                    <li><a href="aboutus.html">Our Story</a></li>
+                    <li><a href="https://www.google.com/maps/place/14+Bristol+St,+Novaliches,+Quezon+City,+1121+Metro+Manila/@14.7199402,121.0622425,18.25z/data=!4m5!3m4!1s0x3397b0897431ba59:0x54ab05f740403529!8m2!3d14.7200523!4d121.0633057" class="btn-terminal" target="_blank">Terminal Directory</a></li>
+                </ul>
+            </div>
+            <div class="footer-list-guidelines">
+                <ul class="footer-list" data-preamble="Guidelines">
+                    <li><strong>Guidelines</strong></li>
+                    <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
+                    <li><a href="#!" class="btn-terminal" data-toggle="modal" data-target="#terms">Terms and Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-list-support">
+                <ul class="footer-list" data-preamble="Support">
+                    <li><strong>Support</strong></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="social-media-panel">
+            <ul class="social-media-list">
+                <li><a href="https://web.facebook.com/TribeBusRental" target="_blank" class="social-fb"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="mailto:bookings.tribes@gmail.com" target="_blank" class="social-gmail"><i class="fab fa-google"></i></a></li>
+            </ul>
+        </div>
+        <p class="company-address">14 Bristrol St., Brgy. North Fairview, Quezon City, Philippines</p>
+        <ul class="copyright">
+            <li>&copy; Tribe Transport Services</li>
+            <li><a href="#!" data-toggle="modal" data-target="#privacy-policy-popup">Privacy policy</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
