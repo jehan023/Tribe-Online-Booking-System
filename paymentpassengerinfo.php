@@ -1,5 +1,7 @@
 <?php
+    session_start();
     require('db.php');
+    $id = $_REQUEST['tripId'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
     <script>
-        var reserve_id = localStorage.getItem("reserve_trip_id");
-        console.log('Reserve Trip ID: '+reserve_id);
+        //var reserve_id = localStorage.getItem("reserve_trip_id");
+        //console.log('Reserve Trip ID: '+reserve_id);
 
         function checkemail(email,reemail) {
             if (document.getElementById(email).value == document.getElementById(reemail).value) {
@@ -55,31 +57,29 @@
             <label class="step-guide"><strong>Step 2:</strong> Passenger Information</label>
         </div>
 
-        <?php //echo "<script>alert($reserve_trip_id);</script>"; ?>
-
         <div class="passenger-info-block">
-            <form method="POST" class="pass-info-form-group">
+            <form method="POST" class="pass-info-form-group" action="indexsearch_trip.php" autocomplete="on">
                 <div class="pass-info-form-fields">
                     <div class="pass-info-form1">
                         <div class="data-form">
                             <label>First Name:</label>
-                            <input name="reserve_pFname" type="text" id="PaymentPassengerInfoContent_txtFName" placeholder="First Name" required/>
+                            <input name="reserve_pFname" type="text" id="PaymentPassengerInfoContent_txtFName" placeholder="First Name" autocomplete="given-name" required/>
                         </div>
 
                         <div class="data-form">
                             <label>Middle Name:</label>
-                            <input name="reserve_pMname" type="text" id="PaymentPassengerInfoContent_txtMName" placeholder="Middle Name"/>
+                            <input name="reserve_pMname" type="text" id="PaymentPassengerInfoContent_txtMName" placeholder="Middle Name" autocomplete="additional-name"/>
                             
                         </div>
 
                         <div class="data-form">
-                            <label><span class="required">*</span>Last Name:</label>
-                            <input name="reserve_pLname" type="text" id="PaymentPassengerInfoContent_txtLName" placeholder="Last Name" required/>
+                            <label>Last Name:</label>
+                            <input name="reserve_pLname" type="text" id="PaymentPassengerInfoContent_txtLName" placeholder="Last Name" autocomplete="family-name" required/>
                         </div>
 
                         <div class="data-form">
                             <label>City</label>
-                            <input name="reserve_pCity" type="text" id="PaymentPassengerInfoContent_txtCity" placeholder="City" required/>
+                            <input name="reserve_pCity" type="text" id="PaymentPassengerInfoContent_txtCity" placeholder="City" autocomplete="address-level2" required/>
                         </div>
                     </div>
 
@@ -87,30 +87,31 @@
                         <div class="data-form">
                             <label>Email:</label>
                             <input name="reserve_pEmail" type="email" id="PaymentPassengerInfoContent_txtEmail" placeholder="juandelacruz@gmail.com"
-                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" required/>
+                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" autocomplete="email" required/>
                         </div>
 
                         <div class="data-form">
                             <label>Confirm Email:<span id="message" class="required-field"></span></label>
                             <input name="reserve_pReEmail" type="email" id="PaymentPassengerInfoContent_txtReEmail" placeholder="juandelacruz@gmail.com" 
-                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" required/>
+                            onkeyup="checkemail('PaymentPassengerInfoContent_txtEmail','PaymentPassengerInfoContent_txtReEmail');" autocomplete="email" required/>
                         </div>
 
                         <div class="data-form">
                             <label>Mobile No.:</label>
-                            <input name="reserve_pMobile" type="tel" id="PaymentPassengerInfoContent_txtMobileNo" class="numeric" placeholder="09xxxxxxxx" pattern="[0][9][0-9]{9}" required/>
+                            <input name="reserve_pMobile" type="tel" id="PaymentPassengerInfoContent_txtMobileNo" class="numeric" placeholder="09xxxxxxxx" pattern="[0][9][0-9]{9}" 
+                            autocomplete="tel" required/>
                         </div>
 
                         <div class="data-form">
                             <label>Full Address</label>
-                            <input name="ctl00$PaymentPassengerInfoContent$txtFullAddress" type="text" id="PaymentPassengerInfoContent_txtFullAddress" placeholder="Full Address" required/>
+                            <input name="reserve_pFullAddress" type="text" id="PaymentPassengerInfoContent_txtFullAddress" placeholder="Full Address" autocomplete="street-address" required/>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-footer-panel">
                     <a href="bookselection.php" class="booking-back-button"><i class="fas fa-long-arrow-alt-left"></i> Back to Step 1</a>
-    
+                    <input name="selected_ID" value="<?php echo $id ?>" style="display:none;">
                     <div class="pass-info-button">
                         <input type="submit" name="btnNext2" value="Next" id="btnNext2" class="btn-next" />
                     </div>

@@ -1,3 +1,8 @@
+<?php
+    require('db.php');
+    include('indexsearch_trip.php');
+    //include('ticketinfo_process.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <script>
+        var reserve_id = localStorage.getItem("reserve_trip_id");
+
         function hideModal(seatplan) {
             document.getElementById(seatplan).style.display = "none";
         }
@@ -47,6 +54,7 @@
         <div class="step-panel">
             <label class="step-guide"><strong>Step 3:</strong> Choose your preferred seat</label>
         </div>
+
         <div id="PaymentTicketInfoContent_pnlTicketInfo">
             <input name="ctl00$PaymentTicketInfoContent$tbClientID" type="hidden"
                 id="PaymentTicketInfoContent_tbClientID" style="display: none;" />
@@ -58,17 +66,17 @@
                 <div class='ticket-panel' id='divTicketInfo'>
                     <div class='ticket-details'>
                         <div class='route-panel'>
-                            <h1>ORIGIN</h1>
+                            <h1><?php echo $_SESSION['origin']; ?></h1>
                             <i class='fas fa-caret-right'></i>
-                            <h1>DESTINATION</h1>
+                            <h1><?php echo $_SESSION['destination']; ?></h1>
                         </div>
 
                         <div class='ticket-data'>
-                            <label class='schedule-data' data-preamble=' Schedule'>DEPARTURE</label>
-                            <label class='time-data' data-preamble='Time: '>08:30 AM</label>
-                            <label class='date-data' data-preamble='Date: '>01/05/2022</label>
-                            <label class='pass-data' data-preamble='No. of Passengers: '>1</label>
-                            <button type='button' class='btn-pick-seat' onclick="showModal('seats-modal-block')">Pick Seats</button>
+                            <label class='schedule-data' data-preamble=' Schedule'>ONE-WAY DEPARTURE</label>
+                            <label class='time-data' data-preamble='Time: '><?php echo date('h:i A', strtotime($_SESSION['trip_time'])); ?></label>
+                            <label class='date-data' data-preamble='Date: '><?php echo date("m/d/y", strtotime($_SESSION['date_depart'])); ?></label>
+                            <label class='pass-data' data-preamble='No. of Passenger: '><?php echo $_SESSION['passenger_count']; ?></label>
+                            <button type='button' class='btn-pick-seat' onclick="showModal('seats-modal-block')">Pick Seat</button>
                         </div>
                     </div>
                 </div>
@@ -81,14 +89,14 @@
                     <a href="#!" id="closeSeatPlan" class="close" data-dismiss="modal"><img src="images/btn-close.png"
                             onclick="hideModal('seats-modal-block')"></a>
                     <div class="route-panel">
-                        <h1 id="PickSeatOrigin">ORIGIN</h1>
+                        <h1 id="PickSeatOrigin"><?php echo $_SESSION['origin']; ?></h1>
                         <i class="fas fa-caret-right"></i>
-                        <h1 id="PickSeatDestination">DESTINATION</h1>
+                        <h1 id="PickSeatDestination"><?php echo $_SESSION['destination']; ?></h1>
                     </div>
                     <div class="secondary-info-detail">
                         <label id="bus-class" class="bus-class" data-preamble="|">Regular Aircon</label>
-                        <label id="bus-capacity" class="bus-capacity" data-preamble="|">20 Seaters</label>
-                        <label id="spanTotalSeat" class="bus-seat-total">1 seat/s</label>
+                        <label id="bus-capacity" class="bus-capacity" data-preamble="|"><?php echo $_SESSION['trip_seats']; ?> Seaters</label>
+                        <label id="spanTotalSeat" class="bus-seat-total">Select your seat</label>
                     </div>
                     <div id="divPlan">
                         <div class="front-seat">
@@ -97,6 +105,13 @@
                             <div id="divConductor">Conductor</div>
                         </div>
                         <div id="divSeatPlan">
+                            <?php 
+                                $sn = $_SESSION['trip_seats'];
+                                for ($n = 1; $n <= $sn; $n++){
+                                    
+                                }
+                            
+                            ?>
                             <a href="#!" class="btn-seat" data-seat-no="1"><span>1</span></a>&nbsp;
                             <a href="#!" class="btn-seat" data-seat-no="2"><span>2</span></a>&nbsp;
                             <div class="spacing"></div>&nbsp;

@@ -1,6 +1,7 @@
 <?php
 require('db.php');
 $username = "";
+
 if (isset($_POST['register'])) {
 	$username = $_POST['username'];
 	$password = $_POST['password'];

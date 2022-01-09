@@ -16,13 +16,14 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
     <script>
-        function saveTripID(id) {
+        /*function saveTripID(id) {
             alert(id);
             if (confirm('Are you sure to reserve on this schedule?') == true) {
                 localStorage.setItem("reserve_trip_id", id);
-                window.location.href = "paymentpassengerinfo.php";
+                console.log('var id = '+id);
+                window.location.href = "paymentpassengerinfo.php?tripID=id";
             }
-        }
+        }*/
     </script>
 </head>
 <body>
@@ -101,8 +102,9 @@
                                     echo "<td>" . $row['seats'] . "</td>";
                                     echo "<td>" . $row['fare'] . "</td>";
                                     if ($row['seats'] > 0){
-                                        //echo "<td><button class='btn-reserveseat' onclick=\"location.href='paymentpassengerinfo.html'\">Reserve a Seat</button></td>";
-                                        echo "<td><button class='btn-reserveseat' onclick=\"saveTripID(".$row['trip_id'].")\">Reserve a Seat</button></td>";
+                                        //echo "<td><input type='button' class='btn-reserveseat' name='selectedID' value='".$row['trip_id']."'>Reserve a Seat</input></td>";
+                                        //echo "<td><button class='btn-reserveseat' onclick=\"saveTripID(".$row['trip_id'].")\">Reserve a Seat</button></td>";
+                                        echo "<td><button class='btn-reserveseat' onclick=\"location.href='paymentpassengerinfo.php?tripId=".$row['trip_id']."'\">Reserve a Seat</button></td>";
                                     } else {
                                         echo "<td>Full</td>";
                                     }

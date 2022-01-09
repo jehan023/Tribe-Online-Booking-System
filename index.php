@@ -1,6 +1,6 @@
 <?php
-require('db.php');
-include('indexsearch_trip.php');
+    require('db.php');
+    include('indexsearch_trip.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@ include('indexsearch_trip.php');
             }
         }
         //check for radio button selected then hide/show return date input
-        function checkRadio(trip) {
+        /*wfunction checkRadio(trip) {
             var ret = document.getElementById("return-selection");
             var line = document.getElementById("date-dash");
             var dep = document.getElementById("depart-selection");
@@ -45,7 +45,7 @@ include('indexsearch_trip.php');
                 icon.style.width = 'auto';
                 inpRet.required = true;
             }
-        }
+        } */
         //Populate destination drop down list
         function configureDropDownLists(orig,dest) {
             var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];
@@ -117,11 +117,11 @@ include('indexsearch_trip.php');
         <div class="book-trip-panel">
             <form method="POST" action="indexsearch_trip.php" id="book-trip-search-form">
                 <div class="trip">
+                    <!-- <div class="radio-trip" style="display:none;">
+                        <input type="radio" name="radiobtn-trip-choice" id="radio-round-trip" value="Round Trip" onclick="checkRadio('one-way')"><label for="radio-round-trip">Round-Trip</label>
+                    </div> -->
                     <div class="radio-trip">
-                        <input type="radio" name="radiobtn-trip-choice" id="radio-round-trip" value="Round Trip" onclick="checkRadio('round-trip')"><label for="radio-round-trip">Round-Trip</label>
-                    </div>
-                    <div class="radio-trip">
-                        <input type="radio" name="radiobtn-trip-choice" id="radio-one-way" value="One-Way" onclick="checkRadio('one-way')" required><label for="radio-one-way">One-Way</label>
+                        <input type="radio" name="radiobtn-trip-choice" id="radio-one-way" value="One-Way" required checked><label for="radio-one-way">One-Way Trip</label>
                     </div>
                 </div>
                 <div class="booking-panel">
@@ -141,8 +141,8 @@ include('indexsearch_trip.php');
                         <div class="depart" id="depart-selection">
                             <input type="date" class="datepicker" name="DepartingOn" id="DepartingOn" placeholder="Depart" required/>
                         </div>
-                        <div class="date-line" id="date-dash">-</div>
-                        <div class="return" id="return-selection">
+                        <div class="date-line" id="date-dash" style="display:none;">-</div>
+                        <div class="return" id="return-selection" style="display:none;">
                             <input type="date" class="datepicker" name="ReturningOn" id="ReturningOn" placeholder="Return"/>
                         </div>
                         <i class="far fa-calendar-alt" id="datepicker-icon"></i>
@@ -290,7 +290,7 @@ include('indexsearch_trip.php');
                     <h1 class="tnc">Contact Us</h1>
                     <p class="tnc">If you have any questions about these Terms and Conditions, You can contact us:</p>
                     <ul>
-                    <li class="tnc">By email: bookings.tribe@gmail.com</li>
+                        <li class="tnc">By email: bookings.tribe@gmail.com</li>
                     </ul>
                 </div>
                 <div id="pp-content">
@@ -464,7 +464,7 @@ include('indexsearch_trip.php');
                     <h1 class="tnc">Contact Us</h1>
                     <p class="tnc">If you have any questions about this Privacy Policy, You can contact us:</p>
                     <ul>
-                    <li>By email: tribe.bookings@gmail.com</li>
+                        <li class="tnc">By email: bookings.tribe@gmail.com</li>
                     </ul>
                 </div>
             </div>  
@@ -498,7 +498,7 @@ include('indexsearch_trip.php');
     }
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == ebModa1) {
+        if (event.target == ebModal) {
             ebModal.style.display = "none";
             modalContent1.style.display = "none"
             modalContent2.style.display = "none"
