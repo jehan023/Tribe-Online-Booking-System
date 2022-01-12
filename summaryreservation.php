@@ -1,22 +1,26 @@
 <?php
-session_start();
 require('db.php');
+include('indexsearch_trip.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login · Tribe Transport</title>
-    
+    <title>Step 4 · Tribe Transport</title>
+
     <link rel="icon" href="images/logo.png" type="image/icon type">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/loginstyle.css">
-        
+
+    <script>
+       
+    </script>
 </head>
+
 <body>
     <!--Header-->
     <nav>
@@ -26,9 +30,9 @@ require('db.php');
             <strong>Tribe</strong> Transport
         </div>
         <ul class="links">
-            <li><a href="index.php">Book Trip</a></li>
+            <li><a href="index.php" class="active">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
-            <li><a href="login.php" class="active">Login</a></li>
+            <li><a href="login.php">Login</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
             <div class="line"></div>
@@ -39,69 +43,149 @@ require('db.php');
 
     <!--Body Contents-->
     <div class="contents">
-        <!--LOGIN PHP codes-->
-        <?php
-// When form submitted, check and create user session.
-if (isset($_POST['username_input']) && isset($_POST['password_input'])) {
-    $username = stripslashes($_REQUEST['username_input']); // removes backslashes
-    $username = mysqli_real_escape_string($con, $username);
-    $password = stripslashes($_REQUEST['password_input']);
-    $password = mysqli_real_escape_string($con, $password);
-
-    // Check user is exist in the database
-    $query = "SELECT * FROM users WHERE username='$username' AND pass='$password'";
-    $result = mysqli_query($con, $query) or die(mysqli_connect_error());
-    $rows = mysqli_num_rows($result);
-    if ($rows == 1) {
-        $_SESSION['username'] = $username;
-        // Redirect to user dashboard page
-        //header("Location: dashboard.php");
-        echo("<script>location.href = 'dashboard.php';</script>");
-    }
-    else {
-        echo "<script>
-                    alert('Incorrect Username/password.');
-                    window.location.href='login.php';
-                    </script>";
-    }
-}
-else {
-?>
-        <!--Login Form-->
-        <div class="container">
-            <div class="screen">
-                <div class="screen__content">
-                    <form class="login" method="POST">
-                        <div class="login-panel-logo">
-                            <img src="images/logo.png" alt="logo">
-                        </div>
-                        <div class="login__field">
-                            <i class="login__icon fas fa-user"></i>
-                            <input type="text" name="username_input" class="login__input" placeholder="Username" required>
-                        </div>
-                        <div class="login__field">
-                            <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password_input" class="login__input" placeholder="Password" required>
-                        </div>
-
-                        <button class="button login__submit">
-                            <span class="button__text">Member Log In</span>
-                            <i class="button__icon fas fa-chevron-right"></i>
-                        </button>				
-                    </form>
-                </div>
-                <div class="screen__background">
-                    <span class="screen__background__shape screen__background__shape4"></span>
-                    <span class="screen__background__shape screen__background__shape3"></span>		
-                    <span class="screen__background__shape screen__background__shape2"></span>
-                    <span class="screen__background__shape screen__background__shape1"></span>
-                </div>		
-            </div>
+        <div class="step-panel">
+            <label class="step-guide"><strong>Step 4:</strong> Summary of Passenger Reservation</label>
         </div>
-        <?php
-}?>
-    </div>
+        <div id="PaymentSummaryChargesContent_pnlSummary">
+			<section class='charges-block'>
+				<div id="PaymentSummaryChargesContent_divSummaryOfCharges">
+					<div id='divSummaryCharges'>
+						<div class='ticket-group'>
+							<div class='ticket-panel'>
+								<div class='ticket-details'>
+									<div class='route-panel'>
+										<h1><?php echo $_SESSION['origin']; ?></h1>
+										<i class='fas fa-caret-right'></i>
+										<h1><?php echo $_SESSION['destination']; ?></h1>
+									</div>
+									<div class='ticket-data'>
+										<div class='left-part'>
+											<label class='schedule-data'>Departure Schedule</label>
+											<label class='time-data'>Date & Time: <span> 
+                                            <?php echo date("m/d/y", strtotime($_SESSION['date_depart'])).' '.date('h:i A', strtotime($_SESSION['trip_time'])); ?>
+                                            </span></label>
+										</div>                     
+								
+										<div class='right-part'>
+											<label class='pass-data'>Selected Seat No: <span><?php echo $_SESSION['seat_reserve']; ?></span></label>
+										</div>
+										<div class='pass-name'>
+											<label class='pass-data'>Passenger Name: <span>
+												<?php 
+													if(isset($_SESSION['pMname'])){
+														echo $_SESSION['pFname'].' '.$_SESSION['pMname'].' '.$_SESSION['pLname'];
+													} else {
+														echo $_SESSION['pFname'].' '.$_SESSION['pLname'];
+													}
+												?>
+											</span></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						   
+							<div class='fare-panel'>
+								<h1 class='fare-title'>FARE AMOUNT</h1>
+								
+								<h1 class='label-fare'><strong>Fare amount:</strong></h1>
 
+								<div class='fare-data'>
+									<label>1 Pax x ₱<?php echo $_SESSION['trip_fare']; ?></label>
+									<label>₱<?php echo $_SESSION['trip_fare']; ?></label>
+								</div>
+
+								<h1 class='label-fare'><strong>Reservation fee:</strong></h1>
+								<div class='fare-data'>
+									<label>(₱50.00) x 1 Pax</label>
+									<label>₱50.00</label>
+								</div>
+
+                                <div class='total-fare-data'>
+                                    <h1 class='label-total-fare'>Total Amount to Pay: ₱<?php echo sprintf('%.2f', $_SESSION['trip_fare']+50.00); ?></h1>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div class="summary-divider"></div>
+
+			<div class="payment-footer-block">
+				<form method="post" target="_blank" action="reservationticket.php" class="payment-footer col-sm-12">
+					<div class="col-sm-6">
+						<div>
+							<input type="checkbox" id="chkTnC" required/>
+							<b>I have read and agree to the <a href="#!" id='btnAccept' onclick='alert("AGREE");' data-toggle="modal" style="cursor: pointer">Terms and Conditions</a>.</b>
+						</div>
+						<div>
+							<input type="checkbox" id="chkCovidTerms" required/>
+							<b style="font: 14px;">I agree that I will bring the required travel documents upon boarding:
+							</b>
+							<details open>
+								<summary style="font-weight: bold;">FAIRVIEW, QC - BONTOC, MT. PROVINCE (VICE VERSA)</summary>
+								<ul style="list-style-type:disc; padding-left: 35px;">
+									<li>Valid ID (preferably Government issued ID)</li>
+									<li>
+										APOR (Authorized Persons Outside Residents) Company ID or <br />
+										Certificate of Employment whichever is available
+									</li>
+									<li>S-Pass</li>
+								</ul>
+							</details>
+							<details open>
+								<summary style="font-weight: bold;">FAIRVIEW, QC - BAGUIO CITY</summary>
+								<ul style="list-style-type:disc; padding-left: 35px;">
+									<li>
+										<u>NON-RESIDENT NON-APORS</u>:
+										<br /> Travelling Adults should be fully vaccinated and should present a vaccination card, 
+										<br /> Non vaccinated or partially vaccinated adults will not be allowed to enter Baguio.
+									</li>
+									<li>
+										Approved QTP code from <a href="https://visita.baguio.gov.ph" target="_blank">https://visita.baguio.gov.ph</a>
+									</li>
+									<li>
+										<u>Minors travelling with fully vaccinated companions</u>:
+										<br /> <b>a.</b> Travelers aged twelve (12) to seventeen (17) must present negative results
+										<br /> of Antigen or RT-PCR test conducted within 72 hours prior to entry to Baguio City.
+										<br /> <b>b.</b> Minors aged 11 and below shall be tested at the option of their 
+										<br /> accompanying parents or adult travel companions.
+									</li>
+									<li>
+										APOR’s and Returning Residents should register at <a href="https://hdf.baguio.gov.ph/" target="_blank">https://hdf.baguio.gov.ph/</a> 
+										<br /> and should secure a QR Code.
+									</li>
+									<li>
+										Those with important appointments at Baguio City should provide an appointment letter 
+										<br /> or letter of acceptance from Baguio so they will be allowed to travel.
+									</li>
+									<li>
+										Mandatory Negative RT-PCR Test for those arriving APOR’s Or Vaccination Card for those 
+										<br /> fully vaccinated individuals whose vaccination were completed 14 days after 
+										<br /> its last Vaccination date.
+									</li>
+									<li>
+										Non-Vaccinated or those that are not fully vaccinated residents yet, 
+										<br /> should require a Negative result of Antigen or RT-PCR whichever is available.
+									</li>
+									
+								</ul>
+							</details>
+							<details open>
+								<summary style="font-weight: bold;">BAGUIO - FAIRVIEW, QC</summary>
+								<ul style="list-style-type:disc; padding-left: 35px;">
+									<li>Valid ID (preferably Government issued ID)</li>
+								</ul>
+							</details>
+						</div>
+					</div>
+					<div class="btn-holder col-sm-6">
+						<input type='submit' name='ticket-confirmed' id="PaymentSummaryChargesContent_btnPayWithPoints" value='CONFIRM RESERVATION' class="btn btnpaynamics btn-pay-with-points btnpaynamics-disabled"/>
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
     <!--Footer-->
     <footer>
         <div class="footer-panel">
@@ -432,6 +516,6 @@ else {
         }
     }
     </script>
-    
 </body>
+
 </html>

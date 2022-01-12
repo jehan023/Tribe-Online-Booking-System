@@ -41,10 +41,11 @@ if (isset($_POST['insertTrip'])) {
             trip_dest varchar(50) NOT NULL,
             trip_date date NOT NULL,
             trip_time varchar(10) NOT NULL,
-            fare decimal(6,2) NOT NULL,
+            fare DECIMAL(6,2) NOT NULL,
             bus_code varchar(10) NOT NULL,
             bus_plateno varchar(8) NOT NULL,
             seats int(5) NOT NULL,
+            book_seats varchar(255) NOT NULL,
             PRIMARY KEY (trip_id)
            )";
 

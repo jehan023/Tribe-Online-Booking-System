@@ -256,20 +256,23 @@ include('addtrip_process.php');
                             <th>Bus Plate No.</th>
                             <th>Seats</th>
                         </tr>";
-
-                        while($row = mysqli_fetch_array($trip_table))
-                        {
-                            echo "<tr>";
-                            echo "<td>" . $row['trip_id'] . "</td>";
-                            echo "<td>" . $row['trip_orig'] . "</td>";
-                            echo "<td>" . $row['trip_dest'] . "</td>";
-                            echo "<td>" . $row['trip_date'] . "</td>";
-                            echo "<td>" . $row['trip_time'] . "</td>";
-                            echo "<td>" . $row['fare'] . "</td>";
-                            echo "<td>" . $row['bus_code'] . "</td>";
-                            echo "<td>" . $row['bus_plateno'] . "</td>";
-                            echo "<td>" . $row['seats'] . "</td>";
-                            echo "</tr>";
+                        if (!empty($trip_table)) {
+                            while($row = mysqli_fetch_array($trip_table))
+                            {
+                                echo "<tr>";
+                                echo "<td>" . $row['trip_id'] . "</td>";
+                                echo "<td>" . $row['trip_orig'] . "</td>";
+                                echo "<td>" . $row['trip_dest'] . "</td>";
+                                echo "<td>" . $row['trip_date'] . "</td>";
+                                echo "<td>" . $row['trip_time'] . "</td>";
+                                echo "<td>" . $row['fare'] . "</td>";
+                                echo "<td>" . $row['bus_code'] . "</td>";
+                                echo "<td>" . $row['bus_plateno'] . "</td>";
+                                echo "<td>" . $row['seats'] . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='9'><center>No Trip Schedules</center></td></tr>";
                         }
                         echo "</table>";
                     ?>
@@ -285,56 +288,33 @@ include('addtrip_process.php');
                 <h3>Bookings</h3>
                 
                 <?php
-                        /*$names_arr = array(1,2,3,4,5,6,);
-                        // Separate Array by " , "
-                        $new_arr = [];
-                        $new_arr[] = 23;
+                    $booking_table = mysqli_query($con,"SELECT * FROM trips");
 
-                        $merge = array_merge($names_arr, $new_arr);
-                        sort($merge);
-                        $names_str = implode(", ", $merge);
+                    echo "<table class='trip-schedules-table'>
+                    <tr>
+                        <th>Trip ID</th>
+                        <th>Available Seats</th>
+                        <th>Booked Seats</th>
+                    </tr>";
 
-                        $book_insert_query = "INSERT INTO bookings (trip_id, max_seats, avail_seats, book_seats) 
-                        VALUES (12,45,40,'".$names_str."')";
-                        
-                        if (mysqli_query($con, $book_insert_query)) {
-                            echo "<script>
-                                alert('Bookings Insertion Complete.');
-                                </script>";
-                        }
-                        else {
-                            echo "<script>
-                                alert('ERROR: Could not able to execute $book_insert_query');
-                                </script>";
-                        }*/
+                    while($row = mysqli_fetch_array($booking_table))
+                    {
+                        echo "<tr>";
+                        echo "<td>" . $row['trip_id'] . "</td>";
+                        echo "<td>" . $row['seats'] . "</td>";
+                        echo "<td>";
+                        foreach (explode(',',$row['book_seats']) as $seatdata){
+                            echo $seatdata; 
+                        }; 
+                        echo "</td>";
+                        echo "</tr>";
 
-                        $booking_table = mysqli_query($con,"SELECT * FROM bookings");
-
-                        echo "<table class='trip-schedules-table'>
-                        <tr>
-                            <th>Trip ID</th>
-                            <th>Max Seats</th>
-                            <th>Available Seats</th>
-                            <th>Booked Seats</th>
-                        </tr>";
-
-                        while($row = mysqli_fetch_array($booking_table))
-                        {
-                            echo "<tr>";
-                            echo "<td>" . $row['trip_id'] . "</td>";
-                            echo "<td>" . $row['max_seats'] . "</td>";
-                            echo "<td>" . $row['avail_seats'] . "</td>";
-                            echo "<td>" . $row['book_seats'] . "</td>";
-                            echo "</tr>";
-
-                            foreach (explode(',',$row['book_seats']) as $seatdata){
-                                echo $seatdata;
-                            };
-                            echo ' count = '.count(explode(',',$row['book_seats']));
-                            echo '<br>';
-                        }
-                        echo "</table>";
-                    ?>
+                        foreach (explode(',',$row['book_seats']) as $seatdata){
+                            echo $seatdata;
+                        };
+                    }
+                    echo "</table>";
+                ?>
             </div>
 
         </main>

@@ -1,6 +1,9 @@
 <?php
-    require('db.php');
-    include('indexsearch_trip.php');
+session_start();
+session_unset();
+session_destroy();
+require('db.php');
+include('indexsearch_trip.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
