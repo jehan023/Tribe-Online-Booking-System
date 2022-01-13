@@ -15,16 +15,11 @@ include('indexsearch_trip.php');
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
-    <script>
-        /*function saveTripID(id) {
-            alert(id);
-            if (confirm('Are you sure to reserve on this schedule?') == true) {
-                localStorage.setItem("reserve_trip_id", id);
-                console.log('var id = '+id);
-                window.location.href = "paymentpassengerinfo.php?tripID=id";
-            }
-        }*/
-    </script>
+    <style>
+        .form-footer-panel {
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
     <!--Header-->
@@ -119,6 +114,9 @@ else {
                     </tbody>
                 </table>
             </div>
+        <div class="form-footer-panel">
+            <a href="index.php" class="booking-back-button"><i class="fas fa-long-arrow-alt-left"></i> Back to Main</a>
+        </div>
         </div>
     </div>
 
@@ -142,7 +140,7 @@ else {
             <div class="footer-list-support">
                 <ul class="footer-list" data-preamble="Support">
                     <li><strong>Support</strong></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="contactus.php">Contact Us</a></li>
                 </ul>
             </div>
         </div>

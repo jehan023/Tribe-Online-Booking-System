@@ -43,33 +43,37 @@
                 
                 <span id="ContactContent_lblTerms" style="display: none;">false</span>
 
-                <div class="inquiries-form">
+                <form method='post' action='addmessage_process.php' class="inquiries-form">
                     <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtName" type="text" id="ContactContent_txtName" placeholder="Name" />
+                        <input name="ContactContent_Name" type="text" id="ContactContent_txtName" placeholder="Name" required/>
                         <span id="ContactContent_RequiredFieldValidator3" style="visibility:hidden;">Name is required</span>
                     </div>
 
                     <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtCompany" type="text" id="ContactContent_txtCompany" placeholder="Company" />
+                        <input name="ContactContent_Company" type="text" id="ContactContent_txtCompany" placeholder="Company/ Organization" required/>
                         <span id="ContactContent_RequiredFieldValidator1" style="visibility:hidden;">Company is required</span>
                     </div>
 
                     <div class="contact-form-panel">
-                        <input name="ctl00$ContactContent$txtEmail" type="text" id="ContactContent_txtEmail" placeholder="Email Address" />
+                        <input name="ContactContent_Email" type="text" id="ContactContent_txtEmail" placeholder="Email Address" required/>
 
                         <span id="ContactContent_RequiredFieldValidator2" style="visibility:hidden;">Email is required</span>
 
                         <span id="ContactContent_RegularExpressionValidator1" style="visibility:hidden;">Invalid Email</span>
                     </div>
 
-                    <textarea name="ctl00$ContactContent$txtMessage" rows="8" cols="20" id="ContactContent_txtMessage" placeholder="Message or Inquiry"></textarea>
+                    <textarea name="ContactContent_Message" rows="10" cols="20" id="ContactContent_txtMessage" placeholder="Message or Inquiry" required></textarea>
                     <div class="form-panel">
                         <span id="ContactContent_RequiredFieldValidator4" style="visibility:hidden;">Message is required</span>
                     </div>
-
-                    <p>Please read and accept the <a href="#!" id="tncbtn">Terms and Conditions</a>.</p>
-                    <input type="submit" name="ctl00$ContactContent$btnSubmit" value="Submit" id="ContactContent_btnSubmit" />
-                </div>
+                    <div>
+                        <input type="checkbox" id="chkTnC" required/>
+                        <b>I have read and agree to the <a href="#!" id="tncbtn" style="cursor: pointer">Terms and Conditions</a>.</b>
+                    </div>
+                    <div class="contact-submit">
+                        <input type="submit" name="Contact_btnSubmit" value="Submit" id="ContactContent_btnSubmit" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -94,7 +98,7 @@
             <div class="footer-list-support">
                 <ul class="footer-list" data-preamble="Support">
                     <li><strong>Support</strong></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="contactus.php">Contact Us</a></li>
                 </ul>
             </div>
         </div>
@@ -403,6 +407,11 @@
             modalContent2.style.display = "none"
         }
     }
+
+    if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
     </script>
+    
 </body>
 </html>

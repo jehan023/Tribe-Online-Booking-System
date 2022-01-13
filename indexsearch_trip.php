@@ -79,6 +79,7 @@ if (isset($_POST['btnNext2'])) {
 	$_SESSION['trip_fare'] = $searched_fare;
 	$_SESSION['bus_code'] = $searched_code;
 	$_SESSION['bus_plate'] = $searched_plate;
+	$_SESSION['payable'] = $searched_fare+50.00;
 
 	echo "<script>
 		window.location.href='paymentticketinfo.php';
@@ -123,10 +124,10 @@ if(isset($_POST['ticket-confirmed'])){
 	$reservation_time = date("Y-m-d h:iA");
 	$_SESSION['reservation_time'] = $reservation_time;
 
-	$passenger_insert = "INSERT INTO passengers (trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, paid)
+	$passenger_insert = "INSERT INTO passengers (trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, payable, paid)
 		VALUES ('".$_SESSION['selected_tID']."', '".$_SESSION['seat_reserve']."', '".$_SESSION['date_depart']."', '".$_SESSION['trip_time']."', '".$_SESSION['pFname']."'
 		, '".$_SESSION['pMname']."', '".$_SESSION['pLname']."', '".$_SESSION['pGender']."', '".$_SESSION['pEmail']."', '".$_SESSION['pMobile']."', '".$_SESSION['pCity']."'
-		, '".$_SESSION['pProvince']."', '$reservation_time', '0')";
+		, '".$_SESSION['pProvince']."', '$reservation_time', '".$_SESSION['payable']."', '0')";
 
 	$check_table = mysqli_query($con, "SHOW TABLES LIKE 'passengers'");
 	if ($check_table->num_rows == 1) {
@@ -156,6 +157,7 @@ if(isset($_POST['ticket-confirmed'])){
 			city varchar (100) NOT NULL,
 			province varchar (100) NOT NULL,
 			reservation datetime NOT NULL,
+			payable decimal (6,2) NOT NULL,
 			paid int(1) NOT NULL,
 			PRIMARY KEY (id)
 		)";

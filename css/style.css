@@ -498,7 +498,22 @@ footer {
   margin: 0px 16px;
   color: brown;
 }
-
+.contact-submit {
+  margin-top: 15px;
+  width: 100%;
+}
+#ContactContent_btnSubmit {
+  background: brown;
+  height: 40px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 10px;
+  width: 90px;
+  cursor: pointer;
+}
+#ContactContent_btnSubmit:hover {
+  background-color: #0a3d52;
+}
 .schedule-block {
   margin: 5px 15% 5px 15%;
   position: relative;

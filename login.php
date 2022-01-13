@@ -122,7 +122,7 @@ else {
             <div class="footer-list-support">
                 <ul class="footer-list" data-preamble="Support">
                     <li><strong>Support</strong></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="contactus.php">Contact Us</a></li>
                 </ul>
             </div>
         </div>

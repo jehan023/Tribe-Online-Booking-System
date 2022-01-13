@@ -19,6 +19,34 @@ body {
     font-family: "Montserrat", sans-serif;
     background-color: #f3f3f3;
 }
+.back-to-index-panel {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    max-width: 500px;
+    margin-top: 10px;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.back-button-content {
+    width: 100%;
+}
+.back-to-index-btn {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: brown;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+}
+.back-to-index-btn:hover {
+  background-color: #0a3d52;
+}
 .ticket-block {
     background: #fff;
     max-width: 500px;
@@ -48,6 +76,10 @@ body {
 .ticket-panel > .ticket-details > .ticket-header > .company-info-header > p {
   margin: 0px;
   font-size: 0.8rem;
+}
+.ticket-panel > .ticket-details > .ticket-header > .company-info-header > .company-name {
+  margin: 0px;
+  font-size: 1rem;
 }
 .ticket-panel > .ticket-details > .ticket-line {
   background: black;
@@ -113,7 +145,7 @@ body {
                 <div class="ticket-header">
                     <img src="images/logo.png" width="80px" height="80px">
                     <div class="company-info-header">
-                        <p><strong>TRIBE Transport Service</strong></p>
+                        <p class="company-name"><strong>TRIBE Transport Service</strong></p>
                         <p>14 Bristrol St., Brgy. North Fairview, Quezon City, Philippines</p>
                         <p>Tel: 8-932-5769/ 8-463-1410</p>
                         <p>CDA REG. NO. 9520-16016210</p>
@@ -211,5 +243,23 @@ body {
             </div>
         </div>
     </div>
+    <div class="back-to-index-panel">
+        <div class="back-button-content">
+            <button class="back-to-index-btn" onclick="backtoIndex()">Back to Main</button>
+        </div>
+    </div>
+    <script>
+        function backtoIndex(){
+            if (confirm('Are you done screenshot your reservation ticket?')) {
+                // Save it!
+                location.href = "index.php";
+            } else {
+                // Do nothing!
+            }
+        }
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 </body>
 </html>

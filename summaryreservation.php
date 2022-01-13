@@ -112,11 +112,11 @@ include('indexsearch_trip.php');
 			<div class="summary-divider"></div>
 
 			<div class="payment-footer-block">
-				<form method="post" target="_blank" action="reservationticket.php" class="payment-footer col-sm-12">
+				<form method="post" action="reservationticket.php" class="payment-footer col-sm-12">
 					<div class="col-sm-6">
 						<div>
 							<input type="checkbox" id="chkTnC" required/>
-							<b>I have read and agree to the <a href="#!" id='btnAccept' onclick='alert("AGREE");' data-toggle="modal" style="cursor: pointer">Terms and Conditions</a>.</b>
+							<b>I have read and agree to the <a href="#!" id="tncbtn" style="cursor: pointer">Terms and Conditions</a>.</b>
 						</div>
 						<div>
 							<input type="checkbox" id="chkCovidTerms" required/>
@@ -206,7 +206,7 @@ include('indexsearch_trip.php');
             <div class="footer-list-support">
                 <ul class="footer-list" data-preamble="Support">
                     <li><strong>Support</strong></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="contactus.php">Contact Us</a></li>
                 </ul>
             </div>
         </div>
