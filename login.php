@@ -56,7 +56,7 @@ if (isset($_POST['username_input']) && isset($_POST['password_input'])) {
         $_SESSION['username'] = $username;
         // Redirect to user dashboard page
         //header("Location: dashboard.php");
-        echo("<script>location.href = 'dashboard.php';</script>");
+        echo("<script>location.href ='dashboard.php?view_panel=generalReports';</script>");
     }
     else {
         echo "<script>

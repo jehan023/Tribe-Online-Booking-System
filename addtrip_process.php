@@ -19,6 +19,7 @@ if (isset($_POST['insertTrip'])) {
         if (mysqli_query($con, $trip_query)) {
             echo "<script>
                 alert('Trip Schedule Insertion Complete.');
+                window.location.href ='dashboard.php?view_panel=tripSchedules';
                 </script>";
 
             echo "<script>
@@ -55,6 +56,7 @@ if (isset($_POST['insertTrip'])) {
             if (mysqli_query($con, $trip_query)) {
                 echo "<script>
                     alert('Trip Schedule Insertion Complete.');
+                    window.location.href ='dashboard.php?view_panel=tripSchedules';
                     </script>";
             }
             else {

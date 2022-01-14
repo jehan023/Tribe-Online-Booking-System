@@ -20,7 +20,7 @@ if (isset($_POST['register'])) {
 			if (mysqli_query($con, $query)) {
                 echo "<script>
                     alert('Registration Complete.');
-					window.location.href='dashboard.php';
+					window.location.href='dashboard.php?view_panel=addUserAcct';
                     </script>";
             }
             else {

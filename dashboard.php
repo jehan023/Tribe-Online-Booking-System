@@ -4,6 +4,7 @@ require('db.php');
 include("auth_session.php");
 include('register_process.php');
 include('addtrip_process.php');
+$panel = $_REQUEST['view_panel'];
 ?>
 
 <!DOCTYPE html>
@@ -69,48 +70,27 @@ include('addtrip_process.php');
                 <img src="images/logo.png" width="50px" height="50px">
                 <h5><strong>Tribe</strong> Dashboard</h5>
             </div>
+<!------- SIDE NAVIGATION ITEMS -------------->
             <div class="app-sidenav">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#general_reports" id="genReports-nav-btn" onclick="showDiv('dash-generalReports')">General Reports</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=generalReports" id="genReports-nav-btn" onclick="showDiv('generalReports')">General Reports</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#trip_schedules" id="tripSchedules-nav-btn" onclick="showDiv('dash-tripSchedules')">Trip Schedules</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=tripSchedules" id="tripSchedules-nav-btn" onclick="showDiv('tripSchedules')">Trip Schedules</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#rent_inquiries" id="rentInquiries-nav-btn" onclick="showDiv('dash-rentInquiries')">Rent Inquiries</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=rentInquiries" id="rentInquiries-nav-btn" onclick="showDiv('rentInquiries')">Rent Inquiries</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#bus_status" id="busStatus-nav-btn" onclick="showDiv('dash-busStatus')">Bus Status</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=busStatus" id="busStatus-nav-btn" onclick="showDiv('busStatus')">Bus Status</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#bookings" id="bookings-nav-btn" onclick="showDiv('dash-bookings')">Bookings</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle" href="#releasesSubmenu" data-toggle="collapse"
-                            aria-expanded="false">Product Releases</a>
-                        <ul class="collapse list-unstyled" id="releasesSubmenu">
-                            <li>
-                                <a class="nav-link" href="#">Release A</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">Release B</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">Release C</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">Release D</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="#">Release E</a>
-                            </li>
-                        </ul>
+                        <a class="nav-link" href="dashboard.php?view_panel=reservation" id="bookings-nav-btn" onclick="showDiv('reservation')">Reservations</a>
                     </li>
                 </ul>
             </div>
@@ -129,7 +109,7 @@ include('addtrip_process.php');
                         Manage
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#add_new_user_acct" id="add-new-account-nav-btn" onclick="showDiv('dash-addUserAcct')">Add new account</a>
+                        <a class="dropdown-item" href="dashboard.php?view_panel=addUserAcct" id="add-new-account-nav-btn" onclick="showDiv('addUserAcct')">Add new account</a>
                         <div class="dropdown-divider">Access</div>
                         <a class="dropdown-item" href="#edit_acct" id="edit-account-nav-btn">Edit account</a>
                     </div>
@@ -141,7 +121,8 @@ include('addtrip_process.php');
         </header>
 
         <main class="app-main">
-            <div id="dash-addUserAcct" class="unhidden">
+<!------- DASH - ADD USER ACCOUNT PANEL -------------->
+            <div id="addUserAcct" class="hidden">
                     <form method="POST" action="" id="register_form">
                         <h1>Add User Account</h1>
                         <div <?php if (isset($name_error)): ?> class="form_error" <?php endif ?> >
@@ -167,9 +148,11 @@ include('addtrip_process.php');
                     </form>
             </div>
 
-            <div id="dash-generalReports" class="hidden"><h3>General Report</h3></div>
+<!------- DASH - GENERAL REPORTS PANEL -------------->
+            <div id="generalReports" class="hidden"><h3>General Report</h3></div>
 
-            <div id="dash-tripSchedules" class="hidden">
+<!------- DASH - TRIP SCHEDULES PANEL -------------->
+            <div id="tripSchedules" class="hidden">
                 <div class="trip-schedules-dataview">
                     <h3>Trip Schedules</h3>
                     <div class="trip-nav">
@@ -254,7 +237,7 @@ include('addtrip_process.php');
                             <th>Fare</th>
                             <th>Bus Code</th>
                             <th>Bus Plate No.</th>
-                            <th>Seats</th>
+                            <th>Avail Seats</th>
                         </tr>";
                         if (!empty($trip_table)) {
                             while($row = mysqli_fetch_array($trip_table))
@@ -280,38 +263,54 @@ include('addtrip_process.php');
                 </div>
             </div>
 
-            <div id="dash-busStatus" class="hidden"><h3>Bus Status</h3></div>
+            <div id="busStatus" class="hidden"><h3>Bus Status</h3></div>
 
-            <div id="dash-rentInquiries" class="hidden"><h3>Rent Inquiries</h3></div>
+<!------- DASH - RENT/MESSAGE/INQUIRIES PANEL -------------->
+            <div id="rentInquiries" class="hidden"><h3>Rent Inquiries</h3></div>
 
-            <div id="dash-bookings" class="hidden">
-                <h3>Bookings</h3>
+<!------- DASH - RESERVATIONS PANEL -------------->
+            <div id="reservation" class="hidden">
+                <h3>Reservation</h3>
                 
                 <?php
-                    $booking_table = mysqli_query($con,"SELECT * FROM trips");
+                    $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
 
                     echo "<table class='trip-schedules-table'>
                     <tr>
+                        <th>Passenger ID</th>
                         <th>Trip ID</th>
-                        <th>Available Seats</th>
-                        <th>Booked Seats</th>
+                        <th>Seat No.</th>
+                        <th>Trip Schedule</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>RESV Time</th>
+                        <th>Payable</th>
+                        <th>Confirmation</th>
                     </tr>";
 
-                    while($row = mysqli_fetch_array($booking_table))
+                    while($row = mysqli_fetch_array($reservation_table))
                     {
                         echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['trip_id'] . "</td>";
-                        echo "<td>" . $row['seats'] . "</td>";
-                        echo "<td>";
-                        foreach (explode(',',$row['book_seats']) as $seatdata){
-                            echo $seatdata; 
-                        }; 
-                        echo "</td>";
+                        echo "<td>" . $row['seat_no'] . "</td>";
+                        echo "<td>" . date("m/d/y", strtotime($row['trip_date'])).' '.date('h:iA', strtotime($row['trip_time'])) . "</td>";
+                        echo "<td>" . $row['lastname'].', '.$row['firstname'].' '.$row['middlename'] . "</td>";
+                        echo "<td>" . $row['gender'] . "</td>";
+                        echo "<td>" . $row['contact'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td>" . $row['city'].', '.$row['province'] . "</td>";
+                        echo "<td>" . $row['reservation'] . "</td>";
+                        echo "<td>" . $row['payable'] . "</td>";
+                        if ($row['paid'] == 0){
+                            echo "<td><button>PENDING</button></td>";
+                        } else {
+                            echo "<td>CONFIRMED</td>";
+                        }
                         echo "</tr>";
-
-                        foreach (explode(',',$row['book_seats']) as $seatdata){
-                            echo $seatdata;
-                        };
                     }
                     echo "</table>";
                 ?>
@@ -326,5 +325,11 @@ include('addtrip_process.php');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
+    <?php 
+        echo "<script>
+        console.log('$panel');
+        document.getElementById('$panel').className = 'unhidden';
+        </script>";
+    ?>
 </body>
 </html>
