@@ -1,10 +1,32 @@
 <?php
-//include auth_session.php file on all user panel pages
 require('db.php');
 include("auth_session.php");
 include('register_process.php');
 include('addtrip_process.php');
 $panel = $_REQUEST['view_panel'];
+
+if(isset($_REQUEST['confirmation'])){
+    updatePassengerStatus();
+}
+        
+function updatePassengerStatus(){
+    require('db.php');
+    $passengerId = $_REQUEST['passengerId'];
+    $passenger_update = "UPDATE passengers set paid = '1'  WHERE  id = '".$passengerId."'";
+
+    if (mysqli_query($con, $passenger_update)) {
+        echo "<script>
+            console.log('Passenger ID: ".$passengerId."');
+            alert('Passenger ID: ".$passengerId." confirmed.');
+            window.location.href='dashboard.php?view_panel=reservation';
+            </script>";
+    }
+    else {
+        echo "<script>
+            alert('ERROR: Could not able to execute $passenger_update');
+            </script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,42 +47,6 @@ $panel = $_REQUEST['view_panel'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            window.history.replaceState("","",window.location.href)
-        });
-        /*$("#register_form").submit(function(e) {
-            e.preventDefault(); // <==stop page refresh==>
-        });*/
-        $("#insert-trip-form").submit(function(e) {
-            e.preventDefault(); // <==stop page refresh==>
-        });
-
-        //Populate destination drop down list
-        function configureDropDownLists(orig,dest) {
-            var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];
-            dest.options.length = 1;
-            if(orig.value == '') {
-                dest.options.length = 1;
-            } else {
-                for (i = 0; i < points.length; i++) {
-                    if(orig.value != points[i]) {
-                        createOption(dest, points[i], points[i]);
-                    }
-                }
-            }
-        }
-        function createOption(dest, text, value) {
-            var opt = document.createElement('option');
-            opt.value = value;
-            opt.text = text;
-            dest.options.add(opt);
-        }
-        //Set input number to two decimal places
-        function setTwoNumberDecimal(fare) {
-            fare.value = parseFloat(fare.value).toFixed(2);
-        }
-    </script>
 </head>
 
 <body>
@@ -82,7 +68,7 @@ $panel = $_REQUEST['view_panel'];
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php?view_panel=rentInquiries" id="rentInquiries-nav-btn" onclick="showDiv('rentInquiries')">Rent Inquiries</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=messageInquiries" id="rentInquiries-nav-btn" onclick="showDiv('messageInquiries')">Inquiries</a>
                     </li>
 
                     <li class="nav-item">
@@ -266,16 +252,79 @@ $panel = $_REQUEST['view_panel'];
             <div id="busStatus" class="hidden"><h3>Bus Status</h3></div>
 
 <!------- DASH - RENT/MESSAGE/INQUIRIES PANEL -------------->
-            <div id="rentInquiries" class="hidden"><h3>Rent Inquiries</h3></div>
+            <div id="messageInquiries" class="hidden">
+                <h3>Message - Inquiries</h3>
+                <div class="inquiries-data-options">
+                    <form method="post" action="">
+                        <button type="submit" name="inquiries-all-btn" id="all_btn" onclick="">View All</button>
+                        <button type="button" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unreads</button>
+                    </form>
+                </div>
+                <div class='inquiry-data-holder'>
+                    <table class='inquiry-data-content'>
+                        <tr>
+                            <td class='inquiry-sender'>Sender</td>
+                            <td class='inquiry-email'>sender@email.com</td>
+                            <td class='inquiry-timestamp'>01/17/2022 12:02 AM</td>
+                        </tr>
+                        <tr>
+                            <td class='inquiry-company' colspan='3'>Tribe Transport Service Coop</td>
+                        </tr>
+                        <tr>
+                            <td class='inquiry-message' colspan='3'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <?php
+                    $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries");
+                ?>
+            </div>
 
 <!------- DASH - RESERVATIONS PANEL -------------->
             <div id="reservation" class="hidden">
                 <h3>Reservation</h3>
+
+                <div class="passenger-data-options">
+                    <form method="post" action="">
+                        <button type="submit" name="passenger-all-btn" id="all_btn" onclick="showPassengerTable()">View All</button>
+                        <button type="button" name="passenger-search-btn" id="search_btn" onclick="showPassengerSearchForm()">Search Passenger</button>
+                    </form>
+                </div>
+                <form method="post" class="passenger-search-form" id="passenger-search-form" style="display:none">
+                    <h2>Search Passenger</h2>
+                    <div class="pass-first-row">
+                        <div class="pass-first-row-input">
+                            <label>Trip ID</label><br>
+                            <input type="text" class="passenger-input-search" name="trip_id-search" id="trip_id-search" placeholder="Trip ID" required/>
+                        </div>
+                        <div class="pass-first-row-input">
+                            <label>Trip Date Departure</label><br>
+                            <input type="date" class="passenger-input-search" name="trip_date-search" id="trip_date-search" placeholder="Trip Date" required/>
+                        </div>
+                    </div>
+                    <div class="pass-second-row">
+                        <div class="pass-second-row-input">
+                            <label>Seat Number</label><br>
+                            <input type="number" class="passenger-input-search" name="seat_no-search" id="seat_no-search" placeholder="Seat#" required/>
+                        </div>
+                        <div class="pass-second-row-input">
+                            <label>Lastname</label><br>
+                            <input type="text" class="passenger-input-search" name="lastname-search" id="lastname-search" placeholder="Lastname" onkeyup="this.value = this.value.toUpperCase();" required/>
+                        </div>
+                    </div>
+                    <div class="passenger-search-form-btn">
+                        <button type="submit" name="searchPassenger" id="searchPassenger_btn">Search</button>
+                    </div>
+                </form>
                 
                 <?php
                     $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
-
-                    echo "<table class='trip-schedules-table'>
+                    echo "<table class='trip-schedules-table' id='passenger-table'>
                     <tr>
                         <th>Passenger ID</th>
                         <th>Trip ID</th>
@@ -283,34 +332,54 @@ $panel = $_REQUEST['view_panel'];
                         <th>Trip Schedule</th>
                         <th>Name</th>
                         <th>Gender</th>
-                        <th>Address</th>
                         <th>Contact</th>
                         <th>Email</th>
+                        <th>Address</th>
                         <th>RESV Time</th>
                         <th>Payable</th>
-                        <th>Confirmation</th>
+                        <th>Status</th>
                     </tr>";
 
-                    while($row = mysqli_fetch_array($reservation_table))
-                    {
-                        echo "<tr>";
-                        echo "<td>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['trip_id'] . "</td>";
-                        echo "<td>" . $row['seat_no'] . "</td>";
-                        echo "<td>" . date("m/d/y", strtotime($row['trip_date'])).' '.date('h:iA', strtotime($row['trip_time'])) . "</td>";
-                        echo "<td>" . $row['lastname'].', '.$row['firstname'].' '.$row['middlename'] . "</td>";
-                        echo "<td>" . $row['gender'] . "</td>";
-                        echo "<td>" . $row['contact'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
-                        echo "<td>" . $row['city'].', '.$row['province'] . "</td>";
-                        echo "<td>" . $row['reservation'] . "</td>";
-                        echo "<td>" . $row['payable'] . "</td>";
-                        if ($row['paid'] == 0){
-                            echo "<td><button>PENDING</button></td>";
-                        } else {
-                            echo "<td>CONFIRMED</td>";
+                    if (isset($_POST['searchPassenger'])){
+                        echo "<script>document.getElementById('passenger-table').style.display = 'block';</script>";
+
+                        $search_inputs_passenger = "SELECT * FROM passengers WHERE trip_id='".$_POST['trip_id-search']."' AND trip_date='".$_POST['trip_date-search']."'
+                        AND seat_no='".$_POST['seat_no-search']."' AND lastname LIKE '".$_POST['lastname-search']."%'";
+                        $reservation_table = mysqli_query($con,$search_inputs_passenger);
+
+                        echo "<script>console.log('Search btn');</script>";
+                        
+                    } if (isset($_POST['passenger-all-btn'])){
+                        $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
+                        echo "<script>console.log('View All btn');</script>";
+                    }
+
+                    if (mysqli_num_rows($reservation_table) > 0) {
+                        while($row = mysqli_fetch_array($reservation_table))
+                        {
+                            echo "<tr>";
+                            echo "<td>" . $row['id'] . "</td>";
+                            echo "<td>" . $row['trip_id'] . "</td>";
+                            echo "<td>" . $row['seat_no'] . "</td>";
+                            echo "<td>" . date("m/d/y", strtotime($row['trip_date'])).' '.date('h:iA', strtotime($row['trip_time'])) . "</td>";
+                            echo "<td>" . $row['lastname'].', '.$row['firstname'].' '.$row['middlename'] . "</td>";
+                            echo "<td>" . $row['gender'] . "</td>";
+                            echo "<td>" . $row['contact'] . "</td>";
+                            echo "<td>" . $row['email'] . "</td>";
+                            echo "<td>" . $row['city'].', '.$row['province'] . "</td>";
+                            echo "<td>" . $row['reservation'] . "</td>";
+                            echo "<td>" . $row['payable'] . "</td>";
+                            if ($row['paid'] == 0){
+                                echo "<td id='passenger-status-pending'>";
+                                echo "<button id='passenger-status-btn' onclick=\"confirmationPassenger('".$row['id']."')\">PENDING</button>";
+                                echo "</td>";
+                            } else {
+                                echo "<td class='passenger-status-confirmed'>CONFIRMED</td>";
+                            }
+                            echo "</tr>";
                         }
-                        echo "</tr>";
+                    } else {
+                        echo "<tr><td colspan='12'><center>No Passenger/s Found.</center></td></tr>";
                     }
                     echo "</table>";
                 ?>

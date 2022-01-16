@@ -26,3 +26,45 @@ function hideTripForm() {
     document.getElementById('add_trip_btn').style.display = "block";
     document.getElementById('insert-new-trip-schedule').style.display = "none";
 }
+//Populate destination drop down list
+function configureDropDownLists(orig,dest) {
+    var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];
+    dest.options.length = 1;
+    if(orig.value == '') {
+        dest.options.length = 1;
+    } else {
+        for (i = 0; i < points.length; i++) {
+            if(orig.value != points[i]) {
+                createOption(dest, points[i], points[i]);
+            }
+        }
+    }
+}
+function createOption(dest, text, value) {
+    var opt = document.createElement('option');
+    opt.value = value;
+    opt.text = text;
+    dest.options.add(opt);
+}
+//Set input number to two decimal places
+function setTwoNumberDecimal(fare) {
+    fare.value = parseFloat(fare.value).toFixed(2);
+}
+//Show Search Passenger Form
+function showPassengerSearchForm(){
+    document.getElementById('passenger-search-form').style.display = "block";
+    document.getElementById('passenger-table').style.display = "none";
+}
+function showPassengerTable(){
+    document.getElementById('passenger-search-form').style.display = "none";
+    document.getElementById('passenger-table').style.display = "block";
+}
+function confirmationPassenger(pId){
+    if(confirm('Are you sure to confirm this passenger?')){
+        window.location.href='dashboard.php?view_panel=reservation&passengerId='+pId+'&confirmation=true';
+    }
+}
+
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}

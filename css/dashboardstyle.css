@@ -254,7 +254,6 @@ a {
 /* ------ TRIP SCHEDULE ----------- */
 .trip-nav {
   overflow: hidden;
-  background-color: #e9e9e9;
 }
 .search-trip-schedules{
   float: left;
@@ -306,7 +305,7 @@ a {
 }
 /* ------ INSERT NEW TRIP SCHEDULE ----------- */
 #insert-new-trip-schedule {
-  background-color: rgb(209, 209, 209);
+  background-color: cornsilk;
   padding: 10px;
   display: none;
 }
@@ -315,7 +314,7 @@ a {
   margin: 20px auto;
   padding: 30px 25px 30px 25px;
   border: none;
-  background: wheat;
+  background: cornsilk;
 }
 .new-trip-panel h1 {
   border-bottom: 2px solid rgb(35, 35, 35);
@@ -391,7 +390,6 @@ a {
 }
 .trip-schedules-table {
   border: 1px solid black;
-  table-layout:fixed;
   width:95%;
   margin:25px auto;
 
@@ -399,4 +397,71 @@ a {
 .trip-schedules-table th, td {
   border: 1px solid black;
   padding:5px;
+}
+.trip-schedules-table td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.trip-schedules-table th {
+  text-align: center;
+  background: cornflowerblue;
+}
+.passenger-data-options {
+  display: block;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 0px auto;
+  box-sizing: border-box; 
+}
+.passenger-search-form {
+  background: cornsilk;
+  padding: 10px 35%;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100vh;
+}
+.pass-first-row-input, .pass-second-row-input {
+  text-align: justify;
+  margin-top: 5px;
+}
+.pass-first-row-input input, .pass-second-row-input input {
+  width: 100%;
+  height: 40px;
+  font-size: 1rem;
+}
+.pass-first-row-input label, .pass-second-row-input label {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.passenger-search-form-btn {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#searchPassenger_btn {
+  background: brown;
+  color: white;
+  width: 100%;
+  height: 40px;
+  font-weight: bold;
+}
+#passenger-status-btn {
+  width: 100%;
+  background: maroon;
+  font-weight: bold;
+  border-radius: 5px;
+  color: white;
+}
+#passenger-status-btn:hover {
+  background: red;
+}
+.trip-schedules-table tr:hover {
+  background: #C7B198;
+}
+.passenger-status-confirmed {
+  color: green;
+  font-weight: bold;
+}
+.inquiry-data-holder {
+  border: 1px solid black;
+  padding: 5px
 }
