@@ -461,7 +461,66 @@ a {
   color: green;
   font-weight: bold;
 }
+.inquiries-data-options {
+  margin: 0px 3%;
+  background: grey;
+}
 .inquiry-data-holder {
-  border: 1px solid black;
-  padding: 5px
+  border: 2px solid black;
+  padding: 10px;
+  margin: 10px 3%;
+  background: cornsilk;
+}
+.inquiry-data-panel {
+  display: flex;
+}
+.inbox-icon-container {
+  box-sizing: border-box;
+  display: inline-block;
+  height: min-content;
+  text-align: center;
+}
+#inbox-icon {
+  color: black;
+  padding: 12px;
+  width: 70px;
+}
+.inquiry-data-content {
+  display: inline-block;
+  margin-left: 5px;
+  table-layout: auto !important;
+}
+.inquiry-data-content td {
+  border: none;
+}
+.inbox-data-action {
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+}
+.inquiry-reply-btn, .inquiry-delete-btn {
+  width: 85px;
+  font-weight: bold;
+  padding: 3px 10px;
+  text-align: center;
+}
+.inquiry-reply-btn {
+  background: rgb(82, 119, 231);
+  color: #f1f1f1;
+}
+.inquiry-delete-btn {
+  background: rgb(128, 28, 28);
+  color: #f1f1f1;
+}
+.inquiry-timestamp {
+  text-align: right;
+  font-weight: bold;
+}
+.inquiry-sender, .inquiry-company {
+  width: 1%;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.inquiry-message {
+  text-align: justify;
 }

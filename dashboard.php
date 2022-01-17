@@ -41,7 +41,8 @@ function updatePassengerStatus(){
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/dashboardstyle.css">
     <script type="text/javascript" src="js/dashboardscript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -257,32 +258,53 @@ function updatePassengerStatus(){
                 <div class="inquiries-data-options">
                     <form method="post" action="">
                         <button type="submit" name="inquiries-all-btn" id="all_btn" onclick="">View All</button>
-                        <button type="button" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unreads</button>
+                        <button type="submit" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unreads</button>
                     </form>
                 </div>
-                <div class='inquiry-data-holder'>
-                    <table class='inquiry-data-content'>
-                        <tr>
-                            <td class='inquiry-sender'>Sender</td>
-                            <td class='inquiry-email'>sender@email.com</td>
-                            <td class='inquiry-timestamp'>01/17/2022 12:02 AM</td>
-                        </tr>
-                        <tr>
-                            <td class='inquiry-company' colspan='3'>Tribe Transport Service Coop</td>
-                        </tr>
-                        <tr>
-                            <td class='inquiry-message' colspan='3'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
                 <?php
                     $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries");
+                    if(isset($_POST['inquiries-all-btn'])){
+                        $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries");
+                    } 
+                    if(isset($_POST['inquiries-unread-btn'])){
+                        $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0'");
+                    }
+
+                    if (mysqli_num_rows($inquiries_table) > 0) {
+                        while($row = mysqli_fetch_array($inquiries_table))
+                        {
+                            echo "<div class='inquiry-data-holder'>
+                                <div class='inquiry-data-panel'>";
+                                if($row['responded'] == 1){
+                                    echo "<div class='inbox-icon-container' style='background: green;'><i class='fas fa-user-check fa-3x' id='inbox-icon' aria-hidden='true'></i></div>";
+                                } else {
+                                    echo "<div class='inbox-icon-container' style='background: red;'><i class='fas fa-user fa-3x' id='inbox-icon' aria-hidden='true'></i></div>";
+                                }
+                                    echo "<table class='inquiry-data-content'>
+                                        <tr>
+                                            <td class='inquiry-sender'>".$row['sender']."</td>
+                                            <td class='inquiry-email'>".$row['email']."</td>
+                                            <td class='inquiry-timestamp'>".date('Y/m/d h:i A', strtotime($row['sent_time']))."</td>
+                                        </tr>
+                                        <tr>
+                                            <td class='inquiry-company' colspan='3'>".$row['company']."</td>
+                                        </tr>
+                                        <tr>
+                                            <td class='inquiry-message' colspan='3'>".$row['txt_mssg']."</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class='inbox-data-action'>
+                                    <button class='inquiry-reply-btn' onclick=\"sendMail('".$row['email']."')\">Reply</button>
+                                    <button class='inquiry-delete-btn'>Delete</button>
+                                </div>
+                            </div>";
+                        }
+                    } else {
+                        echo "<div><center><strong>Inbox Empty.</strong></center></div>";
+                    }
                 ?>
+                
             </div>
 
 <!------- DASH - RESERVATIONS PANEL -------------->
@@ -346,12 +368,9 @@ function updatePassengerStatus(){
                         $search_inputs_passenger = "SELECT * FROM passengers WHERE trip_id='".$_POST['trip_id-search']."' AND trip_date='".$_POST['trip_date-search']."'
                         AND seat_no='".$_POST['seat_no-search']."' AND lastname LIKE '".$_POST['lastname-search']."%'";
                         $reservation_table = mysqli_query($con,$search_inputs_passenger);
-
-                        echo "<script>console.log('Search btn');</script>";
                         
                     } if (isset($_POST['passenger-all-btn'])){
                         $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
-                        echo "<script>console.log('View All btn');</script>";
                     }
 
                     if (mysqli_num_rows($reservation_table) > 0) {
@@ -367,7 +386,7 @@ function updatePassengerStatus(){
                             echo "<td>" . $row['contact'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['city'].', '.$row['province'] . "</td>";
-                            echo "<td>" . $row['reservation'] . "</td>";
+                            echo "<td>" . date('m/d/y h:iA', strtotime($row['reservation'])) . "</td>";
                             echo "<td>" . $row['payable'] . "</td>";
                             if ($row['paid'] == 0){
                                 echo "<td id='passenger-status-pending'>";
@@ -394,9 +413,19 @@ function updatePassengerStatus(){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
+
+    <script>
+        function sendMail(receiver) {
+            var link = "mailto:" + receiver
+                    + "?subject=" + encodeURIComponent("Tribe Transport Reply")
+                    + "&body=" + encodeURIComponent('THIS IS TRIBE REPLY.')
+            ;
+            
+            window.location.href = link;
+        }
+    </script>
     <?php 
         echo "<script>
-        console.log('$panel');
         document.getElementById('$panel').className = 'unhidden';
         </script>";
     ?>
