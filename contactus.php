@@ -39,6 +39,7 @@
                 <h1>CONTACT US</h1>
                 <p>Do you want a qoutation for our services?</p>
                 <p>We are more than happy to hear from you. Kindly fill-out the form below.</p>
+                <p>Or directly email us on <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bookings.tribe@gmail.com&su=Customer+Inquiry" target="_blank">bookings.tribe@gmail.com</a></p>
 
                 
                 <span id="ContactContent_lblTerms" style="display: none;">false</span>
@@ -407,10 +408,16 @@
             modalContent2.style.display = "none"
         }
     }
-
     if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }
+    function sendMail(){
+        var link = "mailto:bookings.tribe@gmail.com"
+                    + "?subject=" + encodeURIComponent("Customer Inquiry")
+                    + "&body=" + encodeURIComponent('Good day, Tribe Transport.')
+            ;
+        window.location.href = link;
+    }
     </script>
     
 </body>

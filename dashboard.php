@@ -16,7 +16,6 @@ function updatePassengerStatus(){
 
     if (mysqli_query($con, $passenger_update)) {
         echo "<script>
-            console.log('Passenger ID: ".$passengerId."');
             alert('Passenger ID: ".$passengerId." confirmed.');
             window.location.href='dashboard.php?view_panel=reservation';
             </script>";
@@ -97,8 +96,8 @@ function updatePassengerStatus(){
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="dashboard.php?view_panel=addUserAcct" id="add-new-account-nav-btn" onclick="showDiv('addUserAcct')">Add new account</a>
-                        <div class="dropdown-divider">Access</div>
-                        <a class="dropdown-item" href="#edit_acct" id="edit-account-nav-btn">Edit account</a>
+                        <!-- <div class="dropdown-divider">Access</div>
+                        <a class="dropdown-item" href="#edit_acct" id="edit-account-nav-btn">Edit account</a> -->
                     </div>
                 </li>
                 <li class="nav-item">
@@ -143,13 +142,15 @@ function updatePassengerStatus(){
                 <div class="trip-schedules-dataview">
                     <h3>Trip Schedules</h3>
                     <div class="trip-nav">
-                        <form action="" class="search-trip-schedules">
-                            <input type="text" placeholder="Search..." name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                        <form method='post' class="search-trip-schedules">
+                            <input type="text" placeholder="Search..." name="search-input">
+                            <button type="submit" name="search-trip-btn"><i class="fa fa-search"></i></button>
                         </form>
-                        <div class="add_btn_div">
+                        <form method='post' class="trip-data-options">
                             <button type="button" name="add-trip-btn" id="add_trip_btn" onclick="showTripForm()">+ New Trip</button>
-                        </div>
+                            <button type="submit" name="all-trip-btn" id="all-trip-btn">View All</button>
+                            <button type="submit" name="sort-trip-btn" id="sort-trip-btn">Arrange by Sched</button>
+                        </form>
                     </div>
                 </div>
 
@@ -214,6 +215,21 @@ function updatePassengerStatus(){
                     <?php
                         $trip_table = mysqli_query($con,"SELECT * FROM trips");
 
+                        if(isset($_POST['search-trip-btn'])){
+                            $search_input = $_POST['search-input'];
+                            $search_query = "SELECT * FROM trips WHERE trip_id LIKE '%$search_input%' 
+                                OR trip_orig LIKE '%$search_input%' 
+                                OR trip_dest LIKE '%$search_input%'
+                                OR trip_date LIKE '%$search_input%'
+                                OR bus_plateno LIKE '%$search_input%'  
+                                OR bus_code LIKE '%$search_input%'";
+                            $trip_table = mysqli_query($con,$search_query);
+                        } if(isset($_POST['all-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips");
+                        } if(isset($_POST['sort-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips ORDER BY trip_date DESC, trip_time DESC");
+                        }
+
                         echo "<table class='trip-schedules-table'>
                         <tr>
                             <th>Trip ID</th>
@@ -250,7 +266,10 @@ function updatePassengerStatus(){
                 </div>
             </div>
 
-            <div id="busStatus" class="hidden"><h3>Bus Status</h3></div>
+<!------- DASH - BUS STATUS PANEL -------------->
+            <div id="busStatus" class="hidden">
+                <h3>Bus Status</h3>
+            </div>
 
 <!------- DASH - RENT/MESSAGE/INQUIRIES PANEL -------------->
             <div id="messageInquiries" class="hidden">
@@ -258,7 +277,8 @@ function updatePassengerStatus(){
                 <div class="inquiries-data-options">
                     <form method="post" action="">
                         <button type="submit" name="inquiries-all-btn" id="all_btn" onclick="">View All</button>
-                        <button type="submit" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unreads</button>
+                        <button type="submit" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unread</button>
+                        <button type="submit" name="inquiries-read-btn" id="read_btn" onclick="">Show Replied</button>
                     </form>
                 </div>
                 <?php
@@ -269,11 +289,14 @@ function updatePassengerStatus(){
                     if(isset($_POST['inquiries-unread-btn'])){
                         $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0'");
                     }
+                    if(isset($_POST['inquiries-read-btn'])){
+                        $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='1'");
+                    }
 
                     if (mysqli_num_rows($inquiries_table) > 0) {
                         while($row = mysqli_fetch_array($inquiries_table))
                         {
-                            echo "<div class='inquiry-data-holder'>
+                            echo "<form method='post' action='addtrip_process.php' class='inquiry-data-holder'>
                                 <div class='inquiry-data-panel'>";
                                 if($row['responded'] == 1){
                                     echo "<div class='inbox-icon-container' style='background: green;'><i class='fas fa-user-check fa-3x' id='inbox-icon' aria-hidden='true'></i></div>";
@@ -296,9 +319,9 @@ function updatePassengerStatus(){
                                 </div>
                                 <div class='inbox-data-action'>
                                     <button class='inquiry-reply-btn' onclick=\"sendMail('".$row['email']."')\">Reply</button>
-                                    <button class='inquiry-delete-btn'>Delete</button>
+                                    <button type='submit' name='delete-inquiry-data' class='inquiry-delete-btn' value='".$row['mssg_id']."' onclick=\"return confirm('Are you sure to delete this inquiry?');\">Delete</button>
                                 </div>
-                            </div>";
+                            </form>";
                         }
                     } else {
                         echo "<div><center><strong>Inbox Empty.</strong></center></div>";
@@ -313,8 +336,10 @@ function updatePassengerStatus(){
 
                 <div class="passenger-data-options">
                     <form method="post" action="">
-                        <button type="submit" name="passenger-all-btn" id="all_btn" onclick="showPassengerTable()">View All</button>
                         <button type="button" name="passenger-search-btn" id="search_btn" onclick="showPassengerSearchForm()">Search Passenger</button>
+                        <button type="submit" name="passenger-all-btn" id="all_btn" onclick="showPassengerTable()">View All</button>
+                        <button type="submit" name="passenger-pendings-btn" id="pending_btn" onclick="showPassengerTable()">View Pendings</button>
+                        <button type="submit" name="passenger-confirmed-btn" id="confirmed_btn" onclick="showPassengerTable()">View Confirmed</button>
                     </form>
                 </div>
                 <form method="post" class="passenger-search-form" id="passenger-search-form" style="display:none">
@@ -371,6 +396,10 @@ function updatePassengerStatus(){
                         
                     } if (isset($_POST['passenger-all-btn'])){
                         $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
+                    } if (isset($_POST['passenger-pendings-btn'])){
+                        $reservation_table = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0'");
+                    } if (isset($_POST['passenger-confirmed-btn'])){
+                        $reservation_table = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1'");
                     }
 
                     if (mysqli_num_rows($reservation_table) > 0) {
@@ -420,7 +449,6 @@ function updatePassengerStatus(){
                     + "?subject=" + encodeURIComponent("Tribe Transport Reply")
                     + "&body=" + encodeURIComponent('THIS IS TRIBE REPLY.')
             ;
-            
             window.location.href = link;
         }
     </script>

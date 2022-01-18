@@ -67,4 +67,16 @@ if (isset($_POST['insertTrip'])) {
         }
     }
 }
+
+if(isset($_POST['delete-inquiry-data'])){
+    $mssg_id = $_POST['delete-inquiry-data'];
+    $del = mysqli_query($con,"DELETE FROM inquiries WHERE mssg_id = '$mssg_id'"); // delete query
+    if($del)
+    {
+        header("location:dashboard.php?view_panel=messageInquiries"); // redirects to all records page
+        exit;	
+    } else {
+        echo "Error deleting record"; // display error message if not delete
+    }
+}
 ?>

@@ -253,13 +253,13 @@ a {
 
 /* ------ TRIP SCHEDULE ----------- */
 .trip-nav {
-  overflow: hidden;
+  display: flex;
 }
 .search-trip-schedules{
   float: left;
   display: block;
   height: 35px;
-  margin-left: 5%;
+  margin-left: 3%;
   width: 50%;
   box-sizing: border-box;
 }
@@ -287,17 +287,31 @@ a {
   border: 2px solid black;
   border-left: none;
 }
+.trip-data-options {
+  display: flex;
+  text-align: right;
+}
 #add_trip_btn {
-  display: block;
-  float: right;
   height: 35px;
   width: 100px;
-  margin-right: 5%;
+  margin-right: 3%;
   margin-left:auto;
   color: white;
   background: brown;
   border: none;
   font-weight: bold;
+}
+#all-trip-btn {
+  font-weight: bold;
+  width: 100px;
+  height: 35px;
+  margin-right: 3%;
+}
+#sort-trip-btn {
+  font-weight: bold;
+  width: 145px;
+  height: 35px;
+  margin-right: 3%;
 }
 #add_trip_btn:hover {
   background: rgb(214, 14, 14);
@@ -391,7 +405,8 @@ a {
 .trip-schedules-table {
   border: 1px solid black;
   width:95%;
-  margin:25px auto;
+  margin:25px 3%;
+  box-sizing: border-box;
 
 }
 .trip-schedules-table th, td {
@@ -408,10 +423,10 @@ a {
 }
 .passenger-data-options {
   display: block;
-  margin-left: 5%;
-  margin-right: 5%;
-  padding: 0px auto;
-  box-sizing: border-box; 
+  margin: 0px 3%;
+  box-sizing: border-box;
+  text-align: right;
+  background: rgb(182, 182, 182);
 }
 .passenger-search-form {
   background: cornsilk;
@@ -463,7 +478,9 @@ a {
 }
 .inquiries-data-options {
   margin: 0px 3%;
-  background: grey;
+  background: rgb(182, 182, 182);
+  box-sizing: border-box;
+  text-align: right;
 }
 .inquiry-data-holder {
   border: 2px solid black;
@@ -523,4 +540,8 @@ a {
 }
 .inquiry-message {
   text-align: justify;
+}
+h3 {
+  margin: 15px 3%;
+  font-weight: bolder;
 }
