@@ -64,6 +64,16 @@ function confirmationPassenger(pId){
         window.location.href='dashboard.php?view_panel=reservation&passengerId='+pId+'&confirmation=true';
     }
 }
+function confirmationTripDeparted(tID){
+    if(confirm('Trip ID:'+tID+' Departed?')){
+        window.location.href='dashboard.php?view_panel=tripStatus&tripId='+tID+'&departed=true';
+    }
+}
+function confirmationTripArrived(tID){
+    if(confirm('Trip ID:'+tID+' Arrived?')){
+        window.location.href='dashboard.php?view_panel=tripStatus&tripId='+tID+'&arrived=true';
+    }
+}
 
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );

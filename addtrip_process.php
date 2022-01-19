@@ -11,8 +11,8 @@ if (isset($_POST['insertTrip'])) {
     $bus_plate = $_POST['plateno'];
     $seats = $_POST['seats'];
 
-    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, fare, bus_code, bus_plateno, seats) 
-        VALUES ('$origin', '$destination', '$date', '$time', '$fare', '$bus_code', '$bus_plate', '$seats')";
+    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, fare, bus_code, bus_plateno, seats, departed, arrived, status) 
+        VALUES ('$origin', '$destination', '$date', '$time', '$fare', '$bus_code', '$bus_plate', '44', '', '', '0')";
 
     $result = mysqli_query($con, "SHOW TABLES LIKE 'trips'");
     if ($result->num_rows == 1) {
@@ -47,6 +47,9 @@ if (isset($_POST['insertTrip'])) {
             bus_plateno varchar(8) NOT NULL,
             seats int(5) NOT NULL,
             book_seats varchar(255) NOT NULL,
+            departed datetime NOT NULL,
+            arrived datetime NOT NULL,
+            status int(1) NOT NULL,
             PRIMARY KEY (trip_id)
            )";
 
@@ -78,5 +81,19 @@ if(isset($_POST['delete-inquiry-data'])){
     } else {
         echo "Error deleting record"; // display error message if not delete
     }
+}
+
+if(isset($_POST['inquiry-reply-data'])){
+    $mssg_id = $_POST['inquiry-reply-data'];
+    $inquiry_update = "UPDATE inquiries set responded = '1' WHERE mssg_id = '".$mssg_id."'";
+    if (mysqli_query($con, $inquiry_update)) {
+		header("location:dashboard.php?view_panel=messageInquiries"); // redirects to all records page
+        exit;
+	}
+	else {
+		echo "<script>
+			alert('ERROR: Could not able to execute $inquiry_update');
+			</script>";
+	}
 }
 ?>

@@ -296,9 +296,6 @@ a {
   width: 100px;
   margin-right: 3%;
   margin-left:auto;
-  color: white;
-  background: brown;
-  border: none;
   font-weight: bold;
 }
 #all-trip-btn {
@@ -312,10 +309,6 @@ a {
   width: 145px;
   height: 35px;
   margin-right: 3%;
-}
-#add_trip_btn:hover {
-  background: rgb(214, 14, 14);
-  border: 2px solid black;
 }
 /* ------ INSERT NEW TRIP SCHEDULE ----------- */
 #insert-new-trip-schedule {
@@ -475,6 +468,7 @@ a {
 .passenger-status-confirmed {
   color: green;
   font-weight: bold;
+  text-align: center;
 }
 .inquiries-data-options {
   margin: 0px 3%;
@@ -544,4 +538,90 @@ a {
 h3 {
   margin: 15px 3%;
   font-weight: bolder;
+}
+.trip-status-btn {
+  width: 100% ;
+  font-weight: bold;
+}
+#departed-status-btn {  
+  background: rgb(82, 119, 231);
+  color: #f1f1f1;
+}
+#arrived-status-btn {
+  background: rgb(128, 28, 28);
+  color: #f1f1f1;
+}
+#arrived-status-btn:hover {
+  background: red;
+  color: #f1f1f1;
+}
+#departed-status-btn:hover {  
+  background: rgb(0, 64, 255);
+  color: #f1f1f1;
+}
+.status-options-btn {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.status-options-btn:hover, .inquiry-options-btn:hover, .reservation-options-btn:hover, .trip-options-btn:hover {
+  background: rgb(19, 105, 19);
+  color: #f1f1f1;
+}
+.inquiry-options-btn, .reservation-options-btn {
+  font-weight: bold;
+  margin-left: 10px;
+}
+/* --------- GENERAL REPORTS --------*/
+.reservation-panel, .trips-panel, .inquiries-panel {
+  display: flex;
+  margin: 0px 3%;
+}
+.trips-panel-content, .inquiries-panel-content {
+  display: inline-block;
+  margin: 0px 3%;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid black;
+  width: 33%;
+}
+.reservation-panel-content {
+  display: inline-block;
+  margin: 0px 3%;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid black;
+  width: 25%;
+}
+.reservation-panel-content{
+  background: #fcb2a9;
+}
+.trips-panel-content{
+  background: #94e4c9;
+}
+.inquiries-panel-content{
+  background: #f4a261;
+}
+.reservation-panel-content h4 {
+  border-bottom: 1px solid black;
+  background: blanchedalmond;
+  font-weight: bold
+}
+.trips-panel-content h4 {
+  border-bottom: 1px solid black;
+  background: blanchedalmond;
+  font-weight: bold
+}
+.inquiries-panel-content h4 {
+  border-bottom: 1px solid black;
+  background: blanchedalmond;
+  font-weight: bold;
+}
+.reservation-panel-header, .trips-panel-header, .inquiries-panel-header {
+  display: flex;
+  margin: 15px 3%;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  justify-content: space-between;
+  background: rgb(209, 209, 209);
 }

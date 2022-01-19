@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Manila");
 require('db.php');
 include("auth_session.php");
 include('register_process.php');
@@ -7,6 +8,14 @@ $panel = $_REQUEST['view_panel'];
 
 if(isset($_REQUEST['confirmation'])){
     updatePassengerStatus();
+}
+
+if(isset($_REQUEST['departed'])){
+    updateDepartedStatus();
+}
+
+if(isset($_REQUEST['arrived'])){
+    updateArrivedStatus();
 }
         
 function updatePassengerStatus(){
@@ -23,6 +32,44 @@ function updatePassengerStatus(){
     else {
         echo "<script>
             alert('ERROR: Could not able to execute $passenger_update');
+            </script>";
+    }
+}
+
+function updateDepartedStatus(){
+    require('db.php');
+    $confirmation_time =  date("Y-m-d H:i:s");
+    $tripId = $_REQUEST['tripId'];
+    $tripstatus_update = "UPDATE trips SET departed = '".$confirmation_time."', status = '1'  WHERE  trip_id = '".$tripId."'";
+
+    if (mysqli_query($con, $tripstatus_update)) {
+        echo "<script>
+            alert('Trip ID: ".$tripId." departed.');
+            window.location.href='dashboard.php?view_panel=tripStatus';
+            </script>";
+    }
+    else {
+        echo "<script>
+            alert('ERROR: Could not able to execute $tripstatus_update');
+            </script>";
+    }
+}
+
+function updateArrivedStatus(){
+    require('db.php');
+    $confirmation_time =  date("Y-m-d H:i:s");
+    $tripId = $_REQUEST['tripId'];
+    $tripstatus_update = "UPDATE trips SET arrived = '".$confirmation_time."', status = '2'  WHERE  trip_id = '".$tripId."'";
+
+    if (mysqli_query($con, $tripstatus_update)) {
+        echo "<script>
+            alert('Trip ID: ".$tripId." arrived.');
+            window.location.href='dashboard.php?view_panel=tripStatus';
+            </script>";
+    }
+    else {
+        echo "<script>
+            alert('ERROR: Could not able to execute $tripstatus_update');
             </script>";
     }
 }
@@ -72,7 +119,7 @@ function updatePassengerStatus(){
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php?view_panel=busStatus" id="busStatus-nav-btn" onclick="showDiv('busStatus')">Bus Status</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=tripStatus" id="tripStatus-nav-btn" onclick="showDiv('tripStatus')">Trip Status</a>
                     </li>
 
                     <li class="nav-item">
@@ -135,7 +182,140 @@ function updatePassengerStatus(){
             </div>
 
 <!------- DASH - GENERAL REPORTS PANEL -------------->
-            <div id="generalReports" class="hidden"><h3>General Report</h3></div>
+            <div id="generalReports" class="hidden">
+                <h3>General Report</h3>
+                <?php
+        // ---------------------- RESERVATIONS GENERAL REPORT ----------------------------------------------------
+                    $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0'");
+                    $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1'");
+                    $reservation_total = mysqli_query($con,"SELECT * FROM passengers");
+
+                    global $income, $reservationdate, $percent;
+
+                    if(isset($_POST['reservations-month-btn'])){
+                        echo"<script>console.log('".$_POST['reservations-month']."')</script>";
+                        $reservationdate = $_POST['reservations-month'];
+                        if(!empty($reservationdate)){
+                            $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0' AND trip_date LIKE '$reservationdate%'");
+                            $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1' AND trip_date LIKE '$reservationdate%'");
+                            $reservation_total = mysqli_query($con,"SELECT * FROM passengers WHERE trip_date LIKE '$reservationdate%'");
+                        } else {
+                            $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0'");
+                            $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1'");
+                            $reservation_total = mysqli_query($con,"SELECT * FROM passengers");
+                        }
+                    }
+                    
+                    $pendings_count = mysqli_num_rows($reservation_pendings);
+                    $confirmed_count = mysqli_num_rows($reservation_confirmed);
+                    $reservations_count = mysqli_num_rows($reservation_total);
+
+                    if (!empty($reservation_confirmed)) {
+                        if($confirmed_count != 0){
+                            while($row = mysqli_fetch_array($reservation_confirmed)) {   
+                                $income += $row['payable'];
+                            }
+                            $percent = $confirmed_count/$reservations_count*100;
+                        } else {
+                            $income = 0;
+                            $percent = 0;
+                        }
+                    }
+        // ---------------------- TRIPS GENERAL REPORT ----------------------------------------------------
+                    $trips_total = mysqli_query($con,"SELECT * FROM trips");
+                    $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
+                    $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
+
+                    global $tripsdate;
+
+                    if(isset($_POST['trips-month-btn'])){
+                        echo"<script>console.log('".$_POST['trips-month']."')</script>";
+                        $tripsdate = $_POST['trips-month'];
+                        if(!empty($tripsdate)){
+                            $trips_total = mysqli_query($con,"SELECT * FROM trips WHERE trip_date LIKE '$tripsdate%'");
+                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2' AND trip_date LIKE '$tripsdate%'");
+                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE '1') AND trip_date LIKE '$tripsdate%'");
+                        } else {
+                            $trips_total = mysqli_query($con,"SELECT * FROM trips");
+                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
+                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
+                        }
+                    }
+
+                    $trip_pendings_count = mysqli_num_rows($trips_pending);
+                    $trip_completed_count = mysqli_num_rows($trips_completed);
+                    $trip_total_count = mysqli_num_rows($trips_total);
+        // ---------------------- INQUIRIES GENERAL REPORT ----------------------------------------------------
+                ?>
+                <div class="reservation-panel-header">
+                    <label>Passenger Reservations: </label>
+                    <form name="reservation-date" method="post">
+                        <input type="month" id="reservation-month-picker" name="reservations-month" min="2022-01">
+                        <input type="submit" name="reservations-month-btn" value="GO">
+                    </form>
+                </div>
+                <div class="reservation-panel">
+                    <div class="reservation-panel-content">
+                        <h4>Total Reservations</h4>
+                        <h3><?php echo $reservations_count ?></h3>
+                    </div>
+                    <div class="reservation-panel-content">
+                        <h4>Pending Reservations</h4>
+                        <h3><?php echo $pendings_count ?></h3>
+                    </div>
+                    <div class="reservation-panel-content">
+                        <h4>Confirmed Reservations</h4>
+                        <h3><?php echo $confirmed_count.' ('.$percent.'%)'; ?></h3>
+                    </div>
+                    <div class="reservation-panel-content">
+                        <h4>Income from Reservations</h4>
+                        <h3>₱ <?php echo number_format($income, 2, '.', ',');?></h3>
+                    </div>
+                </div>
+                <div class="trips-panel-header">
+                        <label>Trips: </label>
+                        <form name="trips-date" method="post">
+                            <input type="month" id="trips-month-picker" name="trips-month" min="2022-01">
+                            <input type="submit" name="trips-month-btn" value="GO">
+                        </form>
+                </div>
+                <div class="trips-panel">
+                    <div class="trips-panel-content">
+                        <h4>Total Trips</h4>
+                        <h3><?php echo $trip_total_count ?></h3>
+                    </div>
+                    <div class="trips-panel-content">
+                        <h4>Trips Completed</h4>
+                        <h3><?php echo $trip_completed_count ?></h3>
+                    </div>
+                    <div class="trips-panel-content">
+                        <h4>Pending Trips</h4>
+                        <h3><?php echo $trip_pendings_count ?></h3>
+                    </div>
+                </div>
+                <div class="inquiries-panel-header">
+                        <label>Inquiries through website: </label>
+                        <form name="inquiries-date" method="post">
+                            <input type="month" id="inquiries-month-picker" name="inquiries-month" min="2022-01">
+                            <input type="submit" name="inquiries-month-btn" value="GO">
+                        </form>
+                </div>
+                <div class="inquiries-panel">
+                    <div class="inquiries-panel-content">
+                        <h4>Total Inquiries</h4>
+                        <h3>00</h3>
+                    </div>
+                    <div class="inquiries-panel-content">
+                        <h4>Replied</h4>
+                        <h3>00</h3>
+                    </div>
+                    
+                    <div class="inquiries-panel-content">
+                        <h4>Unread</h4>
+                        <h3>00</h3>
+                    </div>
+                </div>
+            </div>
 
 <!------- DASH - TRIP SCHEDULES PANEL -------------->
             <div id="tripSchedules" class="hidden">
@@ -147,9 +327,9 @@ function updatePassengerStatus(){
                             <button type="submit" name="search-trip-btn"><i class="fa fa-search"></i></button>
                         </form>
                         <form method='post' class="trip-data-options">
-                            <button type="button" name="add-trip-btn" id="add_trip_btn" onclick="showTripForm()">+ New Trip</button>
-                            <button type="submit" name="all-trip-btn" id="all-trip-btn">View All</button>
-                            <button type="submit" name="sort-trip-btn" id="sort-trip-btn">Arrange by Sched</button>
+                            <button type="button" name="add-trip-btn" id="add_trip_btn" class="trip-options-btn" onclick="showTripForm()">+ New Trip</button>
+                            <button type="submit" name="all-trip-btn" id="all-trip-btn" class="trip-options-btn">View All</button>
+                            <button type="submit" name="sort-trip-btn" id="sort-trip-btn" class="trip-options-btn">Arrange by Sched</button>
                         </form>
                     </div>
                 </div>
@@ -198,10 +378,10 @@ function updatePassengerStatus(){
                                 <label>Bus Plate Number</label><br>
                                 <input type="text" class="newTrip-input" id="insert-trip-busplatenumber" name="plateno" placeholder="ABC-1234" pattern="[A-Z][A-Z][A-Z][-][0-9]{4}" onkeyup="this.value = this.value.toUpperCase();" required>
                             </div>
-                            <div class="bus-info">
+                            <!-- <div class="bus-info">
                                 <label>Seats Capacity</label><br>
                                 <input type="number" class="newTrip-input" id="insert-trip-seats" name="seats" value="" required>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="trip-btn">
                             <button type="submit" name="insertTrip" id="insertTrip_btn">Add Trip</button>
@@ -262,13 +442,96 @@ function updatePassengerStatus(){
                         }
                         echo "</table>";
                     ?>
-
                 </div>
             </div>
 
-<!------- DASH - BUS STATUS PANEL -------------->
-            <div id="busStatus" class="hidden">
-                <h3>Bus Status</h3>
+<!------- DASH - TRIP STATUS PANEL -------------->
+            <div id="tripStatus" class="hidden">
+                <h3>Trip Status</h3>
+                <div class="tripstatus-data-options">
+                    <div class="trip-nav">
+                            <form method='post' class="search-trip-schedules">
+                                <input type="text" placeholder="Search..." name="search-input">
+                                <button type="submit" name="search-trip-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                            <form method='post' class="trip-data-options">
+                                <button type="submit" name="all-trip-btn" class="status-options-btn">View All</button>
+                                <button type="submit" name="departed-trip-btn" class="status-options-btn">Departing</button>
+                                <button type="submit" name="arrived-trip-btn" class="status-options-btn">Arriving</button>
+                                <button type="submit" name="completed-trip-btn" class="status-options-btn">Completed</button>
+                            </form>
+                        </div>
+                </div>
+                
+                <div class="trip-status-data-panel">
+                    <?php
+                        $trip_table = mysqli_query($con,"SELECT * FROM trips");
+                        if(isset($_POST['search-trip-btn'])){
+                            $search_input = $_POST['search-input'];
+                            $search_query = "SELECT * FROM trips WHERE trip_id LIKE '%$search_input%' 
+                                OR trip_orig LIKE '%$search_input%' 
+                                OR trip_dest LIKE '%$search_input%'
+                                OR trip_date LIKE '%$search_input%'
+                                OR bus_plateno LIKE '%$search_input%'  
+                                OR bus_code LIKE '%$search_input%'";
+                            $trip_table = mysqli_query($con,$search_query);
+                        } if(isset($_POST['all-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips");
+                        } if (isset($_POST['departed-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips WHERE status='0'");
+                        } if (isset($_POST['arrived-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips WHERE status='1'");
+                        } if (isset($_POST['completed-trip-btn'])){
+                            $trip_table = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
+                        }
+                        echo "<table class='trip-schedules-table'>
+                        <tr>
+                            <th>Trip ID</th>
+                            <th>Origin-Destination</th>
+                            <th>Schedule</th>
+                            <th>Bus Code</th>
+                            <th>Bus Plate No.</th>
+                            <th>Departed</th>
+                            <th>Arrived</th>
+                            <th>Status</th>
+                        </tr>";
+                        if (!empty($trip_table)) {
+                            while($row = mysqli_fetch_array($trip_table))
+                            {
+                                echo "<tr>";
+                                echo "<td>" . $row['trip_id'] . "</td>";
+                                echo "<td>" . $row['trip_orig'] .' - '. $row['trip_dest'] . "</td>";
+                                echo "<td>" . $row['trip_date'] .' '. date('h:iA',strtotime($row['trip_time'])) . "</td>";
+                                echo "<td>" . $row['bus_code'] . "</td>";
+                                echo "<td>" . $row['bus_plateno'] . "</td>";
+                                if($row['departed'] == 	'0000-00-00 00:00:00'){
+                                    echo "<td> </td>";
+                                } else {
+                                    echo "<td>" . date('Y-m-d h:iA',strtotime($row['departed'])) . "</td>";
+                                }
+
+                                if($row['arrived'] == 	'0000-00-00 00:00:00'){
+                                    echo "<td> </td>";
+                                } else {
+                                    echo "<td>" . date('Y-m-d h:iA',strtotime($row['arrived'])) . "</td>";
+                                }
+
+                                if ($row['status'] == 0){
+                                    echo "<td><button class='trip-status-btn' id='departed-status-btn' onclick=\"confirmationTripDeparted('".$row['trip_id']."')\">DEPARTED ?</button></td>";
+                                } else if ($row['status'] == 1){
+                                    echo "<td><button class='trip-status-btn' id='arrived-status-btn' onclick=\"confirmationTripArrived('".$row['trip_id']."')\">ARRIVED ?</button></td>";
+                                } else {
+                                    echo "<td class='passenger-status-confirmed'>COMPLETED</td>";
+                                }
+                                
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='9'><center>No Trip Schedules</center></td></tr>";
+                        }
+                        echo "</table>";
+                    ?>
+                </div>
             </div>
 
 <!------- DASH - RENT/MESSAGE/INQUIRIES PANEL -------------->
@@ -276,9 +539,9 @@ function updatePassengerStatus(){
                 <h3>Message - Inquiries</h3>
                 <div class="inquiries-data-options">
                     <form method="post" action="">
-                        <button type="submit" name="inquiries-all-btn" id="all_btn" onclick="">View All</button>
-                        <button type="submit" name="inquiries-unread-btn" id="unread_btn" onclick="">Show Unread</button>
-                        <button type="submit" name="inquiries-read-btn" id="read_btn" onclick="">Show Replied</button>
+                        <button type="submit" name="inquiries-all-btn" id="viewall_btn" class="inquiry-options-btn">View All</button>
+                        <button type="submit" name="inquiries-unread-btn" id="unread_btn" class="inquiry-options-btn">Show Unread</button>
+                        <button type="submit" name="inquiries-read-btn" id="read_btn" class="inquiry-options-btn">Show Replied</button>
                     </form>
                 </div>
                 <?php
@@ -318,7 +581,7 @@ function updatePassengerStatus(){
                                     </table>
                                 </div>
                                 <div class='inbox-data-action'>
-                                    <button class='inquiry-reply-btn' onclick=\"sendMail('".$row['email']."')\">Reply</button>
+                                    <button type='submit' name='inquiry-reply-data' class='inquiry-reply-btn' value='".$row['mssg_id']."' onclick=\"sendMail('".$row['email']."')\">Reply</button>
                                     <button type='submit' name='delete-inquiry-data' class='inquiry-delete-btn' value='".$row['mssg_id']."' onclick=\"return confirm('Are you sure to delete this inquiry?');\">Delete</button>
                                 </div>
                             </form>";
@@ -336,10 +599,10 @@ function updatePassengerStatus(){
 
                 <div class="passenger-data-options">
                     <form method="post" action="">
-                        <button type="button" name="passenger-search-btn" id="search_btn" onclick="showPassengerSearchForm()">Search Passenger</button>
-                        <button type="submit" name="passenger-all-btn" id="all_btn" onclick="showPassengerTable()">View All</button>
-                        <button type="submit" name="passenger-pendings-btn" id="pending_btn" onclick="showPassengerTable()">View Pendings</button>
-                        <button type="submit" name="passenger-confirmed-btn" id="confirmed_btn" onclick="showPassengerTable()">View Confirmed</button>
+                        <button type="button" name="passenger-search-btn" id="search_btn" class="reservation-options-btn" onclick="showPassengerSearchForm()">Search Passenger</button>
+                        <button type="submit" name="passenger-all-btn" id="all_btn" class="reservation-options-btn" onclick="showPassengerTable()">View All</button>
+                        <button type="submit" name="passenger-pendings-btn" id="pending_btn" class="reservation-options-btn" onclick="showPassengerTable()">View Pendings</button>
+                        <button type="submit" name="passenger-confirmed-btn" id="confirmed_btn" class="reservation-options-btn" onclick="showPassengerTable()">View Confirmed</button>
                     </form>
                 </div>
                 <form method="post" class="passenger-search-form" id="passenger-search-form" style="display:none">
@@ -451,6 +714,14 @@ function updatePassengerStatus(){
             ;
             window.location.href = link;
         }
+
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+
+        document.getElementById('reservation-month-picker').value = "<?php echo $reservationdate;?>";
+        document.getElementById('trips-month-picker').value = "<?php echo $_POST['trips-month'];?>";
+        //document.getElementById('inquiries-month-picker').value = "<?php //echo $_POST['trips-month'];?>";
     </script>
     <?php 
         echo "<script>
