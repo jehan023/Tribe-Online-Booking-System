@@ -189,26 +189,57 @@ function updateArrivedStatus(){
                     $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0'");
                     $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1'");
                     $reservation_total = mysqli_query($con,"SELECT * FROM passengers");
+        // ---------------------- TRIPS GENERAL REPORT ----------------------------------------------------
+                    $trips_total = mysqli_query($con,"SELECT * FROM trips");
+                    $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
+                    $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
+        // ---------------------- INQUIRIES GENERAL REPORT ----------------------------------------------------
+                    $inquiry_total = mysqli_query($con,"SELECT * FROM inquiries");
+                    $inquiry_replied = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='1'");
+                    $inquiry_unread = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0'");
 
                     global $income, $reservationdate, $percent;
 
                     if(isset($_POST['reservations-month-btn'])){
-                        echo"<script>console.log('".$_POST['reservations-month']."')</script>";
                         $reservationdate = $_POST['reservations-month'];
                         if(!empty($reservationdate)){
                             $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0' AND trip_date LIKE '$reservationdate%'");
                             $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1' AND trip_date LIKE '$reservationdate%'");
                             $reservation_total = mysqli_query($con,"SELECT * FROM passengers WHERE trip_date LIKE '$reservationdate%'");
+
+                            $trips_total = mysqli_query($con,"SELECT * FROM trips WHERE trip_date LIKE '$reservationdate%'");
+                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2' AND trip_date LIKE '$reservationdate%'");
+                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE '1') AND trip_date LIKE '$reservationdate%'");
+
+                            $inquiry_unread = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0' AND sent_time LIKE '$reservationdate%'");
+                            $inquiry_replied = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='1' AND sent_time LIKE '$reservationdate%'");
+                            $inquiry_total = mysqli_query($con,"SELECT * FROM inquiries WHERE sent_time LIKE '$reservationdate%'");
                         } else {
                             $reservation_pendings = mysqli_query($con,"SELECT * FROM passengers WHERE paid='0'");
                             $reservation_confirmed = mysqli_query($con,"SELECT * FROM passengers WHERE paid='1'");
                             $reservation_total = mysqli_query($con,"SELECT * FROM passengers");
+
+                            $trips_total = mysqli_query($con,"SELECT * FROM trips");
+                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
+                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
+
+                            $inquiry_total = mysqli_query($con,"SELECT * FROM inquiries");
+                            $inquiry_replied = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='1'");
+                            $inquiry_unread = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0'");
                         }
                     }
                     
                     $pendings_count = mysqli_num_rows($reservation_pendings);
                     $confirmed_count = mysqli_num_rows($reservation_confirmed);
                     $reservations_count = mysqli_num_rows($reservation_total);
+
+                    $trip_pendings_count = mysqli_num_rows($trips_pending);
+                    $trip_completed_count = mysqli_num_rows($trips_completed);
+                    $trip_total_count = mysqli_num_rows($trips_total);
+
+                    $inquiry_unread_count = mysqli_num_rows($inquiry_unread);
+                    $inquiry_replied_count = mysqli_num_rows($inquiry_replied);
+                    $inquiry_total_count = mysqli_num_rows($inquiry_total);
 
                     if (!empty($reservation_confirmed)) {
                         if($confirmed_count != 0){
@@ -221,37 +252,12 @@ function updateArrivedStatus(){
                             $percent = 0;
                         }
                     }
-        // ---------------------- TRIPS GENERAL REPORT ----------------------------------------------------
-                    $trips_total = mysqli_query($con,"SELECT * FROM trips");
-                    $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
-                    $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
-
-                    global $tripsdate;
-
-                    if(isset($_POST['trips-month-btn'])){
-                        echo"<script>console.log('".$_POST['trips-month']."')</script>";
-                        $tripsdate = $_POST['trips-month'];
-                        if(!empty($tripsdate)){
-                            $trips_total = mysqli_query($con,"SELECT * FROM trips WHERE trip_date LIKE '$tripsdate%'");
-                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2' AND trip_date LIKE '$tripsdate%'");
-                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE '1') AND trip_date LIKE '$tripsdate%'");
-                        } else {
-                            $trips_total = mysqli_query($con,"SELECT * FROM trips");
-                            $trips_completed = mysqli_query($con,"SELECT * FROM trips WHERE status='2'");
-                            $trips_pending = mysqli_query($con,"SELECT * FROM trips WHERE (status LIKE '0' OR status LIKE'1')");
-                        }
-                    }
-
-                    $trip_pendings_count = mysqli_num_rows($trips_pending);
-                    $trip_completed_count = mysqli_num_rows($trips_completed);
-                    $trip_total_count = mysqli_num_rows($trips_total);
-        // ---------------------- INQUIRIES GENERAL REPORT ----------------------------------------------------
                 ?>
                 <div class="reservation-panel-header">
-                    <label>Passenger Reservations: </label>
+                    <label>Passenger Reservations</label>
                     <form name="reservation-date" method="post">
                         <input type="month" id="reservation-month-picker" name="reservations-month" min="2022-01">
-                        <input type="submit" name="reservations-month-btn" value="GO">
+                        <input type="submit" name="reservations-month-btn" id="go-btn" value="GO">
                     </form>
                 </div>
                 <div class="reservation-panel">
@@ -273,11 +279,7 @@ function updateArrivedStatus(){
                     </div>
                 </div>
                 <div class="trips-panel-header">
-                        <label>Trips: </label>
-                        <form name="trips-date" method="post">
-                            <input type="month" id="trips-month-picker" name="trips-month" min="2022-01">
-                            <input type="submit" name="trips-month-btn" value="GO">
-                        </form>
+                        <label>Trips</label>
                 </div>
                 <div class="trips-panel">
                     <div class="trips-panel-content">
@@ -285,7 +287,7 @@ function updateArrivedStatus(){
                         <h3><?php echo $trip_total_count ?></h3>
                     </div>
                     <div class="trips-panel-content">
-                        <h4>Trips Completed</h4>
+                        <h4>Completed Trips</h4>
                         <h3><?php echo $trip_completed_count ?></h3>
                     </div>
                     <div class="trips-panel-content">
@@ -294,25 +296,21 @@ function updateArrivedStatus(){
                     </div>
                 </div>
                 <div class="inquiries-panel-header">
-                        <label>Inquiries through website: </label>
-                        <form name="inquiries-date" method="post">
-                            <input type="month" id="inquiries-month-picker" name="inquiries-month" min="2022-01">
-                            <input type="submit" name="inquiries-month-btn" value="GO">
-                        </form>
+                        <label>Inquiries through website</label>
                 </div>
                 <div class="inquiries-panel">
                     <div class="inquiries-panel-content">
                         <h4>Total Inquiries</h4>
-                        <h3>00</h3>
+                        <h3><?php echo $inquiry_total_count ?></h3>
                     </div>
                     <div class="inquiries-panel-content">
                         <h4>Replied</h4>
-                        <h3>00</h3>
+                        <h3><?php echo $inquiry_replied_count ?></h3>
                     </div>
                     
                     <div class="inquiries-panel-content">
                         <h4>Unread</h4>
-                        <h3>00</h3>
+                        <h3><?php echo $inquiry_unread_count ?></h3>
                     </div>
                 </div>
             </div>
@@ -720,8 +718,6 @@ function updateArrivedStatus(){
         }
 
         document.getElementById('reservation-month-picker').value = "<?php echo $reservationdate;?>";
-        document.getElementById('trips-month-picker').value = "<?php echo $_POST['trips-month'];?>";
-        //document.getElementById('inquiries-month-picker').value = "<?php //echo $_POST['trips-month'];?>";
     </script>
     <?php 
         echo "<script>

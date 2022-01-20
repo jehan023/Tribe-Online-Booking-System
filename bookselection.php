@@ -55,7 +55,6 @@ include('indexsearch_trip.php');
             <div class="route-panel">
                 <h1 id="BookSelectionContent_lblOrigin"><?php echo $_SESSION['origin']; ?></h1>
                 <i class="fas fa-caret-right"></i>
-                
                 <h1 id="BookSelectionContent_lblDestination"><?php echo $_SESSION['destination']; ?></h1>
 
             </div>

@@ -283,7 +283,7 @@ a {
   cursor: pointer;
 }
 .search-trip-schedules button:hover {
-  background: #0b7dda;
+  background: blue;
   border: 2px solid black;
   border-left: none;
 }
@@ -624,4 +624,11 @@ h3 {
   font-weight: bold;
   justify-content: space-between;
   background: rgb(209, 209, 209);
+}
+#go-btn {
+  font-weight: bold;
+}
+#go-btn:hover {
+  background: red;
+  color: white;
 }
