@@ -11,8 +11,8 @@ if (isset($_POST['insertTrip'])) {
     $bus_plate = $_POST['plateno'];
     $seats = 44;
 
-    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, fare, bus_code, bus_plateno, seats, departed, arrived, status) 
-        VALUES ('$origin', '$destination', '$date', '$time', '$fare', '$bus_code', '$bus_plate', '$seats', '', '', '0')";
+    $trip_query = "INSERT INTO trips (trip_orig, trip_dest, trip_date, trip_time, fare, bus_code, bus_plateno, seats, book_seats, departed, arrived, status) 
+        VALUES ('$origin', '$destination', '$date', '$time', '$fare', '$bus_code', '$bus_plate', '$seats', '', '', '', '0')";
 
     $result = mysqli_query($con, "SHOW TABLES LIKE 'trips'");
     if ($result->num_rows == 1) {
