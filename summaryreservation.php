@@ -46,7 +46,7 @@ include('indexsearch_trip.php');
         <div class="step-panel">
             <label class="step-guide"><strong>Step 4:</strong> Summary of Passenger Reservation</label>
         </div>
-        <div id="PaymentSummaryChargesContent_pnlSummary">
+        <div id="PaymentSummaryChargesContent_pnlSummary">  
 			<section class='charges-block'>
 				<div id="PaymentSummaryChargesContent_divSummaryOfCharges">
 					<div id='divSummaryCharges'>

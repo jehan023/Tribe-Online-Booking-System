@@ -90,11 +90,18 @@ if (isset($_POST['btnNext2'])) {
 if (isset($_POST['save_seat'])) {
 	$selected_seat = $_POST['seat_selected'];
 	//SELECTED SEAT TO RESERVE
-	$_SESSION['seat_reserve'] = $selected_seat;
+	if(!empty($selected_seat)){
+		$_SESSION['seat_reserve'] = $selected_seat;
 
-	echo "<script>
-	window.location.href='summaryreservation.php';
-	</script>";
+		echo "<script>
+		window.location.href='summaryreservation.php';
+		</script>";
+	} else {
+		echo "<script>
+		alert('Please select your seat.');
+		window.location.href='paymentticketinfo.php';
+		</script>";
+	}
 }
 //CONFIRMATION OF RESERVATION - UPDATING TRIP_ID SEATS AVAILABLE AND INSERT BOOKED SEAT - INSERTING PASSENGER INFO ON PASSENGER TABLE
 if(isset($_POST['ticket-confirmed'])){

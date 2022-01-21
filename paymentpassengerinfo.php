@@ -15,9 +15,20 @@
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+
+    <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+    <script src="js/city.js"></script>
     <script>
-        //some code
+        window.onload = function() {	
+
+            // ---------------
+            // basic usage
+            // ---------------
+            var $ = new City();
+            $.showProvinces("#province");
+            $.showCities("#city");
+
+        }
     </script>
 </head>
 <body>
@@ -91,14 +102,13 @@
                         </div>
 
                         <div class="data-form">
-                            <label>City</label>
-                            <input name="reserve_pCity" type="text" id="PaymentPassengerInfoContent_txtCity" placeholder="City" autocomplete="address-level2" required/>
+                            <label>Province</label>
+                            <select name="reserve_pProvince" id="province" placeholder="Province" required></select>
                         </div>
 
                         <div class="data-form">
-                            <label>Province</label>
-                            <input name="reserve_pProvince" type="text" id="PaymentPassengerInfoContent_txtProvince" placeholder="Province" 
-                            autocomplete="address-level1" required/>
+                            <label>City</label>
+                            <select name="reserve_pCity" id="city" placeholder="City" required></select>
                         </div>
                     </div>
                 </div>
@@ -411,6 +421,7 @@
     </footer>
 
     <script>
+        
     // Get the modal
     var ebModal = document.getElementById('mySizeChartModal');
     var modalContent1 = document.getElementById('tnc-content');

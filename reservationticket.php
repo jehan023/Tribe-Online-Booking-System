@@ -52,7 +52,6 @@ body {
     max-width: 500px;
     margin: 0 auto;
     height: fit-content;
-    min-height: 100%;
     left: 0;
     right: 0;
     border: 1px solid black;
