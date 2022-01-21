@@ -420,7 +420,7 @@ function updateArrivedStatus(){
                             <th>Bus Plate No.</th>
                             <th>Avail Seats</th>
                         </tr>";
-                        if (!empty($trip_table)) {
+                        if (mysqli_num_rows($trip_table) > 0) {
                             while($row = mysqli_fetch_array($trip_table))
                             {
                                 echo "<tr>";
@@ -493,7 +493,7 @@ function updateArrivedStatus(){
                             <th>Arrived</th>
                             <th>Status</th>
                         </tr>";
-                        if (!empty($trip_table)) {
+                        if (mysqli_num_rows($trip_table) > 0) {
                             while($row = mysqli_fetch_array($trip_table))
                             {
                                 echo "<tr>";
