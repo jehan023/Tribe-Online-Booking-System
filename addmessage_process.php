@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Manila");
 require('db.php');
 
 if (isset($_POST['Contact_btnSubmit'])) {
@@ -7,7 +8,7 @@ if (isset($_POST['Contact_btnSubmit'])) {
     $contact = $_POST['ContactContent_Email'];
     $message = $_POST['ContactContent_Message'];
 
-    $send_datetime = date("Y-m-d H:iA");
+    $send_datetime = date("Y-m-d H:i:s");
 
     $message_insert = "INSERT INTO inquiries (sender, company, email, txt_mssg, sent_time, responded) 
     VALUES ('$sender', '$company', '$contact', '$message', '$send_datetime', '0')";

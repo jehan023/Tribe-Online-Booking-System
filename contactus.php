@@ -1,3 +1,8 @@
+<?php
+date_default_timezone_set("Asia/Manila");
+require('db.php');
+include('addmessage_process.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

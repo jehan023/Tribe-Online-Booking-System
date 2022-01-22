@@ -500,6 +500,7 @@ a {
   display: inline-block;
   margin-left: 5px;
   table-layout: auto !important;
+  width: 100%;
 }
 .inquiry-data-content td {
   border: none;

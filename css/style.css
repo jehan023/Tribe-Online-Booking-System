@@ -156,9 +156,12 @@ nav ul li a:hover {
 .far {
   display: inline-block;
 }
+.button-panel {
+  width: 20%;
+}
 .btn-book {
   padding: 8px 0px;
-  width: 75px;
+  width: 100%;
   background: brown;
   color: white;
   font-family: "Montserrat", sans-serif;
@@ -356,6 +359,9 @@ footer {
   }
   #datepicker-icon {
     width: 5%;
+  }
+  .button-panel {
+    width: 100% !important;
   }
   .btn-book {
     padding: 8px 0px;

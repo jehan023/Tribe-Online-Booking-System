@@ -119,16 +119,8 @@ if(isset($_POST['ticket-confirmed'])){
 	//UPDATING AVAILABLE SEAT AND INSERT RESERVED SEAT USING TRIP_ID
     $trip_update = "UPDATE trips set seats = '$update_avail', book_seats = '$imploded'  WHERE  trip_id = '".$_SESSION['selected_tID']."'";
 
-	if (mysqli_query($con, $trip_update)) {
-		//do nothing.
-	}
-	else {
-		echo "<script>
-			alert('ERROR: Could not able to execute $trip_update');
-			</script>";
-	}
 	//RESERVATION TIME CREATED TIMESTAMP
-	$reservation_time = date("Y-m-d h:iA");
+	$reservation_time = date("Y-m-d h:i:s");
 	$_SESSION['reservation_time'] = $reservation_time;
 
 	$passenger_insert = "INSERT INTO passengers (trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, payable, paid)
@@ -139,50 +131,22 @@ if(isset($_POST['ticket-confirmed'])){
 	$check_table = mysqli_query($con, "SHOW TABLES LIKE 'passengers'");
 	if ($check_table->num_rows == 1) {
         if (mysqli_query($con, $passenger_insert)) {
-            echo "<script>
+			if (mysqli_query($con, $trip_update)) {
+				echo "<script>
                     alert('TRIP RESERVATION CONFIRMED.');
                     </script>";
+			}
+			else {
+				echo "<script>
+					alert('ERROR: Could not able to execute $trip_update');
+					</script>";
+			}
         }
         else {
             echo "<script>
                 alert('ERROR: Could not able to execute $passenger_insert');
                 </script>";
         }
-    } else {
-		$passenger_query = "CREATE TABLE IF NOT EXISTS passengers (
-			id int(11) NOT NULL AUTO_INCREMENT,
-			trip_id int(7) zerofill NOT NULL,
-			seat_no int(3) NOT NULL,
-			trip_date date NOT NULL,
-			trip_time varchar(10) NOT NULL,
-			firstname varchar (100) NOT NULL,
-			middlename varchar (100) NOT NULL,
-			lastname varchar (100) NOT NULL,
-			gender varchar (6) NOT NULL,
-			email varchar (50) NOT NULL,
-			contact varchar (50) NOT NULL,
-			city varchar (100) NOT NULL,
-			province varchar (100) NOT NULL,
-			reservation datetime NOT NULL,
-			payable decimal (6,2) NOT NULL,
-			paid int(1) NOT NULL,
-			PRIMARY KEY (id)
-		)";
-
-		$new = mysqli_query($con, $passenger_query);
-        $new_result = mysqli_query($con, "SHOW TABLES LIKE 'passengers'");
-        if ($new_result->num_rows == 1) {
-            if (mysqli_query($con, $passenger_insert)) {
-                echo "<script>
-                    alert('TRIP RESERVATION CONFIRMED.');
-                    </script>";
-            }
-            else {
-                echo "<script>
-                    alert('ERROR: Could not able to execute $passenger_insert');
-                    </script>";
-            }
-        }
-	}
+    }
 }
 ?>

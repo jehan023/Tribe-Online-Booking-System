@@ -170,7 +170,7 @@ include('indexsearch_trip.php');
                     <p><strong>Reminders:</strong></p>
                     <ul class="reminder-notes">
                         <li>Limited trips are available online as of the moment.</li>
-                        <li>We do not accept Smart Padala, nor any other offline methods of payment for tickets bought online.</li>
+                        <li>As of this moment, we do not accept Online methods of payment for ticket reservations online. Kindly go to terminal for verification and payment.</li>
                         <li>Passengers availing student discounts, senior citizen discounts and PWD discounts must purchase their tickets from our terminal ticket booths.</li>
                     </ul>
                 </div>

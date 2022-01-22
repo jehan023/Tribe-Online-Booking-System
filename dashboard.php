@@ -428,7 +428,7 @@ function updateArrivedStatus(){
                                 echo "<td>" . $row['trip_orig'] . "</td>";
                                 echo "<td>" . $row['trip_dest'] . "</td>";
                                 echo "<td>" . $row['trip_date'] . "</td>";
-                                echo "<td>" . $row['trip_time'] . "</td>";
+                                echo "<td>" . date('h:i A',strtotime($row['trip_time'])) . "</td>";
                                 echo "<td>" . $row['fare'] . "</td>";
                                 echo "<td>" . $row['bus_code'] . "</td>";
                                 echo "<td>" . $row['bus_plateno'] . "</td>";
@@ -499,7 +499,7 @@ function updateArrivedStatus(){
                                 echo "<tr>";
                                 echo "<td>" . $row['trip_id'] . "</td>";
                                 echo "<td>" . $row['trip_orig'] .' - '. $row['trip_dest'] . "</td>";
-                                echo "<td>" . $row['trip_date'] .' '. date('h:iA',strtotime($row['trip_time'])) . "</td>";
+                                echo "<td>" . $row['trip_date'] .' '. date('h:i A',strtotime($row['trip_time'])) . "</td>";
                                 echo "<td>" . $row['bus_code'] . "</td>";
                                 echo "<td>" . $row['bus_plateno'] . "</td>";
                                 if($row['departed'] == 	'0000-00-00 00:00:00'){
@@ -543,9 +543,9 @@ function updateArrivedStatus(){
                     </form>
                 </div>
                 <?php
-                    $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries");
+                    $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries ORDER BY sent_time DESC");
                     if(isset($_POST['inquiries-all-btn'])){
-                        $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries");
+                        $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries ORDER BY sent_time DESC");
                     } 
                     if(isset($_POST['inquiries-unread-btn'])){
                         $inquiries_table = mysqli_query($con,"SELECT * FROM inquiries WHERE responded='0'");
