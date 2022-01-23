@@ -58,5 +58,12 @@ $create = "CREATE TABLE IF NOT EXISTS inquiries (
 )";
 mysqli_query($con, $create);
 
-
+$announcements = "CREATE TABLE IF NOT EXISTS announcements (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    title varchar (200) NOT NULL,
+    context varchar (2000) NOT NULL,
+    post_time datetime NOT NULL,
+    PRIMARY KEY (id)
+)";
+mysqli_query($con, $announcements);
 ?>

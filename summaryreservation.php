@@ -32,7 +32,7 @@ include('indexsearch_trip.php');
         <ul class="links">
             <li><a href="index.php" class="active">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
-            <li><a href="login.php">Login</a></li>
+            <li><a href="login.php">Tribe Portal</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
             <div class="line"></div>
@@ -199,7 +199,7 @@ include('indexsearch_trip.php');
             <div class="footer-list-guidelines">
                 <ul class="footer-list" data-preamble="Guidelines">
                     <li><strong>Guidelines</strong></li>
-                    <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
+                    <li><a href="#!" onclick="alert('Temporary Unavailable.');">Discounts/Policies</a></li>
                     <li><a href="#!" id="tncbtn">Terms and Conditions</a></li>
                 </ul>
             </div>

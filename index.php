@@ -85,7 +85,7 @@ include('indexsearch_trip.php');
         <ul class="links">
             <li><a href="index.php" class="active">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
-            <li><a href="login.php">Login</a></li>
+            <li><a href="login.php">Tribe Portal</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
             <div class="line"></div>
@@ -161,9 +161,10 @@ include('indexsearch_trip.php');
                     <div class="button-panel">
                         <input type='submit' class="btn-book er-alert" value='Search' name='search_trip_btn' id='btnSearch'/>
                     </div>
+                </div>
             </form>
 
-            </div>
+            
             <!--Reminder Panel-->
             <div class="reminders-panel">
                 <div class="reminders">
@@ -175,6 +176,31 @@ include('indexsearch_trip.php');
                     </ul>
                 </div>
             </div>
+
+            <?php 
+            $announcement_table = mysqli_query($con,"SELECT * FROM announcements ORDER BY post_time DESC");
+            if (mysqli_num_rows($announcement_table) > 0) {
+                echo "<div class='announcement-divider'></div>";
+                echo "<div class='announcement-panel'>";
+                echo "<p><strong>Announcements:</strong></p>";
+                while($row = mysqli_fetch_array($announcement_table))
+                {
+                    echo "<table class='announcement-data-holder'>
+                    <tr>
+                        <td class='announcement-data-title'>".$row['title']."</td>
+                    </tr>
+                    <tr>
+                        <td class='announcement-data-date'>".date('F d, Y', strtotime($row['post_time']))."</td>
+                    </tr>
+                    <tr>
+                        <td class='announcement-data-context'><ul><li>".$row['context']."</li></ul></td>
+                    </tr>
+                    </table>";
+                }
+                
+                echo "</div>";
+            }
+            ?>
         </div>
     </div>
     
@@ -191,7 +217,7 @@ include('indexsearch_trip.php');
             <div class="footer-list-guidelines">
                 <ul class="footer-list" data-preamble="Guidelines">
                     <li><strong>Guidelines</strong></li>
-                    <li><a href="/Discounts-Policies.html">Discounts/Policies</a></li>
+                    <li><a href="#!" onclick="alert('Temporary Unavailable.');">Discounts/Policies</a></li>
                     <li><a href="#!" id="tncbtn">Terms and Conditions</a></li>
                 </ul>
             </div>

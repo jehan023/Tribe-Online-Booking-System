@@ -111,11 +111,15 @@ function updateArrivedStatus(){
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php?view_panel=tripSchedules" id="tripSchedules-nav-btn" onclick="showDiv('tripSchedules')">Trip Schedules</a>
+                        <a class="nav-link" href="dashboard.php?view_panel=announcements" id="announcement-nav-btn" onclick="showDiv('announcements')">Announcements</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php?view_panel=messageInquiries" id="rentInquiries-nav-btn" onclick="showDiv('messageInquiries')">Inquiries</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.php?view_panel=tripSchedules" id="tripSchedules-nav-btn" onclick="showDiv('tripSchedules')">Trip Schedules</a>
                     </li>
 
                     <li class="nav-item">
@@ -530,6 +534,63 @@ function updateArrivedStatus(){
                         echo "</table>";
                     ?>
                 </div>
+            </div>
+<!------- DASH - ANNOUNCEMENTS PANEL -------------->
+<div id="announcements" class="hidden">
+                <h3>Announcements</h3>
+                <div class="announcements-data-options">
+                    <form method="post" action="">
+                        <button type="button" name="add-announcements-btn" id="add_announcement_btn" class="announcements-options-btn" onclick="showAnnouncementForm()">Add New Announcement</button>
+                        <button type="submit" name="announcements-all-btn" id="viewall_btn" class="announcements-options-btn">View All</button>
+                    </form>
+                </div>
+                <form method="post" class="announcement-form" id="announcement-form" style="display:none">
+                    <h2>New Announcement</h2>
+                    <div class="announcement-form-panel">
+                        <input name="Announcement_Title" type="text" id="Announcement_Title" placeholder="Title" required/>
+                    </div>
+                    <div class="announcement-form-panel">
+                        <textarea name="Announcement_Context" rows="20%"  id="Announcement_Context" placeholder="Announcement Context" required></textarea>
+                    </div>
+                    <div class="announcement-post-form-btn">
+                        <button type="submit" name="announcementPost" id="announcementPost_btn">POST</button>
+                        <button type='button' name='cancel-btn' id='announcementCancel_btn' onclick='hideAnnouncementForm()'>Cancel</button>
+                    </div>
+                </form>
+                <?php
+                    echo "<div id='announcement-panel-content'>";
+                    $announcement_table = mysqli_query($con,"SELECT * FROM announcements ORDER BY post_time DESC");
+                    if(isset($_POST['inquiries-all-btn'])){
+                        $announcement_table = mysqli_query($con,"SELECT * FROM announcements ORDER BY post_time DESC");
+                    }
+
+                    if (mysqli_num_rows($announcement_table) > 0) {
+                        while($row = mysqli_fetch_array($announcement_table))
+                        {
+                            echo "<form method='post' action='addtrip_process.php' class='announcement-data-holder'>
+                                <div class='announcement-data-panel'>";
+                                echo "<table class='announcement-data-content'>
+                                    <tr>
+                                        <td class='announcement-title'>".$row['title']."</td>
+                                    </tr>
+                                    <tr>
+                                    <td class='announcement-time'>".date('Y/m/d h:i A', strtotime($row['post_time']))."</td>
+                                    </tr>
+                                    <tr>
+                                        <td class='announcement-context'>".$row['context']."</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class='announcement-data-action'>
+                                <button type='submit' name='delete-announcement-data' class='announcement-delete-btn' value='".$row['id']."' onclick=\"return confirm('Are you sure to delete this announcement?');\">Delete</button>
+                            </div>
+                            </form>";
+                        }
+                    } else {
+                        echo "<div><center><strong>Announcement Box Empty.</strong></center></div>";
+                    }
+                    echo "</div>";
+                ?>
             </div>
 
 <!------- DASH - RENT/MESSAGE/INQUIRIES PANEL -------------->

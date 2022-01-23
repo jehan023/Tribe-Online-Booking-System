@@ -26,6 +26,15 @@ function hideTripForm() {
     document.getElementById('add_trip_btn').style.display = "block";
     document.getElementById('insert-new-trip-schedule').style.display = "none";
 }
+//Show and Hide 'Add New Announcement' button and announcement form panel
+function showAnnouncementForm() {
+    document.getElementById('announcement-form').style.display = "block";
+    document.getElementById('announcement-panel-content').style.display = "none";
+}
+function hideAnnouncementForm() {
+    document.getElementById('announcement-form').style.display = "none";
+    document.getElementById('announcement-panel-content').style.display = "block";
+}
 //Populate destination drop down list
 function configureDropDownLists(orig,dest) {
     var points = ['BAGUIO', 'BONTOC, MT. PROVINCE', 'FAIRVIEW, QC'];

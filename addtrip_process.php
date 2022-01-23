@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Manila");
 require('db.php');
 
 if (isset($_POST['insertTrip'])) {
@@ -53,5 +54,26 @@ if(isset($_POST['inquiry-reply-data'])){
 			alert('ERROR: Could not able to execute $inquiry_update');
 			</script>";
 	}
+}
+
+if(isset($_POST['announcementPost'])){
+    $title = $_POST['Announcement_Title'];
+    $context = $_POST['Announcement_Context'];
+    $post_datetime = date("Y-m-d H:i:s");
+
+    $announcement_insert = "INSERT INTO announcements (title, context, post_time) VALUES ('$title','$context','$post_datetime')";
+    $result = mysqli_query($con, "SHOW TABLES LIKE 'announcements'");
+    if ($result->num_rows == 1) {
+        if (mysqli_query($con, $announcement_insert)) {
+            echo "<script>
+                alert('Announcement Posted.');
+                window.location.href ='dashboard.php?view_panel=announcements';
+                </script>";
+        } else {
+            echo "<script>
+                alert('ERROR: Could not able to execute $announcement_insert');
+                </script>";
+        }
+    }
 }
 ?>

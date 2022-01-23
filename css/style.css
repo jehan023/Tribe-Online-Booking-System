@@ -179,13 +179,27 @@ nav ul li a:hover {
 .reminders {
   width: 80%;
 }
-.manage-my-booking-button-holder {
-  width: 20%;
-}
-.manage-my-booking-button {
-  height: 30%;
+.announcement-divider {
+  margin-top: 5px;
   width: 100%;
-  margin-top: 10%;
+  height: 2px;
+  background-color: black;
+}
+.announcement-data-holder {
+  width: 100%;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+
+}
+.announcement-data-title {
+  color: maroon;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+.announcement-data-context ul {
+  text-align: justify;
+  padding-right: 10px;
 }
 .career-form-panel {
   padding: 15px 15% 25px 15%;
@@ -374,8 +388,7 @@ footer {
     cursor: pointer;
   }
   footer {
-    height: min-content;
-    margin-bottom: 20px;
+    height: min-content !important;
   }
   .footer-list, .social-media-list, .copyright {
     padding: 0px !important;
@@ -471,6 +484,7 @@ footer {
     margin: 0px !important;
     position: absolute !important;
     padding: 18px;
+    height: 100% !important;
 }
 .pick-seat-block #modalPickSeats .modal-holder > .route-panel h1 {
   font-size: 1.8rem !important;
@@ -483,7 +497,10 @@ footer {
 .legend-panel {
   display: block !important;
 }
-  /*------ SUMMARY RESERVATIO  PAGE -----------*/
+.pick-seat-block #modalPickSeats .modal-holder > .close {
+  display: none !important;
+}
+  /*------ SUMMARY RESERVATION  PAGE -----------*/
   .charges-block {
     margin: 5px 3% !important;
   }
@@ -683,9 +700,9 @@ footer {
   display: inline-block;
   line-height: 50px;
   background-color: transparent;
-  width: 50px;
+  width: 30px;
   height: 56px;
-  color: gray;
+  color: rgb(220, 220, 220);
   text-align: center;
   vertical-align: bottom;
 }

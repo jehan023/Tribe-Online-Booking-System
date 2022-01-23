@@ -572,6 +572,37 @@ h3 {
   font-weight: bold;
   margin-left: 10px;
 }
+/* --------- ANNOUNCEMENTS --------*/
+.announcements-data-options {
+  margin: 0px 3%;
+  background: rgb(182, 182, 182);
+  box-sizing: border-box;
+  text-align: right;
+}
+.announcements-options-btn {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.announcement-form {
+  text-align: center;
+  background: wheat;
+  padding: 15px 15%;
+  margin-bottom: 15px;
+}
+.announcement-form-panel {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.announcement-form-panel input,textarea {
+  width: 100%;
+  height: fit-content;
+  padding: 5px;
+}
+.announcement-form-panel input{
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 /* --------- GENERAL REPORTS --------*/
 .reservation-panel, .trips-panel, .inquiries-panel {
   display: flex;
