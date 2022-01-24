@@ -197,9 +197,14 @@ nav ul li a:hover {
   font-size: 0.9rem;
   text-align: justify;
 }
+.announcement-data-date {
+  font-style: italic;
+  font-weight: bold;
+}
 .announcement-data-context ul {
   text-align: justify;
   padding-right: 10px;
+  margin-bottom: 0px;
 }
 .career-form-panel {
   padding: 15px 15% 25px 15%;

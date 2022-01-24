@@ -560,7 +560,7 @@ function updateArrivedStatus(){
                 <?php
                     echo "<div id='announcement-panel-content'>";
                     $announcement_table = mysqli_query($con,"SELECT * FROM announcements ORDER BY post_time DESC");
-                    if(isset($_POST['inquiries-all-btn'])){
+                    if(isset($_POST['announcements-all-btn'])){
                         $announcement_table = mysqli_query($con,"SELECT * FROM announcements ORDER BY post_time DESC");
                     }
 
@@ -571,13 +571,11 @@ function updateArrivedStatus(){
                                 <div class='announcement-data-panel'>";
                                 echo "<table class='announcement-data-content'>
                                     <tr>
-                                        <td class='announcement-title'>".$row['title']."</td>
+                                        <td class='announcement-title'><strong>".$row['title']."</strong></td>
+                                        <td class='announcement-time'>".date('Y/m/d h:i A', strtotime($row['post_time']))."</td>
                                     </tr>
                                     <tr>
-                                    <td class='announcement-time'>".date('Y/m/d h:i A', strtotime($row['post_time']))."</td>
-                                    </tr>
-                                    <tr>
-                                        <td class='announcement-context'>".$row['context']."</td>
+                                        <td class='announcement-context' colspan='2'>".$row['context']."</td>
                                     </tr>
                                 </table>
                             </div>

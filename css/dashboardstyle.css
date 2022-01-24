@@ -588,6 +588,7 @@ h3 {
   background: wheat;
   padding: 15px 15%;
   margin-bottom: 15px;
+  height: 100%;
 }
 .announcement-form-panel {
   width: 100%;
@@ -601,6 +602,40 @@ h3 {
 .announcement-form-panel input{
   font-weight: bold;
   font-size: 1.1rem;
+}
+.announcement-data-holder {
+  border: 2px solid black;
+  margin: 10px 3%;
+  padding: 10px;
+  background-color: cornsilk;
+}
+.announcement-data-content {
+  width: 100%;
+}
+.announcement-data-content td {
+  border: none;
+  vertical-align: top;
+}
+.announcement-title {
+  color: maroon;
+}
+.announcement-time {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: bold
+}
+.announcement-data-action {
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+}
+.announcement-delete-btn {
+  width: 85px;
+  font-weight: bold;
+  padding: 3px 10px;
+  text-align: center;
+  background: rgb(128, 28, 28);
+  color: #f1f1f1;
 }
 
 /* --------- GENERAL REPORTS --------*/

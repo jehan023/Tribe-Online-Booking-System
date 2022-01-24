@@ -16,7 +16,7 @@ if (isset($_POST['register'])) {
 	}
 	else {
 		if ($password == $_POST['confirm-password']) {
-			$query = "INSERT INTO users (username, pass, created_at) VALUES ('$username', '$password', '$create_datetime')";
+			$query = "INSERT INTO users (username, pass, created_at) VALUES ('$username', '".md5($password)."', '$create_datetime')";
 
 			if (mysqli_query($con, $query)) {
                 echo "<script>

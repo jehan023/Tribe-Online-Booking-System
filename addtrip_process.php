@@ -38,7 +38,7 @@ if(isset($_POST['delete-inquiry-data'])){
         header("location:dashboard.php?view_panel=messageInquiries"); // redirects to all records page
         exit;	
     } else {
-        echo "Error deleting record"; // display error message if not delete
+        echo "<script>alert('Error deleting record');</script>"; // display error message if not delete
     }
 }
 
@@ -74,6 +74,18 @@ if(isset($_POST['announcementPost'])){
                 alert('ERROR: Could not able to execute $announcement_insert');
                 </script>";
         }
+    }
+}
+
+if(isset($_POST['delete-announcement-data'])){
+    $announcement_id = $_POST['delete-announcement-data'];
+    $del = mysqli_query($con,"DELETE FROM announcements WHERE id = '$announcement_id'"); // delete query
+    if($del)
+    {
+        header("location:dashboard.php?view_panel=announcements"); // redirects to all records page
+        exit;	
+    } else {
+        echo "<script>alert('Error deleting record');</script>"; // display error message if not delete
     }
 }
 ?>
