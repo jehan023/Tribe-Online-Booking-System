@@ -564,7 +564,7 @@ h3 {
   font-weight: bold;
   margin-right: 10px;
 }
-.status-options-btn:hover, .inquiry-options-btn:hover, .reservation-options-btn:hover, .trip-options-btn:hover {
+.status-options-btn:hover, .inquiry-options-btn:hover, .reservation-options-btn:hover, .trip-options-btn:hover, .announcements-options-btn:hover {
   background: rgb(19, 105, 19);
   color: #f1f1f1;
 }
@@ -589,6 +589,20 @@ h3 {
   padding: 15px 15%;
   margin-bottom: 15px;
   height: 100%;
+}
+#announcementPost_btn, #announcementCancel_btn {
+  width: 150px;
+  font-weight: bold;
+  padding: 3px 10px;
+  text-align: center;
+  color: #f1f1f1;
+  margin-right: 15px;
+}
+#announcementPost_btn {
+  background: green;
+}
+#announcementCancel_btn {
+  background: rgb(128, 28, 28);
 }
 .announcement-form-panel {
   width: 100%;
