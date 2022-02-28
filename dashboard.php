@@ -251,6 +251,7 @@ function updateArrivedStatus(){
                                 $income += $row['payable'];
                             }
                             $percent = $confirmed_count/$reservations_count*100;
+                            $percent = number_format($percent, 2, '.', '');
                         } else {
                             $income = 0;
                             $percent = 0;

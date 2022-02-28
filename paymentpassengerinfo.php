@@ -69,7 +69,7 @@
 
                         <div class="data-form">
                             <label>Middle Name:</label>
-                            <input name="reserve_pMname" type="text" id="PaymentPassengerInfoContent_txtMName" placeholder="input NA if none." autocomplete="additional-name"
+                            <input name="reserve_pMname" type="text" id="PaymentPassengerInfoContent_txtMName" placeholder="Middle Name" autocomplete="additional-name"
                             onkeyup="this.value = this.value.toUpperCase();"/>
                             
                         </div>
