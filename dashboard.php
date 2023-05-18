@@ -276,7 +276,7 @@ function updateArrivedStatus(){
                     </div>
                     <div class="reservation-panel-content">
                         <h4>Confirmed Reservations</h4>
-                        <h3><?php echo $confirmed_count.' ('.$percent.'%)'; ?></h3>
+                        <h3><?php echo $confirmed_count.' ('.sprintf('%.2f', $percent).'%)'; ?></h3>
                     </div>
                     <div class="reservation-panel-content">
                         <h4>Income from Reservations</h4>

@@ -85,7 +85,7 @@ include('indexsearch_trip.php');
         <ul class="links">
             <li><a href="index.php" class="active">Book Trip</a></li>
             <li><a href="rent.html">Rent</a></li>
-            <li><a href="login.php">Tribe Portal</a></li>
+            <li class="portal-opt"><a href="login.php">Tribe Portal</a></li>
         </ul>
         <label for="nav-toggle" class="icon-burger">
             <div class="line"></div>

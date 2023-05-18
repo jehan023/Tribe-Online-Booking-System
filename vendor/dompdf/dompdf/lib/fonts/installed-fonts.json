@@ -1,0 +1,13 @@
+{
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_866e9f79346719384a05794e391944b1"
+    },
+    "font awesome 5 duotone": {
+        "900": "font_awesome_5_duotone_900_846c1b8a1e30356c4578fdd1b82fdbda"
+    },
+    "font awesome 5 pro": {
+        "300": "C:\\xampp\\htdocs\\tribe\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_pro_300_03ec8c7e3d15e425515b494611e09faa",
+        "normal": "C:\\xampp\\htdocs\\tribe\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_pro_normal_ce9323a631174384fed36384a2020dde",
+        "900": "font_awesome_5_pro_900_80cab2937ff1b599c0bb933abe04fe75"
+    }
+}

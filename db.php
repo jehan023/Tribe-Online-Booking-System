@@ -1,11 +1,27 @@
 <?php
 // Enter your host name, database username, password, and database name.
 // If you have not set database password on localhost then set empty.
-$con = mysqli_connect("localhost", "root", "", "tribetransport_db");
+/*$con = mysqli_connect("localhost", "root", "", "tribetransport_db");
 // Check connection
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}*/
+
+$con = new mysqli("localhost", "root", "");
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
 }
+$sql_db = "CREATE DATABASE IF NOT EXISTS tribetransport_db";
+$con->query($sql_db);
+// If database is not exist create one
+if (!mysqli_select_db($con,"tribetransport_db")){
+    
+    if ($con->query($sql_db) === TRUE) {
+        echo "Database created successfully";
+    }else {
+        echo "Error creating database: " . $con->error . "/n";
+    }
+} 
 
 $query = "CREATE TABLE IF NOT EXISTS trips (
     trip_id int(7) zerofill NOT NULL AUTO_INCREMENT,
@@ -66,4 +82,22 @@ $announcements = "CREATE TABLE IF NOT EXISTS announcements (
     PRIMARY KEY (id)
 )";
 mysqli_query($con, $announcements);
+
+$users = "CREATE TABLE IF NOT EXISTS users (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    username varchar (10) NOT NULL,
+    pass varchar (50) NOT NULL,
+    created_at datetime NOT NULL,
+    PRIMARY KEY (id)
+)";
+mysqli_query($con, $users);
+
+$sql_useradmin = "SELECT * FROM users";
+$res_useradmin = mysqli_query($con, $sql_useradmin);
+$create_datetime = date("Y-m-d H:i:s");
+if (mysqli_num_rows($res_useradmin) == 0) {
+    $admin = "INSERT INTO users (username, pass, created_at) VALUES ('tribe2022', '".md5('tribeadmin')."', '$create_datetime')";
+    mysqli_query($con, $admin);
+}
+
 ?>
