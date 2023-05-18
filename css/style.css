@@ -7,6 +7,9 @@ body {
   margin: 0px;
   background-color: #293241;
 }
+body::-webkit-scrollbar{
+  display: none;
+}
 
 /*----------NAVIGATION------------------------------------------*/
 
@@ -326,6 +329,9 @@ footer {
   nav .links a {
     font-size: 20px;
   }
+  nav ul li.portal-opt{
+    display: none;
+  }
   nav :checked ~ .links {
     bottom: 0;
   }
@@ -434,6 +440,20 @@ footer {
     table-layout: fixed;
     margin: 0px  !important; 
   }
+  .btn-reserveseat {
+    margin-right: 50px !important;
+    width: 50px;
+    margin: 0 !important;
+    font-size: 10px;
+  }
+  .schedule-block
+  > #divSchedule
+  > .tbl-booking-schedule
+  > tbody
+  > tr
+  > td:nth-child(2) {
+  text-align: center;
+  }
   /*------ PASSENGER INFORMATION PAGE -----------*/
   .pass-info-form-group {
     display: block;
@@ -489,7 +509,6 @@ footer {
     margin: 0px !important;
     position: absolute !important;
     padding: 18px;
-    height: 100% !important;
 }
 .pick-seat-block #modalPickSeats .modal-holder > .route-panel h1 {
   font-size: 1.8rem !important;
@@ -930,7 +949,6 @@ footer {
   > tr
   > td:last-child {
   text-align: right;
-  padding-right: 16px;
 }
 .schedule-block
   > #divSchedule

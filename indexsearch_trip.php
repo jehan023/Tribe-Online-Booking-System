@@ -35,28 +35,31 @@ if (isset($_POST['search_trip_btn'])) {
 //PASSENGER INFORMATIONS
 if (isset($_POST['btnNext2'])) {
 	$fname = $_POST['reserve_pFname'];
-    $mname = $_POST['reserve_pMname'];
-    $lname = $_POST['reserve_pLname'];
+	$mname = $_POST['reserve_pMname'];
+	$lname = $_POST['reserve_pLname'];
 	$gender = $_POST['reserve_pGender'];
-    $city = $_POST['reserve_pCity'];
-    $email = $_POST['reserve_pReEmail'];
-    $contact = $_POST['reserve_pMobile'];
-    $province = $_POST['reserve_pProvince'];
+	$city = $_POST['reserve_pCity'];
+	$email = $_POST['reserve_pReEmail'];
+	$contact = $_POST['reserve_pMobile'];
+	$province = $_POST['reserve_pProvince'];
 
-    $tID = $_POST['selected_ID'];
+	$tID = $_POST['selected_ID'];
 	//SELECTED TRIP_ID
 	$_SESSION['selected_tID'] = $tID;
 	//PASSENGER INFO
 	$_SESSION['pFname'] = $fname;
-	if(!empty($mname)){
-		if ($mname != 'NA'){ $_SESSION['pMname'] = $mname; }
-		else {
+	if (!empty($mname)) {
+		if ($mname != 'NA') {
+			$_SESSION['pMname'] = $mname;
+		} else {
 			$_SESSION['pMname'] = '';
 			echo "<script>
 			console.log('No Middle Name');
 			</script>";
 		}
-	} else { $_SESSION['pMname'] = ''; }
+	} else {
+		$_SESSION['pMname'] = '';
+	}
 	$_SESSION['pLname'] = $lname;
 	$_SESSION['pGender'] = $gender;
 	$_SESSION['pMobile'] = $contact;
@@ -64,22 +67,22 @@ if (isset($_POST['btnNext2'])) {
 	$_SESSION['pCity'] = $city;
 	$_SESSION['pProvince'] = $province;
 
-    $triptime_search = "SELECT * FROM trips WHERE trip_id='".$_SESSION['selected_tID']."'";
-    $triptime_result = mysqli_query($con, $triptime_search);
-    while($row = mysqli_fetch_array($triptime_result)) {
-        $searched_time = $row['trip_time'];
-        $searched_seat = $row['seats'];
+	$triptime_search = "SELECT * FROM trips WHERE trip_id='" . $_SESSION['selected_tID'] . "'";
+	$triptime_result = mysqli_query($con, $triptime_search);
+	while ($row = mysqli_fetch_array($triptime_result)) {
+		$searched_time = $row['trip_time'];
+		$searched_seat = $row['seats'];
 		$searched_fare = $row['fare'];
 		$searched_code = $row['bus_code'];
 		$searched_plate = $row['bus_plateno'];
-    }
+	}
 	//TRIP TIME - SEATS AVAILABLE - FARE
-    $_SESSION['trip_time'] = $searched_time;
-    $_SESSION['trip_seats'] = $searched_seat;
+	$_SESSION['trip_time'] = $searched_time;
+	$_SESSION['trip_seats'] = $searched_seat;
 	$_SESSION['trip_fare'] = $searched_fare;
 	$_SESSION['bus_code'] = $searched_code;
 	$_SESSION['bus_plate'] = $searched_plate;
-	$_SESSION['payable'] = $searched_fare+50.00;
+	$_SESSION['payable'] = $searched_fare + 50.00;
 
 	echo "<script>
 		window.location.href='paymentticketinfo.php';
@@ -90,7 +93,7 @@ if (isset($_POST['btnNext2'])) {
 if (isset($_POST['save_seat'])) {
 	$selected_seat = $_POST['seat_selected'];
 	//SELECTED SEAT TO RESERVE
-	if(!empty($selected_seat)){
+	if (!empty($selected_seat)) {
 		$_SESSION['seat_reserve'] = $selected_seat;
 
 		echo "<script>
@@ -104,49 +107,50 @@ if (isset($_POST['save_seat'])) {
 	}
 }
 //CONFIRMATION OF RESERVATION - UPDATING TRIP_ID SEATS AVAILABLE AND INSERT BOOKED SEAT - INSERTING PASSENGER INFO ON PASSENGER TABLE
-if(isset($_POST['ticket-confirmed'])){
+if (isset($_POST['ticket-confirmed'])) {
 	//FETCH TRIP DATA USING TRIP_ID
-	$booking = mysqli_query($con,"SELECT * FROM trips WHERE trip_id='".$_SESSION['selected_tID']."'");
-    while($row = mysqli_fetch_array($booking))
-    {
-        $available = $row['seats'];
-        $booked = array($row['book_seats']);
-    }
+	$booking = mysqli_query($con, "SELECT * FROM trips WHERE trip_id='" . $_SESSION['selected_tID'] . "'");
+	while ($row = mysqli_fetch_array($booking)) {
+		$available = $row['seats'];
+		$booked = array($row['book_seats']);
+	}
 
-    $update_avail = $available - 1;
-    $booked[] = $_SESSION['seat_reserve'];
-    $imploded = implode(', ', $booked);
+	$update_avail = $available - 1;
+	$booked[] = $_SESSION['seat_reserve'];
+	$imploded = implode(', ', $booked);
 	//UPDATING AVAILABLE SEAT AND INSERT RESERVED SEAT USING TRIP_ID
-    $trip_update = "UPDATE trips set seats = '$update_avail', book_seats = '$imploded'  WHERE  trip_id = '".$_SESSION['selected_tID']."'";
+	$trip_update = "UPDATE trips set seats = '$update_avail', book_seats = '$imploded'  WHERE  trip_id = '" . $_SESSION['selected_tID'] . "'";
 
 	//RESERVATION TIME CREATED TIMESTAMP
 	$reservation_time = date("Y-m-d h:i:s");
 	$_SESSION['reservation_time'] = $reservation_time;
 
 	$passenger_insert = "INSERT INTO passengers (trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, payable, paid)
-		VALUES ('".$_SESSION['selected_tID']."', '".$_SESSION['seat_reserve']."', '".$_SESSION['date_depart']."', '".$_SESSION['trip_time']."', '".$_SESSION['pFname']."'
-		, '".$_SESSION['pMname']."', '".$_SESSION['pLname']."', '".$_SESSION['pGender']."', '".$_SESSION['pEmail']."', '".$_SESSION['pMobile']."', '".$_SESSION['pCity']."'
-		, '".$_SESSION['pProvince']."', '$reservation_time', '".$_SESSION['payable']."', '0')";
+		VALUES ('" . $_SESSION['selected_tID'] . "', '" . $_SESSION['seat_reserve'] . "', '" . $_SESSION['date_depart'] . "', '" . $_SESSION['trip_time'] . "', '" . $_SESSION['pFname'] . "'
+		, '" . $_SESSION['pMname'] . "', '" . $_SESSION['pLname'] . "', '" . $_SESSION['pGender'] . "', '" . $_SESSION['pEmail'] . "', '" . $_SESSION['pMobile'] . "', '" . $_SESSION['pCity'] . "'
+		, '" . $_SESSION['pProvince'] . "', '$reservation_time', '" . $_SESSION['payable'] . "', '0')";
 
 	$check_table = mysqli_query($con, "SHOW TABLES LIKE 'passengers'");
 	if ($check_table->num_rows == 1) {
-        if (mysqli_query($con, $passenger_insert)) {
+		if (mysqli_query($con, $passenger_insert)) {
 			if (mysqli_query($con, $trip_update)) {
 				echo "<script>
                     alert('TRIP RESERVATION CONFIRMED.');
                     </script>";
-			}
-			else {
+			} else {
 				echo "<script>
 					alert('ERROR: Could not able to execute $trip_update');
 					</script>";
 			}
-        }
-        else {
-            echo "<script>
+		} else {
+			echo "<script>
                 alert('ERROR: Could not able to execute $passenger_insert');
                 </script>";
-        }
-    }
+		}
+	}
+}
+
+if (isset($_POST['download-pdf'])) {
+	echo "<script>window.location.href='generate-ticket.php';</script>";
 }
 ?>
