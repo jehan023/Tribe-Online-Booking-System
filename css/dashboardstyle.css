@@ -214,7 +214,7 @@ a {
   margin: 5px 10%;
   font-size: 1.1em;
   padding: 4px;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .form_error span {
   width: 80%;
@@ -231,7 +231,7 @@ a {
   width: 80%;
   margin: 5px 10%;
   color: white;
-  background: #3B5998;
+  background: #3b5998;
   border: none;
   border-radius: 5px;
 }
@@ -254,16 +254,18 @@ a {
 /* ------ TRIP SCHEDULE ----------- */
 .trip-nav {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
-.search-trip-schedules{
+.search-trip-schedules {
   float: left;
   display: block;
   height: 35px;
   margin-left: 3%;
-  width: 50%;
+  width: 100%;
   box-sizing: border-box;
 }
-.search-trip-schedules input[type=text] {
+.search-trip-schedules input[type="text"] {
   padding: 10px;
   height: 35px;
   font-size: 17px;
@@ -276,7 +278,7 @@ a {
   height: 35px;
   width: 10%;
   padding: auto;
-  background: #2196F3;
+  background: #2196f3;
   color: white;
   font-size: 17px;
   border: none;
@@ -289,9 +291,19 @@ a {
 }
 .trip-data-options {
   display: flex;
-  text-align: right;
+  flex-direction: row;
+  width: 100%;
+  justify-content: start;
+  gap: 3%;
 }
-#add_trip_btn {
+.trip-options-btn {
+  height: 35px;
+  width: max-content;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* #add_trip_btn {
   height: 35px;
   width: 100px;
   margin-right: 3%;
@@ -309,7 +321,7 @@ a {
   width: 145px;
   height: 35px;
   margin-right: 3%;
-}
+} */
 /* ------ INSERT NEW TRIP SCHEDULE ----------- */
 #insert-new-trip-schedule {
   background-color: cornsilk;
@@ -327,18 +339,27 @@ a {
   border-bottom: 2px solid rgb(35, 35, 35);
   margin-bottom: 10px;
 }
-.orig-dest, .date-time, .bus-info, #insertTrip_btn, #reset_btn, #cancel_btn  {
+.orig-dest,
+.date-time,
+.bus-info,
+#insertTrip_btn,
+#reset_btn,
+#cancel_btn {
   display: inline-block;
   box-sizing: border-box;
   padding-right: 15px;
 }
 .orig-dest {
-  width: 50%
+  width: 50%;
 }
-.bus-info, .date-time {
+.bus-info,
+.date-time {
   width: 33.33%;
 }
-.first-row, .sec-row, .third-row, .trip-btn {
+.first-row,
+.sec-row,
+.third-row,
+.trip-btn {
   display: flex;
   margin-bottom: 10px;
 }
@@ -363,7 +384,7 @@ a {
   margin-left: 5%;
   margin-right: 5%;
   color: white;
-  background: #3B5998;
+  background: #3b5998;
   border: none;
   border-radius: 5px;
   font-weight: bold;
@@ -396,15 +417,26 @@ a {
   width: 100%;
 }
 .trip-schedules-table {
-  border: 1px solid black;
-  width:95%;
-  margin:25px 3%;
-  box-sizing: border-box;
-
+  width: 95%;
+  margin: 25px 3%;
+  max-height: 70vh;
+  overflow-y: auto;
 }
-.trip-schedules-table th, td {
+.trip-schedules-table tr th {
+  position: sticky;
+  z-index: 100;
+  top: 0;
   border: 1px solid black;
-  padding:5px;
+}
+.trip-schedules-table tr th {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+}
+.trip-schedules-table th,
+td {
+  border: 1px solid black;
+  padding: 5px;
 }
 .trip-schedules-table td {
   text-overflow: ellipsis;
@@ -416,7 +448,7 @@ a {
 }
 .passenger-data-options {
   display: block;
-  margin: 0px 3%;
+  padding: 0px 3%;
   box-sizing: border-box;
   text-align: right;
   background: rgb(182, 182, 182);
@@ -428,16 +460,19 @@ a {
   text-align: center;
   height: 100vh;
 }
-.pass-first-row-input, .pass-second-row-input {
+.pass-first-row-input,
+.pass-second-row-input {
   text-align: justify;
   margin-top: 5px;
 }
-.pass-first-row-input input, .pass-second-row-input input {
+.pass-first-row-input input,
+.pass-second-row-input input {
   width: 100%;
   height: 40px;
   font-size: 1rem;
 }
-.pass-first-row-input label, .pass-second-row-input label {
+.pass-first-row-input label,
+.pass-second-row-input label {
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -463,7 +498,8 @@ a {
   background: red;
 }
 .trip-schedules-table tr:hover {
-  background: #C7B198;
+  background: #c7b198;
+  font-weight: 500;
 }
 .passenger-status-confirmed {
   color: green;
@@ -475,6 +511,7 @@ a {
   background: rgb(182, 182, 182);
   box-sizing: border-box;
   text-align: right;
+  height: 40px;
 }
 .inquiry-data-holder {
   border: 2px solid black;
@@ -510,7 +547,8 @@ a {
   margin-top: 5px;
   text-align: right;
 }
-.inquiry-reply-btn, .inquiry-delete-btn {
+.inquiry-reply-btn,
+.inquiry-delete-btn {
   width: 85px;
   font-weight: bold;
   padding: 3px 10px;
@@ -528,7 +566,8 @@ a {
   text-align: right;
   font-weight: bold;
 }
-.inquiry-sender, .inquiry-company {
+.inquiry-sender,
+.inquiry-company {
   width: 1%;
   font-weight: bold;
   white-space: nowrap;
@@ -541,10 +580,10 @@ h3 {
   font-weight: bolder;
 }
 .trip-status-btn {
-  width: 100% ;
+  width: 100%;
   font-weight: bold;
 }
-#departed-status-btn {  
+#departed-status-btn {
   background: rgb(82, 119, 231);
   color: #f1f1f1;
 }
@@ -556,32 +595,77 @@ h3 {
   background: red;
   color: #f1f1f1;
 }
-#departed-status-btn:hover {  
+#departed-status-btn:hover {
   background: rgb(0, 64, 255);
   color: #f1f1f1;
 }
 .status-options-btn {
   font-weight: bold;
-  margin-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.status-options-btn:hover, .inquiry-options-btn:hover, .reservation-options-btn:hover, .trip-options-btn:hover, .announcements-options-btn:hover {
+.status-options-btn:hover,
+.inquiry-options-btn:hover,
+.reservation-options-btn:hover,
+.trip-options-btn:hover,
+.announcements-options-btn:hover {
   background: rgb(19, 105, 19);
   color: #f1f1f1;
 }
-.inquiry-options-btn, .reservation-options-btn {
+.inquiry-options-btn,
+.reservation-options-btn {
   font-weight: bold;
   margin-left: 10px;
+  height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
+
+.passengers-table {
+  display: block;
+  margin: 25px 3%;
+  max-height: 70vh;
+  overflow-y: auto;
+  width: 95% !important;
+}
+.passengers-table tr th {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  border: 1px solid black;
+}
+.passengers-table th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+}
+.passengers-table td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.passengers-table th {
+  text-align: center;
+  background: cornflowerblue;
+}
+.passengers-table tr:hover {
+  background: #c7b198;
+  font-weight: 500;
+}
+
 /* --------- ANNOUNCEMENTS --------*/
 .announcements-data-options {
   margin: 0px 3%;
-  background: rgb(182, 182, 182);
+  background: rgb(200, 195, 195);
   box-sizing: border-box;
   text-align: right;
+  height: 40px;
 }
 .announcements-options-btn {
   margin-left: 10px;
   font-weight: bold;
+  height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .announcement-form {
   text-align: center;
@@ -590,7 +674,8 @@ h3 {
   margin-bottom: 15px;
   height: 100%;
 }
-#announcementPost_btn, #announcementCancel_btn {
+#announcementPost_btn,
+#announcementCancel_btn {
   width: 150px;
   font-weight: bold;
   padding: 3px 10px;
@@ -608,12 +693,13 @@ h3 {
   width: 100%;
   margin-bottom: 10px;
 }
-.announcement-form-panel input,textarea {
+.announcement-form-panel input,
+textarea {
   width: 100%;
   height: fit-content;
   padding: 5px;
 }
-.announcement-form-panel input{
+.announcement-form-panel input {
   font-weight: bold;
   font-size: 1.1rem;
 }
@@ -636,7 +722,10 @@ h3 {
 .announcement-time {
   text-align: right;
   white-space: nowrap;
-  font-weight: bold
+  font-weight: bold;
+}
+.announcement-context {
+  font-weight: bold;
 }
 .announcement-data-action {
   display: block;
@@ -653,54 +742,54 @@ h3 {
 }
 
 /* --------- GENERAL REPORTS --------*/
-.reservation-panel, .trips-panel, .inquiries-panel {
+.reservation-panel,
+.trips-panel,
+.inquiries-panel {
   display: flex;
   margin: 0px 3%;
 }
-.trips-panel-content, .inquiries-panel-content {
+.reservation-panel-content,
+.trips-panel-content,
+.inquiries-panel-content {
   display: inline-block;
-  margin: 0px 3%;
+  /* margin: 0px 3%; */
   padding: 8px;
   text-align: center;
   border: 1px solid black;
-  width: 33%;
+  width: 100%;
 }
 .reservation-panel-content {
-  display: inline-block;
-  margin: 0px 3%;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid black;
-  width: 25%;
-}
-.reservation-panel-content{
   background: #fcb2a9;
 }
-.trips-panel-content{
+.trips-panel-content {
   background: #94e4c9;
 }
-.inquiries-panel-content{
+.inquiries-panel-content {
   background: #f4a261;
 }
-.reservation-panel-content h4 {
-  border-bottom: 1px solid black;
-  background: blanchedalmond;
-  font-weight: bold
-}
-.trips-panel-content h4 {
-  border-bottom: 1px solid black;
-  background: blanchedalmond;
-  font-weight: bold
-}
+.reservation-panel-content h4,
+.trips-panel-content h4,
 .inquiries-panel-content h4 {
   border-bottom: 1px solid black;
   background: blanchedalmond;
   font-weight: bold;
 }
-.reservation-panel-header, .trips-panel-header, .inquiries-panel-header {
+/* .trips-panel-content h4 {
+  border-bottom: 1px solid black;
+  background: blanchedalmond;
+  font-weight: bold;
+}
+.inquiries-panel-content h4 {
+  border-bottom: 1px solid black;
+  background: blanchedalmond;
+  font-weight: bold;
+} */
+.reservation-panel-header,
+.trips-panel-header,
+.inquiries-panel-header {
   display: flex;
   margin: 15px 3%;
-  padding: 5px;
+  padding: 10px;
   font-size: 1.5rem;
   font-weight: bold;
   justify-content: space-between;

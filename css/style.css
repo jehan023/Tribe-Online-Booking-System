@@ -113,32 +113,37 @@ nav ul li a:hover {
 .radio-trip {
   margin-top: 10px;
   display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
 }
 .booking-panel {
   width: 100%;
   margin-top: 10px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2%;
 }
 .orig-dropdown,
 .dest-dropdown,
 .booking-date-holder,
 .passenger {
-  margin-right: 15px;
+  /* margin-right: 15px; */
   box-sizing: border-box;
 }
 .booking-date-holder {
-  display: block;
-  width: 20%;
+  display: flex;
+  width: 100%;
 }
-.booking-date-line {
+/* .booking-date-line {
   margin-top: 3px;
   width: 100%;
   background-color: black;
   border: 1px solid black;
-}
+} */
 .orig-dropdown,
 .dest-dropdown {
-  width: 20%;
+  width: 100%;
   box-sizing: border-box;
 }
 .dropdown-list {
@@ -146,21 +151,28 @@ nav ul li a:hover {
   height: 100%;
 }
 .depart {
-  width: 90%;
+  width: 100%;
+  height: 100%;
 }
 #datepicker-icon {
-  width: 6%;
+  width: 10%;
+  height: 100%;
 }
 .datepicker {
   width: 100%;
+  height: 100%;
 }
-.depart,
+/* .depart,
 .date-line,
 .far {
   display: inline-block;
+} */
+.passenger {
+  width: 60%;
+  margin: auto;
 }
 .button-panel {
-  width: 20%;
+  width: 100%;
 }
 .btn-book {
   padding: 8px 0px;
@@ -168,6 +180,7 @@ nav ul li a:hover {
   background: brown;
   color: white;
   font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
   border-radius: 5px;
   border: 1px solid grey;
   cursor: pointer;
@@ -226,9 +239,6 @@ nav ul li a:hover {
   border: none;
   width: 100%;
   padding: 18px;
-}
-.passenger {
-  width: 18%;
 }
 input.txt-count {
   display: none;
@@ -365,7 +375,8 @@ footer {
   .booking-panel {
     width: 100%;
     margin-top: 10px;
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
   .orig-dropdown,
   .dest-dropdown,
@@ -377,13 +388,12 @@ footer {
     box-sizing: border-box;
   }
   .depart {
-    width: 93%;
-    height: 30px;
-  }.datepicker {
+    width: 100%;
     height: 30px;
   }
   #datepicker-icon {
     width: 5%;
+    height: 100%;
   }
   .button-panel {
     width: 100% !important;
@@ -397,6 +407,15 @@ footer {
     border-radius: 5px;
     border: 1px solid grey;
     cursor: pointer;
+  }
+  .reminders {
+    width: 100%;
+  }
+  .reminder-notes {
+    padding-left: 20px;
+  }
+  .reminder-notes li {
+    margin-top: 10px;
   }
   footer {
     height: min-content !important;
