@@ -329,7 +329,7 @@ function updateArrivedStatus(){
                             <button type="submit" name="search-trip-btn"><i class="fa fa-search"></i></button>
                         </form>
                         <form method='post' class="trip-data-options">
-                            <button type="button" name="add-trip-btn" id="add_trip_btn" class="trip-options-btn" onclick="showTripForm()">+ New Trip</button>
+                            <button type="button" name="add-trip-btn" id="add_trip_btn" class="trip-options-btn" onclick="showTripForm()">Add New Trip</button>
                             <button type="submit" name="all-trip-btn" id="all-trip-btn" class="trip-options-btn">View All</button>
                             <button type="submit" name="sort-trip-btn" id="sort-trip-btn" class="trip-options-btn">Arrange by Sched</button>
                         </form>
@@ -691,8 +691,8 @@ function updateArrivedStatus(){
                 
                 <?php
                     $reservation_table = mysqli_query($con,"SELECT * FROM passengers");
-                    echo "<table class='trip-schedules-table' id='passenger-table'>
-                    <tr>
+                    echo "<table class='passengers-table' id='passenger-table'>
+                    <tr class='table-header'>
                         <th>Passenger ID</th>
                         <th>Trip ID</th>
                         <th>Seat No.</th>
@@ -702,7 +702,7 @@ function updateArrivedStatus(){
                         <th>Contact</th>
                         <th>Email</th>
                         <th>Address</th>
-                        <th>RESV Time</th>
+                        <th>Booked Time</th>
                         <th>Payable</th>
                         <th>Status</th>
                     </tr>";
@@ -725,7 +725,7 @@ function updateArrivedStatus(){
                     if (mysqli_num_rows($reservation_table) > 0) {
                         while($row = mysqli_fetch_array($reservation_table))
                         {
-                            echo "<tr>";
+                            echo "<tr class='table-rows'>";
                             echo "<td>" . $row['id'] . "</td>";
                             echo "<td>" . $row['trip_id'] . "</td>";
                             echo "<td>" . $row['seat_no'] . "</td>";

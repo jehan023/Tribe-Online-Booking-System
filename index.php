@@ -144,12 +144,12 @@ include('indexsearch_trip.php');
                         <div class="depart" id="depart-selection">
                             <input type="date" class="datepicker" name="DepartingOn" id="DepartingOn" placeholder="Depart" required/>
                         </div>
-                        <div class="date-line" id="date-dash" style="display:none;">-</div>
+                        <!-- <div class="date-line" id="date-dash" style="display:none;">-</div>
                         <div class="return" id="return-selection" style="display:none;">
                             <input type="date" class="datepicker" name="ReturningOn" id="ReturningOn" placeholder="Return"/>
-                        </div>
-                        <i class="far fa-calendar-alt" id="datepicker-icon"></i>
-                        <div class="booking-date-line"></div>
+                        </div> -->
+                        <!-- <i class="far fa-calendar-alt" id="datepicker-icon"></i> -->
+                        <!-- <div class="booking-date-line"></div> -->
                     </div>
                     <div class="passenger">
                         <strong>Passenger: 1</strong>
