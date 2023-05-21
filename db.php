@@ -24,7 +24,8 @@ if (!mysqli_select_db($con,"tribetransport_db")){
 } 
 
 $query = "CREATE TABLE IF NOT EXISTS trips (
-    trip_id int(7) zerofill NOT NULL AUTO_INCREMENT,
+    -- trip_id int(7) zerofill NOT NULL AUTO_INCREMENT,
+    trip_id varchar(10) NOT NULL,
     trip_orig varchar(50) NOT NULL,
     trip_dest varchar(50) NOT NULL,
     trip_date date NOT NULL,
@@ -42,8 +43,9 @@ $query = "CREATE TABLE IF NOT EXISTS trips (
 mysqli_query($con, $query);
 
 $passenger_query = "CREATE TABLE IF NOT EXISTS passengers (
-    id int(11) NOT NULL AUTO_INCREMENT,
-    trip_id int(7) zerofill NOT NULL,
+    -- id int(11) NOT NULL AUTO_INCREMENT,
+    id varchar(10) NOT NULL,
+    trip_id varchar(10) NOT NULL,
     seat_no int(3) NOT NULL,
     trip_date date NOT NULL,
     trip_time varchar(10) NOT NULL,

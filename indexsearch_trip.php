@@ -125,8 +125,8 @@ if (isset($_POST['ticket-confirmed'])) {
 	$reservation_time = date("Y-m-d h:i:s");
 	$_SESSION['reservation_time'] = $reservation_time;
 
-	$passenger_insert = "INSERT INTO passengers (trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, payable, paid)
-		VALUES ('" . $_SESSION['selected_tID'] . "', '" . $_SESSION['seat_reserve'] . "', '" . $_SESSION['date_depart'] . "', '" . $_SESSION['trip_time'] . "', '" . $_SESSION['pFname'] . "'
+	$passenger_insert = "INSERT INTO passengers (id, trip_id, seat_no, trip_date, trip_time, firstname, middlename, lastname, gender, email, contact, city, province, reservation, payable, paid)
+		VALUES (UUID(), '" . $_SESSION['selected_tID'] . "', '" . $_SESSION['seat_reserve'] . "', '" . $_SESSION['date_depart'] . "', '" . $_SESSION['trip_time'] . "', '" . $_SESSION['pFname'] . "'
 		, '" . $_SESSION['pMname'] . "', '" . $_SESSION['pLname'] . "', '" . $_SESSION['pGender'] . "', '" . $_SESSION['pEmail'] . "', '" . $_SESSION['pMobile'] . "', '" . $_SESSION['pCity'] . "'
 		, '" . $_SESSION['pProvince'] . "', '$reservation_time', '" . $_SESSION['payable'] . "', '0')";
 

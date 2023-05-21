@@ -520,9 +520,9 @@ function updateArrivedStatus(){
                                 }
 
                                 if ($row['status'] == 0){
-                                    echo "<td><button class='trip-status-btn' id='departed-status-btn' onclick=\"confirmationTripDeparted('".$row['trip_id']."')\">DEPARTED ?</button></td>";
+                                    echo "<td><button class='trip-status-btn' id='departed-status-btn' onclick=\"confirmationTripDeparted('".$row['trip_id']."')\">DEPARTING</button></td>";
                                 } else if ($row['status'] == 1){
-                                    echo "<td><button class='trip-status-btn' id='arrived-status-btn' onclick=\"confirmationTripArrived('".$row['trip_id']."')\">ARRIVED ?</button></td>";
+                                    echo "<td><button class='trip-status-btn' id='arrived-status-btn' onclick=\"confirmationTripArrived('".$row['trip_id']."')\">ARRIVING</button></td>";
                                 } else {
                                     echo "<td class='passenger-status-confirmed'>COMPLETED</td>";
                                 }
