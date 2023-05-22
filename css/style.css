@@ -7,7 +7,7 @@ body {
   margin: 0px;
   background-color: #293241;
 }
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
 }
 
@@ -128,12 +128,15 @@ nav ul li a:hover {
 .dest-dropdown,
 .booking-date-holder,
 .passenger {
-  /* margin-right: 15px; */
   box-sizing: border-box;
 }
 .booking-date-holder {
   display: flex;
+  flex-flow: row !;
   width: 100%;
+  justify-content: space-between !important;
+  /* text-align: center; */
+  gap: 2% !important;
 }
 /* .booking-date-line {
   margin-top: 3px;
@@ -154,19 +157,18 @@ nav ul li a:hover {
   width: 100%;
   height: 100%;
 }
+.date-icon {
+  padding: auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
 #datepicker-icon {
-  width: 10%;
-  height: 100%;
+  font-size: 1.5rem;
 }
 .datepicker {
   width: 100%;
   height: 100%;
 }
-/* .depart,
-.date-line,
-.far {
-  display: inline-block;
-} */
 .passenger {
   width: 60%;
   margin: auto;
@@ -184,16 +186,37 @@ nav ul li a:hover {
   border-radius: 5px;
   border: 1px solid grey;
   cursor: pointer;
+  font-size: 1rem;
 }
 .reminders-panel {
   margin-top: 15px;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2%;
+}
+.see-booking-wrapper {
+  margin: auto;
+  width: 31.5%;
+  text-align: center;
+}
+.btn-see-booking {
+  padding: 8px 0px;
+  height: 40px;
+  width: 100%;
+  background: rgb(40, 40, 40);
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 5px;
+  border: 1px solid grey;
+  cursor: pointer;
+  font-size: 1rem;
 }
 .reminders p {
   margin: 0px;
 }
 .reminders {
-  width: 80%;
+  width: 100%;
 }
 .announcement-divider {
   margin-top: 5px;
@@ -205,7 +228,6 @@ nav ul li a:hover {
   width: 100%;
   font-size: 0.85rem;
   margin-bottom: 10px;
-
 }
 .announcement-data-title {
   color: maroon;
@@ -243,6 +265,119 @@ nav ul li a:hover {
 input.txt-count {
   display: none;
 }
+
+/*---------MODAL SEE MY BOOKING----------------------*/
+.modal-search-container {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-search-container .modal-search-content {
+  background-color: #fefefe;
+  margin: auto;
+  /* padding: 20px; */
+  border: 1px solid #888;
+  width: 35%;
+}
+
+/* The Close Button */
+.modal-search-container .modal-search-content .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 30px;
+  font-weight: bolder;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.modal-search-container .modal-search-content .close:hover,
+.modal-search-container .modal-search-content .close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-search-content .search-status {
+  font-family: "Montserrat", sans-serif;
+  margin: 10px;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.modal-search-content .on-going {
+  display: block;
+  background-color: rgb(93, 203, 93);
+  color: green;
+  border: 2px solid green;
+}
+
+.modal-search-content .invalid {
+  display: block;
+  background-color: rgb(204, 107, 107);
+  color: rgb(136, 58, 58);
+  border: 2px solid rgb(204, 107, 107);
+}
+
+.modal-search-header {
+  background: rgb(40, 40, 40);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+}
+.search-my-form {
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.search-my-form table {
+  margin: 0px !important;
+  width: 100%;
+}
+.search-my-form input {
+  width: 100%;
+  font-size: 1.4rem;
+}
+.passenger-search-form-btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+}
+.passenger-search-form-btn button {
+  padding: 8px 0px;
+  width: 30%;
+  background: brown;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid grey;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.search-my-form .search-my-form-row > input {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+.search-my-form .search-my-form-row > span {
+  font-weight: bold;
+}
+.search-my-form .search-my-form-row > p {
+  margin: 0;
+  font-style: italic;
+  color: #e0163d;
+}
+
 /*----------FOOTER------------------------------------------*/
 
 footer {
@@ -339,7 +474,7 @@ footer {
   nav .links a {
     font-size: 20px;
   }
-  nav ul li.portal-opt{
+  nav ul li.portal-opt {
     display: none;
   }
   nav :checked ~ .links {
@@ -391,14 +526,11 @@ footer {
     width: 100%;
     height: 30px;
   }
-  #datepicker-icon {
-    width: 5%;
-    height: 100%;
-  }
   .button-panel {
     width: 100% !important;
   }
   .btn-book {
+    margin-top: 10px;
     padding: 8px 0px;
     width: 100%;
     background: brown;
@@ -407,9 +539,31 @@ footer {
     border-radius: 5px;
     border: 1px solid grey;
     cursor: pointer;
+    font-size: 1rem;
+  }
+  .reminders-panel {
+    flex-direction: column;
   }
   .reminders {
     width: 100%;
+  }
+  .see-booking-wrapper {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-see-booking {
+    padding: 8px 0px;
+    height: 40px;
+    width: 100%;
+    background: rgb(40, 40, 40);
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    border-radius: 5px;
+    border: 1px solid grey;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 10px;
   }
   .reminder-notes {
     padding-left: 20px;
@@ -417,10 +571,19 @@ footer {
   .reminder-notes li {
     margin-top: 10px;
   }
+  /* Modal Content */
+  .modal-search-container {
+    padding-top: 50px;
+  }
+  .modal-search-container .modal-search-content {
+    width: 100%;
+  }
   footer {
     height: min-content !important;
   }
-  .footer-list, .social-media-list, .copyright {
+  .footer-list,
+  .social-media-list,
+  .copyright {
     padding: 0px !important;
   }
   /*------ BOOK SELECTION PAGE -----------*/
@@ -457,7 +620,7 @@ footer {
   }
   .tbl-booking-schedule {
     table-layout: fixed;
-    margin: 0px  !important; 
+    margin: 0px !important;
   }
   .btn-reserveseat {
     margin-right: 50px !important;
@@ -466,12 +629,12 @@ footer {
     font-size: 10px;
   }
   .schedule-block
-  > #divSchedule
-  > .tbl-booking-schedule
-  > tbody
-  > tr
-  > td:nth-child(2) {
-  text-align: center;
+    > #divSchedule
+    > .tbl-booking-schedule
+    > tbody
+    > tr
+    > td:nth-child(2) {
+    text-align: center;
   }
   /*------ PASSENGER INFORMATION PAGE -----------*/
   .pass-info-form-group {
@@ -528,153 +691,153 @@ footer {
     margin: 0px !important;
     position: absolute !important;
     padding: 18px;
-}
-.pick-seat-block #modalPickSeats .modal-holder > .route-panel h1 {
-  font-size: 1.8rem !important;
-  line-height: 1.5rem !important;
-}
-.pick-seat-block #modalPickSeats .modal-holder > .route-panel i {
-  font-size: 1.8rem !important;
-  line-height: 1.5rem !important;
-}
-.legend-panel {
-  display: block !important;
-}
-.pick-seat-block #modalPickSeats .modal-holder > .close {
-  display: none !important;
-}
+  }
+  .pick-seat-block #modalPickSeats .modal-holder > .route-panel h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.5rem !important;
+  }
+  .pick-seat-block #modalPickSeats .modal-holder > .route-panel i {
+    font-size: 1.8rem !important;
+    line-height: 1.5rem !important;
+  }
+  .legend-panel {
+    display: block !important;
+  }
+  .pick-seat-block #modalPickSeats .modal-holder > .close {
+    display: none !important;
+  }
   /*------ SUMMARY RESERVATION  PAGE -----------*/
   .charges-block {
     margin: 5px 3% !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group {
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group {
     display: block !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel {
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel {
     width: 100% !important;
-    margin-right: 0px !important; 
+    margin-right: 0px !important;
     max-width: 100% !important;
     min-width: 100% !important;
     margin-bottom: 10px !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .route-panel
-  > h1 {
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .route-panel
+    > h1 {
     font-size: 1.8rem !important;
     line-height: 1.5rem !important;
     margin: 8px 0px !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .route-panel
-  > i {
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .route-panel
+    > i {
     font-size: 1.8rem !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .ticket-data {
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .ticket-data {
     display: block !important;
     width: 100% !important;
   }
   .charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .ticket-data
-  > .left-part {
-  display: block !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin-right: 0px !important;
-  width: 100% !important;
-}
-.charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .ticket-data
-  > .left-part
-  > label {
-  width: 100% !important  ;
-}
-.charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .ticket-panel
-  > .ticket-details
-  > .ticket-data
-  > .right-part {
-  display: block !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin-right: 0px !important;
-  width: 100% !important;
-}
-.charges-block
-  > #PaymentSummaryChargesContent_divSummaryOfCharges
-  > #divSummaryCharges
-  > .ticket-group
-  > .fare-panel {
-  width: 100% !important;
-  margin-right: 0px !important; 
-  max-width: 100% !important;
-  min-width: 100% !important;
-}
-.summary-divider {
-  margin: 5px 3% !important;
-}
-.payment-footer-block {
-  margin: 5px 5% !important;
-}
-.payment-footer-block .payment-footer > .btn-holder {
-  display: block !important;
-  width: 100% !important;
-}
-.payment-footer-block .payment-footer > .btn-holder > .btnpaynamics {
-  display: block !important;
-  width: 100% !important;
-}
-/*----------MISSION VISION PAGE---------------------------------------*/
-.mission-vision h1 {
-  padding: 0px 3% !important;
-  text-align: center !important;
-}
-.mission-vision h2 {
-  padding: 0px 5% !important;
-}
-.mission-vision p {
-  padding: 0px 7% !important;
-  text-align: justify !important;
-}
-/*----------CONTACT US PAGE---------------------------------------*/
-.career-form-panel {
-  padding: 15px 5% 25px 5% !important;
-}
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .ticket-data
+    > .left-part {
+    display: block !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin-right: 0px !important;
+    width: 100% !important;
+  }
+  .charges-block
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .ticket-data
+    > .left-part
+    > label {
+    width: 100% !important  ;
+  }
+  .charges-block
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .ticket-panel
+    > .ticket-details
+    > .ticket-data
+    > .right-part {
+    display: block !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin-right: 0px !important;
+    width: 100% !important;
+  }
+  .charges-block
+    > #PaymentSummaryChargesContent_divSummaryOfCharges
+    > #divSummaryCharges
+    > .ticket-group
+    > .fare-panel {
+    width: 100% !important;
+    margin-right: 0px !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+  .summary-divider {
+    margin: 5px 3% !important;
+  }
+  .payment-footer-block {
+    margin: 5px 5% !important;
+  }
+  .payment-footer-block .payment-footer > .btn-holder {
+    display: block !important;
+    width: 100% !important;
+  }
+  .payment-footer-block .payment-footer > .btn-holder > .btnpaynamics {
+    display: block !important;
+    width: 100% !important;
+  }
+  /*----------MISSION VISION PAGE---------------------------------------*/
+  .mission-vision h1 {
+    padding: 0px 3% !important;
+    text-align: center !important;
+  }
+  .mission-vision h2 {
+    padding: 0px 5% !important;
+  }
+  .mission-vision p {
+    padding: 0px 7% !important;
+    text-align: justify !important;
+  }
+  /*----------CONTACT US PAGE---------------------------------------*/
+  .career-form-panel {
+    padding: 15px 5% 25px 5% !important;
+  }
 }
 
 /*----------IMAGE SLIDER------------------------------------------*/
@@ -684,7 +847,7 @@ footer {
 .slide-content {
   margin: 0;
   padding: 0;
-  font-family: Cabin, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   width: 100%;
   height: 360px;
 }
@@ -745,7 +908,7 @@ footer {
   background-color: transparent;
   width: 30px;
   height: 56px;
-  color: rgb(220, 220, 220);
+  color: rgba(220, 220, 220, 0.5);
   text-align: center;
   vertical-align: bottom;
 }
@@ -1029,7 +1192,8 @@ footer {
   padding-left: 5%;
 }
 .data-form label,
-.data-form input, .data-form select {
+.data-form input,
+.data-form select {
   display: block;
   width: 100%;
   font-size: 1.25rem;
@@ -1120,7 +1284,10 @@ footer {
   margin: 0px 16px;
   font-size: 1.5rem;
 }
-.ticket-panel > .ticket-details > .trip-detail-content > .reservation-data-sched {
+.ticket-panel
+  > .ticket-details
+  > .trip-detail-content
+  > .reservation-data-sched {
   font-size: 1.5rem;
 }
 .ticket-block > .ticket-panel > .ticket-details > .route-panel > h1 {

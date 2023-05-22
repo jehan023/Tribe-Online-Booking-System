@@ -211,7 +211,7 @@ include('indexsearch_trip.php');
                         <tr>
                             <td>Trip ID: </td>
                             <td><strong>
-                                    <?php echo sprintf("%07d", $_SESSION['selected_tID']); ?>
+                                    <?php echo sprintf($_SESSION['selected_tID']); ?>
                                 </strong></td>
                         </tr>
                         <tr>
@@ -280,8 +280,7 @@ include('indexsearch_trip.php');
                 </div>
                 <div class="ticket-line"></div>
                 <div class="fare-detail-header">
-                    <h3>Reservation (
-                        <?php echo $_SESSION['reservation_time']; ?>)
+                    <h3>Reservation (<?php echo $_SESSION['reservation_time']; ?>)
                     </h3>
                 </div>
                 <div class="fare-detail-content">

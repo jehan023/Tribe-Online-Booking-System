@@ -83,7 +83,7 @@ include('indexsearch_trip.php');
                         <?php
 //$reserve_trip_id = '';
 
-$trip_search = "SELECT * FROM trips WHERE trip_orig='" . $_SESSION['origin'] . "' AND trip_dest='" . $_SESSION['destination'] . "' AND trip_date='" . $_SESSION['date_depart'] . "'
+$trip_search = "SELECT * FROM trips WHERE trip_orig='" . $_SESSION['origin'] . "' AND trip_dest='" . $_SESSION['destination'] . "' AND status='0' AND trip_date='" . $_SESSION['date_depart'] . "'
                             ORDER BY trip_time ";
 
 $result_trip_search = mysqli_query($con, $trip_search);
