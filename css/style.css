@@ -128,12 +128,15 @@ nav ul li a:hover {
 .dest-dropdown,
 .booking-date-holder,
 .passenger {
-  /* margin-right: 15px; */
   box-sizing: border-box;
 }
 .booking-date-holder {
   display: flex;
+  flex-flow: row !;
   width: 100%;
+  justify-content: space-between !important;
+  /* text-align: center; */
+  gap: 2% !important;
 }
 /* .booking-date-line {
   margin-top: 3px;
@@ -154,19 +157,18 @@ nav ul li a:hover {
   width: 100%;
   height: 100%;
 }
+.date-icon {
+  padding: auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
 #datepicker-icon {
-  width: 10%;
-  height: 100%;
+  font-size: 1.5rem;
 }
 .datepicker {
   width: 100%;
   height: 100%;
 }
-/* .depart,
-.date-line,
-.far {
-  display: inline-block;
-} */
 .passenger {
   width: 60%;
   margin: auto;
@@ -524,10 +526,6 @@ footer {
     width: 100%;
     height: 30px;
   }
-  #datepicker-icon {
-    width: 5%;
-    height: 100%;
-  }
   .button-panel {
     width: 100% !important;
   }
@@ -849,7 +847,7 @@ footer {
 .slide-content {
   margin: 0;
   padding: 0;
-  font-family: Cabin, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   width: 100%;
   height: 360px;
 }
@@ -910,7 +908,7 @@ footer {
   background-color: transparent;
   width: 30px;
   height: 56px;
-  color: rgb(220, 220, 220);
+  color: rgba(220, 220, 220, 0.5);
   text-align: center;
   vertical-align: bottom;
 }

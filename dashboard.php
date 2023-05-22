@@ -639,8 +639,8 @@ function updateArrivedStatus(){
                                     </table>
                                 </div>
                                 <div class='inbox-data-action'>
-                                    <button type='submit' name='inquiry-reply-data' class='inquiry-reply-btn' value='".$row['mssg_id']."' onclick=\"sendMail('".$row['email']."')\">Reply</button>
-                                    <button type='submit' name='delete-inquiry-data' class='inquiry-delete-btn' value='".$row['mssg_id']."' onclick=\"return confirm('Are you sure to delete this inquiry?');\">Delete</button>
+                                    <button type='submit' name='inquiry-reply-data' class='inquiry-reply-btn' value='".$row['id']."' onclick=\"sendMail('".$row['email']."')\">Reply</button>
+                                    <button type='submit' name='delete-inquiry-data' class='inquiry-delete-btn' value='".$row['id']."' onclick=\"return confirm('Are you sure to delete this inquiry?');\">Delete</button>
                                 </div>
                             </form>";
                         }

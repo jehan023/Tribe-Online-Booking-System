@@ -10,13 +10,14 @@ if (isset($_POST['register'])) {
 	$sql_username = "SELECT * FROM users WHERE username='$username'";
 	$res_username = mysqli_query($con, $sql_username);
 	$create_datetime = date("Y-m-d H:i:s");
+	$uuid = uniqid();
 
 	if (mysqli_num_rows($res_username) > 0) {
 		$name_error = "*Sorry, '" . $username . "' is already taken";
 	}
 	else {
 		if ($password == $_POST['confirm-password']) {
-			$query = "INSERT INTO users (username, pass, created_at) VALUES ('$username', '".md5($password)."', '$create_datetime')";
+			$query = "INSERT INTO users (id, username, pass, created_at) VALUES ('$uuid', '$username', '".md5($password)."', '$create_datetime')";
 
 			if (mysqli_query($con, $query)) {
                 echo "<script>

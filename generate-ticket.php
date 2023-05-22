@@ -34,8 +34,7 @@ $options->setChroot(__DIR__);
 $options->setIsRemoteEnabled(true);
 
 $dompdf = new Dompdf($options);
-
-$dompdf->setPaper("A4", "portrait");
+$dompdf->setPaper('Letter', "portrait");
 
 $html = file_get_contents("reservationticket.html");
 

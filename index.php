@@ -153,7 +153,9 @@ include('indexsearch_trip.php');
                         <div class="return" id="return-selection" style="display:none;">
                             <input type="date" class="datepicker" name="ReturningOn" id="ReturningOn" placeholder="Return"/>
                         </div> -->
-                        <!-- <i class="far fa-calendar-alt" id="datepicker-icon"></i> -->
+                        <div class="date-icon">
+                            <label class="far fa-calendar-alt" id="datepicker-icon" for="DepartingOn"></label>
+                        </div>
                         <!-- <div class="booking-date-line"></div> -->
                     </div>
                     <!-- <div class="passenger">
