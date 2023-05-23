@@ -1,7 +1,14 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 date_default_timezone_set("Asia/Manila");
 session_start();
 require('db.php');
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
 
 if (isset($_POST['search_trip_btn'])) {
 	$trip_orig = $_POST['origin'];
@@ -87,7 +94,6 @@ if (isset($_POST['btnNext2'])) {
 	echo "<script>
 		window.location.href='paymentticketinfo.php';
 		</script>";
-
 }
 //SELECTING SEAT TO RESERVE
 if (isset($_POST['save_seat'])) {
@@ -134,6 +140,322 @@ if (isset($_POST['ticket-confirmed'])) {
 	if ($check_table->num_rows == 1) {
 		if (mysqli_query($con, $passenger_insert)) {
 			if (mysqli_query($con, $trip_update)) {
+				/* creates object */
+				$mail = new PHPMailer(true);
+				$mailid = $_SESSION['pEmail'];
+				$subject = "Tribe: Online Booking Reservation";
+
+				$origin = $_SESSION["origin"];
+				$destination = $_SESSION["destination"];
+				$dateDepart = $_SESSION["date_depart"];
+				$tripTime = $_SESSION["trip_time"];
+				$selectedTID = $_SESSION["selected_tID"];
+				$seatReserve = $_SESSION["seat_reserve"];
+				$busCode = $_SESSION["bus_code"];
+				$busPlate = $_SESSION["bus_plate"];
+				$pFname = $_SESSION["pFname"];
+				$pMname = isset($_SESSION["pMname"]) ? $_SESSION["pMname"] : "";
+				$pLname = $_SESSION["pLname"];
+				$pGender = $_SESSION["pGender"];
+				$pMobile = $_SESSION["pMobile"];
+				$pEmail = $_SESSION["pEmail"];
+				$pCity = $_SESSION["pCity"];
+				$pProvince = $_SESSION["pProvince"];
+				$reservationTime = $_SESSION["reservation_time"];
+				$tripFare = $_SESSION["trip_fare"];
+
+				$message = '<!DOCTYPE html>
+				<html lang="en">
+				
+				<head>
+					<meta charset="UTF-8">
+					<meta http-equiv="X-UA-Compatible" content="IE=edge">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>Ticket · Tribe Transport</title>
+				
+					<link rel="icon" href="images/logo.png" type="image/icon type">
+				
+					<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+				
+					<style>
+						body {
+							font-family: "Montserrat", sans-serif;
+							background-color: #f3f3f3;
+						}
+				
+						.back-to-index-panel {
+							margin: 0 auto;
+							left: 0;
+							right: 0;
+							max-width: 500px;
+							margin-top: 10px;
+							padding: 5px;
+							box-sizing: border-box;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
+				
+						.back-button-content {
+							width: 100%;
+						}
+				
+						.download-btn {
+							text-decoration: none;
+							color: white;
+							font-weight: bold;
+							font-family: "Montserrat", sans-serif;
+							cursor: pointer;
+						}
+				
+						.back-to-index-btn {
+							display: block;
+							width: 100%;
+							height: 40px;
+							background: brown;
+							color: white;
+							border-radius: 10px;
+							font-weight: bold;
+							font-family: "Montserrat", sans-serif;
+						}
+				
+						.back-to-index-btn:hover {
+							background-color: #0a3d52;
+						}
+				
+						.ticket-block {
+							background: #fff;
+							max-width: 500px;
+							margin: 0 auto;
+							height: fit-content;
+							left: 0;
+							right: 0;
+							border: 1px solid black;
+							padding: 5px;
+							box-sizing: border-box;
+						}
+				
+						.ticket-block>.ticket-panel {
+							width: 100%;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-header {
+							display: flex;
+							align-items: center;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-header>img {
+							margin-right: 10px;
+							display: inline-block;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-header>.company-info-header {
+							display: inline-block;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-header>.company-info-header>p {
+							margin: 0px;
+							font-size: 0.8rem;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-header>.company-info-header>.company-name {
+							margin: 0px;
+							font-size: 1rem;
+						}
+				
+						.ticket-panel>.ticket-details>.ticket-line {
+							background: black;
+							height: 2px;
+							margin-top: 5px;
+						}
+				
+						.ticket-panel>.ticket-details>.trip-detail-content {
+							margin: 0px 5px;
+						}
+				
+						.ticket-panel>.ticket-details>.trip-detail-content>.route {
+							width: 100% !important;
+							align-items: center;
+						}
+				
+						.ticket-panel>.ticket-details>.trip-detail-content>.route>h3 {
+							font-size: 1.5rem;
+							display: inline-block;
+							margin: 5px auto;
+						}
+				
+						.ticket-panel>.ticket-details>.trip-detail-content>.route>i {
+							color: brown;
+							margin: 0px 10px;
+							font-size: 1.5rem;
+						}
+				
+						.ticket-panel>.ticket-details>.trip-detail-content>.reservation-data-sched {
+							font-size: 1.5rem;
+						}
+				
+						.trip-detail-header {
+							background-color: #D4D4D4;
+						}
+				
+						.trip-detail-header>h3 {
+							margin: 5px;
+						}
+				
+						.passenger-detail-header {
+							background-color: #D4D4D4;
+						}
+				
+						.passenger-detail-header>h3 {
+							margin: 5px;
+						}
+				
+						.passenger-detail-content {
+							margin: 0px 5px;
+						}
+				
+						.fare-detail-header {
+							background-color: #D4D4D4;
+						}
+				
+						.fare-detail-header>h3 {
+							margin: 5px;
+						}
+				
+						.fare-detail-content {
+							margin: 0px 5px;
+						}
+				
+						.end-ticket-part {
+							background-color: #D4D4D4;
+							text-align: center;
+							margin-top: 5px;
+						}
+					</style>
+				</head>
+				
+				<body>
+					<!--Body Contents-->
+					<div class="ticket-block">
+						<div class="ticket-panel" id="divTicketInfo">
+						<div class="ticket-details">
+							<img class="ticket-header" src="https://lh3.googleusercontent.com/pw/AJFCJaU8wQomCyBP8TixLO7XHr2o1rvP4puNr9OoX-fdkYsyYmNNvdZJQokIe7B5VhgNinTHMX7V1H_GWni3wmQsb2gCrK9tK6YH6-bFQTyGkBQULTYaLiS5SZQLwoY2fsI_JKmiGO46BLZiNNcuG7nIh_99=w1375-h268-s-no?authuser=0" height="80px" alt="ticket-header">
+							<div class="ticket-line"></div>
+							<div class="trip-detail-header">
+							<h3>Trip Details (One-Way)</h3>
+							</div>
+							<div class="trip-detail-content">
+							<div class="route">
+								<h3>' . $origin . '</h3>
+								<i> > </i>
+								<h3>' . $destination . '</h3>
+							</div>
+							<table border=0>
+								<tr>
+								<td class="reservation-data-sched">Schedule: </td>
+								<td class="reservation-data-sched"><strong>' . $dateDepart . ' ' . $tripTime . '</strong></td>
+								</tr>
+								<tr>
+								<td>Trip ID: </td>
+								<td><strong>' . $selectedTID . '</strong></td>
+								</tr>
+								<tr>
+								<td>Seat No: </td>
+								<td><strong>' . $seatReserve . '</strong></td>
+								</tr>
+								<tr>
+								<td>Bus Code: </td>
+								<td><strong>' . $busCode . '</strong></td>
+								</tr>
+								<tr>
+								<td>Bus Plate No: </td>
+								<td><strong>' . $busPlate . '</strong></td>
+								</tr>
+							</table>
+							</div>
+							<div class="ticket-line"></div>
+							<div class="passenger-detail-header">
+							<h3>Passenger Information</h3>
+							</div>
+							<div class="passenger-detail-content">
+							<table border=0>
+								<tr>
+								<td>Name: </td>
+								<td><strong>' . $pFname . ' ' . $pMname . ' ' . $pLname . '</strong></td>
+								</tr>
+								<tr>
+								<td>Gender: </td>
+								<td><strong>' . $pGender . '</strong></td>
+								</tr>
+								<tr>
+								<td>Contact No: </td>
+								<td><strong>' . $pMobile . '</strong></td>
+								</tr>
+								<tr>
+								<td>Email: </td>
+								<td><strong>' . $pEmail . '</strong></td>
+								</tr>
+								<tr>
+								<td>Address: </td>
+								<td><strong>' . $pCity . ', ' . $pProvince . '</strong></td>
+								</tr>
+							</table>
+							</div>
+							<div class="ticket-line"></div>
+							<div class="fare-detail-header">
+							<h3>Reservation (' . $reservationTime . ')</h3>
+							</div>
+							<div class="fare-detail-content">
+							<table border=0>
+								<tr>
+								<td>Fare Amount: </td>
+								<td><strong>₱ ' . $tripFare . '</strong></td>
+								</tr>
+								<tr>
+								<td>Reservation Fee: </td>
+								<td><strong>₱ 50.00</strong></td>
+								</tr>
+								<tr>
+								<td>Total Amount to Pay: </td>
+								<td><strong>₱ ' . number_format($tripFare + 50.00, 2) . '</strong></td>
+								</tr>
+							</table>
+							</div>
+							<div class="ticket-line"></div>
+							<div class="end-ticket-part">
+							<span class="end-ticket-data">----This is your reservation ticket----</span><br>
+							<span class="end-ticket-data">Bring on your scheduled date for verification.</span>
+							</div>
+						</div>
+						</div>
+					</div>
+				</body>
+				</html>';
+
+				try {
+					$mail->IsSMTP();
+					$mail->isHTML(true);
+					$mail->SMTPDebug = 0;
+					$mail->SMTPAuth = true;
+					$mail->Username = "stejeetech2021@gmail.com";
+					$mail->Password = "fovbvigzftnwxckp";
+					$mail->SMTPSecure = "ssl";
+					$mail->Host = "smtp.gmail.com";
+					$mail->Port = '465';
+					$mail->AddAddress($mailid);
+					$mail->SetFrom('stejeetech2021@gmail.com', 'Tribe Transport');
+					$mail->isHTML(true);
+					$mail->Subject = $subject;
+					$mail->Body = $message;
+
+					if (!$mail->Send()) {
+						//do nothing.
+					}
+				} catch (Exception $ex) {
+					$msg = "
+					" . $ex->errorMessage() . "
+					";
+				}
 				echo "<script>
                     alert('TRIP RESERVATION CONFIRMED.');
                     </script>";
@@ -153,4 +475,3 @@ if (isset($_POST['ticket-confirmed'])) {
 if (isset($_POST['download-pdf'])) {
 	echo "<script>window.location.href='generate-ticket.php';</script>";
 }
-?>
