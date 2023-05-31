@@ -90,7 +90,7 @@ include("indexsearch_trip.php");
             <h2>A copy of your reservation ticket is sent to your email.</h2>
         </div>
         <div class="back-button-content">
-            <a href="generate-ticket.php" target="_blank" rel="noopener noreferrer" class="download-btn">
+            <a href="generate-ticket.php" rel="noopener noreferrer" class="download-btn">
                 <button class="back-to-index-btn">
                     Download Ticket
                 </button>

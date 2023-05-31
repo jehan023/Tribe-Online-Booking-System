@@ -52,5 +52,6 @@ $dompdf->render();
 $dompdf->addInfo("Title", "Reservation Ticket");
 $dompdf->addInfo("Author", "Tribe Transport");
 $dompdf->stream("tribe-ticket.pdf");
+$pdfString = $dompdf->output();
 
 ?>
