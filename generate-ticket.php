@@ -27,8 +27,6 @@ $payable = strval(sprintf('%.2f', $_SESSION['payable']));
 $reserveTime = strval($_SESSION['reservation_time']);
 
 
-//$html = "<h1 style='color: green'>HELLO JEHAN</h1>";
-
 $options = new Options;
 $options->setChroot(__DIR__);
 $options->setIsRemoteEnabled(true);
@@ -39,18 +37,24 @@ $dompdf->setPaper('Letter', "portrait");
 $html = file_get_contents("reservationticket.html");
 
 $html = str_replace(
-    ["{{ origin }}", "{{ destination }}", "{{ date }}", "{{ time }}", "{{ seat no }}", "{{ trip id }}", "{{ bus code }}", 
-    "{{ bus plate }}", "{{ fname }}", "{{ mname }}", "{{ lname }}", "{{ gender }}", "{{ email }}", "{{ contact }}", "{{ city }}",
-    "{{ province }}", "{{ fare }}", "{{ payable }}", "{{ reserve-time }}"], 
-    [$origin, $destination, $date, $time, $seat, $tripID, $busCode, $busPlate, $fname, $mname, $lname, $gender, $email, $contact,
-    $city, $province, $fare, $payable, $reserveTime], 
-    $html);
+    [
+        "{{ origin }}", "{{ destination }}", "{{ date }}", "{{ time }}", "{{ seat no }}", "{{ trip id }}", "{{ bus code }}",
+        "{{ bus plate }}", "{{ fname }}", "{{ mname }}", "{{ lname }}", "{{ gender }}", "{{ email }}", "{{ contact }}", "{{ city }}",
+        "{{ province }}", "{{ fare }}", "{{ payable }}", "{{ reserve-time }}"
+    ],
+    [
+        $origin, $destination, $date, $time, $seat, $tripID, $busCode, $busPlate, $fname, $mname, $lname, $gender, $email, $contact,
+        $city, $province, $fare, $payable, $reserveTime
+    ],
+    $html
+);
 
 $dompdf->loadHtml($html);
 //$dompdf->loadHtmlFile("reservationticket.html");
 $dompdf->render();
 $dompdf->addInfo("Title", "Reservation Ticket");
 $dompdf->addInfo("Author", "Tribe Transport");
-$dompdf->stream("tribe-ticket.pdf");
+$dompdf->stream("tribe", array("Attachment" => 1));
+$pdfString = $dompdf->output();
 
 ?>

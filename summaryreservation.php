@@ -15,10 +15,6 @@ include('indexsearch_trip.php');
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <script>
-       
-    </script>
 </head>
 
 <body>
@@ -43,148 +39,151 @@ include('indexsearch_trip.php');
 
     <!--Body Contents-->
     <div class="contents">
+        <div class="loading-modal" id="loading-modal">
+            <h2>Loading...</h2>
+        </div>
         <div class="step-panel">
             <label class="step-guide"><strong>Step 4:</strong> Summary of Passenger Reservation</label>
         </div>
-        <div id="PaymentSummaryChargesContent_pnlSummary">  
-			<section class='charges-block'>
-				<div id="PaymentSummaryChargesContent_divSummaryOfCharges">
-					<div id='divSummaryCharges'>
-						<div class='ticket-group'>
-							<div class='ticket-panel'>
-								<div class='ticket-details'>
-									<div class='route-panel'>
-										<h1><?php echo $_SESSION['origin']; ?></h1>
-										<i class='fas fa-caret-right'></i>
-										<h1><?php echo $_SESSION['destination']; ?></h1>
-									</div>
-									<div class='ticket-data'>
-										<div class='left-part'>
-											<label class='schedule-data'>Departure Schedule</label>
-											<label class='time-data'>Date & Time: <span> 
-                                            <?php echo date("m/d/y", strtotime($_SESSION['date_depart'])).' '.date('h:i A', strtotime($_SESSION['trip_time'])); ?>
-                                            </span></label>
-										</div>                     
-								
-										<div class='right-part'>
-											<label class='pass-data'>Selected Seat No: <span><?php echo $_SESSION['seat_reserve']; ?></span></label>
-										</div>
-										<div class='pass-name'>
-											<label class='pass-data'>Passenger Name: <span>
-												<?php 
-													if(isset($_SESSION['pMname'])){
-														echo $_SESSION['pFname'].' '.$_SESSION['pMname'].' '.$_SESSION['pLname'];
-													} else {
-														echo $_SESSION['pFname'].' '.$_SESSION['pLname'];
-													}
-												?>
-											</span></label>
-										</div>
-									</div>
-								</div>
-							</div>
-						   
-							<div class='fare-panel'>
-								<h1 class='fare-title'>FARE AMOUNT</h1>
-								
-								<h1 class='label-fare'><strong>Fare amount:</strong></h1>
+        <div id="PaymentSummaryChargesContent_pnlSummary">
+            <section class='charges-block'>
+                <div id="PaymentSummaryChargesContent_divSummaryOfCharges">
+                    <div id='divSummaryCharges'>
+                        <div class='ticket-group'>
+                            <div class='ticket-panel'>
+                                <div class='ticket-details'>
+                                    <div class='route-panel'>
+                                        <h1><?php echo $_SESSION['origin']; ?></h1>
+                                        <i class='fas fa-caret-right'></i>
+                                        <h1><?php echo $_SESSION['destination']; ?></h1>
+                                    </div>
+                                    <div class='ticket-data'>
+                                        <div class='left-part'>
+                                            <label class='schedule-data'>Departure Schedule</label>
+                                            <label class='time-data'>Date & Time: <span>
+                                                    <?php echo date("m/d/y", strtotime($_SESSION['date_depart'])) . ' ' . date('h:i A', strtotime($_SESSION['trip_time'])); ?>
+                                                </span></label>
+                                        </div>
 
-								<div class='fare-data'>
-									<label>1 Pax x ₱<?php echo $_SESSION['trip_fare']; ?></label>
-									<label>₱<?php echo $_SESSION['trip_fare']; ?></label>
-								</div>
+                                        <div class='right-part'>
+                                            <label class='pass-data'>Selected Seat No: <span><?php echo $_SESSION['seat_reserve']; ?></span></label>
+                                        </div>
+                                        <div class='pass-name'>
+                                            <label class='pass-data'>Passenger Name: <span>
+                                                    <?php
+                                                    if (isset($_SESSION['pMname'])) {
+                                                        echo $_SESSION['pFname'] . ' ' . $_SESSION['pMname'] . ' ' . $_SESSION['pLname'];
+                                                    } else {
+                                                        echo $_SESSION['pFname'] . ' ' . $_SESSION['pLname'];
+                                                    }
+                                                    ?>
+                                                </span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-								<h1 class='label-fare'><strong>Reservation fee:</strong></h1>
-								<div class='fare-data'>
-									<label>(₱50.00) x 1 Pax</label>
-									<label>₱50.00</label>
-								</div>
+                            <div class='fare-panel'>
+                                <h1 class='fare-title'>FARE AMOUNT</h1>
+
+                                <h1 class='label-fare'><strong>Fare amount:</strong></h1>
+
+                                <div class='fare-data'>
+                                    <label>1 Pax x ₱<?php echo $_SESSION['trip_fare']; ?></label>
+                                    <label>₱<?php echo $_SESSION['trip_fare']; ?></label>
+                                </div>
+
+                                <h1 class='label-fare'><strong>Reservation fee:</strong></h1>
+                                <div class='fare-data'>
+                                    <label>(₱50.00) x 1 Pax</label>
+                                    <label>₱50.00</label>
+                                </div>
 
                                 <div class='total-fare-data'>
-                                    <h1 class='label-total-fare'>Total Amount to Pay: ₱<?php echo sprintf('%.2f', $_SESSION['trip_fare']+50.00); ?></h1>
+                                    <h1 class='label-total-fare'>Total Amount to Pay: ₱<?php echo sprintf('%.2f', $_SESSION['trip_fare'] + 50.00); ?></h1>
                                 </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-			<div class="summary-divider"></div>
+            <div class="summary-divider"></div>
 
-			<div class="payment-footer-block">
-				<form method="post" action="reservationticket.php" class="payment-footer col-sm-12">
-					<div class="col-sm-6">
-						<div>
-							<input type="checkbox" id="chkTnC" required/>
-							<b>I have read and agree to the <a href="#!" id="tncbtn" style="cursor: pointer">Terms and Conditions</a>.</b>
-						</div>
-						<div>
-							<input type="checkbox" id="chkCovidTerms" required/>
-							<b style="font: 14px;">I agree that I will bring the required travel documents upon boarding:
-							</b>
-							<details open>
-								<summary style="font-weight: bold;">FAIRVIEW, QC - BONTOC, MT. PROVINCE (VICE VERSA)</summary>
-								<ul style="list-style-type:disc; padding-left: 35px;">
-									<li>Valid ID (preferably Government issued ID)</li>
-									<li>
-										APOR (Authorized Persons Outside Residents) Company ID or <br />
-										Certificate of Employment whichever is available
-									</li>
-									<li>S-Pass</li>
-								</ul>
-							</details>
-							<details open>
-								<summary style="font-weight: bold;">FAIRVIEW, QC - BAGUIO CITY</summary>
-								<ul style="list-style-type:disc; padding-left: 35px;">
-									<li>
-										<u>NON-RESIDENT NON-APORS</u>:
-										<br /> Travelling Adults should be fully vaccinated and should present a vaccination card, 
-										<br /> Non vaccinated or partially vaccinated adults will not be allowed to enter Baguio.
-									</li>
-									<li>
-										Approved QTP code from <a href="https://visita.baguio.gov.ph" target="_blank">https://visita.baguio.gov.ph</a>
-									</li>
-									<li>
-										<u>Minors travelling with fully vaccinated companions</u>:
-										<br /> <b>a.</b> Travelers aged twelve (12) to seventeen (17) must present negative results
-										<br /> of Antigen or RT-PCR test conducted within 72 hours prior to entry to Baguio City.
-										<br /> <b>b.</b> Minors aged 11 and below shall be tested at the option of their 
-										<br /> accompanying parents or adult travel companions.
-									</li>
-									<li>
-										APOR’s and Returning Residents should register at <a href="https://hdf.baguio.gov.ph/" target="_blank">https://hdf.baguio.gov.ph/</a> 
-										<br /> and should secure a QR Code.
-									</li>
-									<li>
-										Those with important appointments at Baguio City should provide an appointment letter 
-										<br /> or letter of acceptance from Baguio so they will be allowed to travel.
-									</li>
-									<li>
-										Mandatory Negative RT-PCR Test for those arriving APOR’s Or Vaccination Card for those 
-										<br /> fully vaccinated individuals whose vaccination were completed 14 days after 
-										<br /> its last Vaccination date.
-									</li>
-									<li>
-										Non-Vaccinated or those that are not fully vaccinated residents yet, 
-										<br /> should require a Negative result of Antigen or RT-PCR whichever is available.
-									</li>
-									
-								</ul>
-							</details>
-							<details open>
-								<summary style="font-weight: bold;">BAGUIO - FAIRVIEW, QC</summary>
-								<ul style="list-style-type:disc; padding-left: 35px;">
-									<li>Valid ID (preferably Government issued ID)</li>
-								</ul>
-							</details>
-						</div>
-					</div>
-					<div class="btn-holder col-sm-6">
-						<input type='submit' name='ticket-confirmed' id="PaymentSummaryChargesContent_btnPayWithPoints" value='CONFIRM RESERVATION' class="btn btnpaynamics btn-pay-with-points btnpaynamics-disabled"/>
-					</div>
-				</form>
-			</div>
-		</div>
+            <div class="payment-footer-block">
+                <form method="post" action="indexsearch_trip.php" class="payment-footer col-sm-12" id="confirmation-form">
+                    <div class="col-sm-6">
+                        <div>
+                            <input type="checkbox" id="chkTnC" required />
+                            <b>I have read and agree to the <a href="#!" id="tncbtn" style="cursor: pointer">Terms and Conditions</a>.</b>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="chkCovidTerms" required />
+                            <b style="font: 14px;">I agree that I will bring the required travel documents upon boarding:
+                            </b>
+                            <details open>
+                                <summary style="font-weight: bold;">FAIRVIEW, QC - BONTOC, MT. PROVINCE (VICE VERSA)</summary>
+                                <ul style="list-style-type:disc; padding-left: 35px;">
+                                    <li>Valid ID (preferably Government issued ID)</li>
+                                    <li>
+                                        APOR (Authorized Persons Outside Residents) Company ID or <br />
+                                        Certificate of Employment whichever is available
+                                    </li>
+                                    <li>S-Pass</li>
+                                </ul>
+                            </details>
+                            <details open>
+                                <summary style="font-weight: bold;">FAIRVIEW, QC - BAGUIO CITY</summary>
+                                <ul style="list-style-type:disc; padding-left: 35px;">
+                                    <li>
+                                        <u>NON-RESIDENT NON-APORS</u>:
+                                        <br /> Travelling Adults should be fully vaccinated and should present a vaccination card,
+                                        <br /> Non vaccinated or partially vaccinated adults will not be allowed to enter Baguio.
+                                    </li>
+                                    <li>
+                                        Approved QTP code from <a href="https://visita.baguio.gov.ph" target="_blank">https://visita.baguio.gov.ph</a>
+                                    </li>
+                                    <li>
+                                        <u>Minors travelling with fully vaccinated companions</u>:
+                                        <br /> <b>a.</b> Travelers aged twelve (12) to seventeen (17) must present negative results
+                                        <br /> of Antigen or RT-PCR test conducted within 72 hours prior to entry to Baguio City.
+                                        <br /> <b>b.</b> Minors aged 11 and below shall be tested at the option of their
+                                        <br /> accompanying parents or adult travel companions.
+                                    </li>
+                                    <li>
+                                        APOR’s and Returning Residents should register at <a href="https://hdf.baguio.gov.ph/" target="_blank">https://hdf.baguio.gov.ph/</a>
+                                        <br /> and should secure a QR Code.
+                                    </li>
+                                    <li>
+                                        Those with important appointments at Baguio City should provide an appointment letter
+                                        <br /> or letter of acceptance from Baguio so they will be allowed to travel.
+                                    </li>
+                                    <li>
+                                        Mandatory Negative RT-PCR Test for those arriving APOR’s Or Vaccination Card for those
+                                        <br /> fully vaccinated individuals whose vaccination were completed 14 days after
+                                        <br /> its last Vaccination date.
+                                    </li>
+                                    <li>
+                                        Non-Vaccinated or those that are not fully vaccinated residents yet,
+                                        <br /> should require a Negative result of Antigen or RT-PCR whichever is available.
+                                    </li>
+
+                                </ul>
+                            </details>
+                            <details open>
+                                <summary style="font-weight: bold;">BAGUIO - FAIRVIEW, QC</summary>
+                                <ul style="list-style-type:disc; padding-left: 35px;">
+                                    <li>Valid ID (preferably Government issued ID)</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+                    <div class="btn-holder col-sm-6">
+                        <input type='submit' name='ticket-confirmed' id="PaymentSummaryChargesContent_btnPayWithPoints" value='CONFIRM RESERVATION' class="btn btnpaynamics btn-pay-with-points btnpaynamics-disabled" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <!--Footer-->
     <footer>
@@ -234,33 +233,33 @@ include('indexsearch_trip.php');
                     <h2 class="tnc">Definitions</h2>
                     <p class="tnc">For the purposes of these Terms and Conditions:</p>
                     <ul class="tnc">
-                    <li class="tnc">
-                    <p class="tnc"><strong class="tnc">Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Country</strong> refers to:  Philippines</p>
-                    </li>
-                    <li class="tnc">
-                    <p class="tnc"><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to TRIBE Bookings.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Service</strong> refers to the Website.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the <a href="https://www.privacypolicies.com/blog/sample-terms-conditions-template/" target="_blank">Terms and Conditions Template</a>.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Website</strong> refers to TRIBE Bookings, accessible from [https://<CHANGE VALUE>.com](https://<CHANGE VALUE>.com)</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
-                    </li>
+                        <li class="tnc">
+                            <p class="tnc"><strong class="tnc">Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Country</strong> refers to: Philippines</p>
+                        </li>
+                        <li class="tnc">
+                            <p class="tnc"><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to TRIBE Bookings.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Service</strong> refers to the Website.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the <a href="https://www.privacypolicies.com/blog/sample-terms-conditions-template/" target="_blank">Terms and Conditions Template</a>.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Website</strong> refers to TRIBE Bookings, accessible from [https://<CHANGE VALUE>.com](https://<CHANGE VALUE>.com)</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
+                        </li>
                     </ul>
                     <h1 class="tnc">Acknowledgment</h1>
                     <p class="tnc">These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.</p>
@@ -294,7 +293,7 @@ include('indexsearch_trip.php');
                     <p class="tnc">Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.</p>
                     <h1 class="tnc">Translation Interpretation</h1>
                     <p class="tnc">These Terms and Conditions may have been translated if We have made them available to You on our Service.
-                    You agree that the original English text shall prevail in the case of a dispute.</p>
+                        You agree that the original English text shall prevail in the case of a dispute.</p>
                     <h1 class="tnc">Changes to These Terms and Conditions</h1>
                     <p class="tnc">We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.</p>
                     <p class="tnc">By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.</p>
@@ -315,57 +314,57 @@ include('indexsearch_trip.php');
                     <h2 class="tnc">Definitions</h2>
                     <p class="tnc">For the purposes of this Privacy Policy:</p>
                     <ul class="tnc">
-                    <li class="tnc">
-                    <p class="tnc"><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to TRIBE Transport Coop., 14 Bristol St., North Fairview, Quezon City.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Country</strong> refers to:  Philippines</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Service</strong> refers to the Website.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Website</strong> refers to TRIBE Bookings, accessible from <a href="samplesite" rel="external nofollow noopener" target="_blank">samplesite</a></p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
-                    </li>
+                        <li class="tnc">
+                            <p class="tnc"><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to TRIBE Transport Coop., 14 Bristol St., North Fairview, Quezon City.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Country</strong> refers to: Philippines</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Service</strong> refers to the Website.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Website</strong> refers to TRIBE Bookings, accessible from <a href="samplesite" rel="external nofollow noopener" target="_blank">samplesite</a></p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
+                        </li>
                     </ul>
                     <h1 class="tnc">Collecting and Using Your Personal Data</h1>
                     <h2 class="tnc">Types of Data Collected</h2>
                     <h3 class="tnc">Personal Data</h3>
                     <p class="tnc">While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
                     <ul>
-                    <li>
-                    <p class="tnc">Email address</p>
-                    </li>
-                    <li>
-                    <p class="tnc">First name and last name</p>
-                    </li>
-                    <li>
-                    <p class="tnc">Phone number</p>
-                    </li>
-                    <li>
-                    <p class="tnc">Usage Data</p>
-                    </li>
+                        <li>
+                            <p class="tnc">Email address</p>
+                        </li>
+                        <li>
+                            <p class="tnc">First name and last name</p>
+                        </li>
+                        <li>
+                            <p class="tnc">Phone number</p>
+                        </li>
+                        <li>
+                            <p class="tnc">Usage Data</p>
+                        </li>
                     </ul>
                     <h3 class="tnc">Usage Data</h3>
                     <p class="tnc">Usage Data is collected automatically when using the Service.</p>
@@ -375,69 +374,69 @@ include('indexsearch_trip.php');
                     <h3 class="tnc">Tracking Technologies and Cookies</h3>
                     <p class="tnc">We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:</p>
                     <ul>
-                    <li class="tnc"><strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.</li>
-                    <li class="tnc"><strong>Flash Cookies.</strong> Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser settings as those used for Browser Cookies. For more information on how You can delete Flash Cookies, please read &quot;Where can I change the settings for disabling, or deleting local shared objects?&quot; available at <a href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_" rel="external nofollow noopener" target="_blank">https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_</a></li>
-                    <li class="tnc"><strong>Web Beacons.</strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
+                        <li class="tnc"><strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.</li>
+                        <li class="tnc"><strong>Flash Cookies.</strong> Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser settings as those used for Browser Cookies. For more information on how You can delete Flash Cookies, please read &quot;Where can I change the settings for disabling, or deleting local shared objects?&quot; available at <a href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_" rel="external nofollow noopener" target="_blank">https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_</a></li>
+                        <li class="tnc"><strong>Web Beacons.</strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
                     </ul>
                     <p class="tnc">Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. Learn more about cookies: <a href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking" target="_blank">Use of Cookies by Free Privacy Policy</a>.</p>
                     <p class="tnc">We use both Session and Persistent Cookies for the purposes set out below:</p>
                     <ul>
-                    <li>
-                    <p class="tnc"><strong>Necessary / Essential Cookies</strong></p>
-                    <p class="tnc">Type: Session Cookies</p>
-                    <p class="tnc">Administered by: Us</p>
-                    <p class="tnc">Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Cookies Policy / Notice Acceptance Cookies</strong></p>
-                    <p class="tnc">Type: Persistent Cookies</p>
-                    <p class="tnc">Administered by: Us</p>
-                    <p class="tnc">Purpose: These Cookies identify if users have accepted the use of cookies on the Website.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>Functionality Cookies</strong></p>
-                    <p class="tnc">Type: Persistent Cookies</p>
-                    <p class="tnc">Administered by: Us</p>
-                    <p class="tnc">Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.</p>
-                    </li>
+                        <li>
+                            <p class="tnc"><strong>Necessary / Essential Cookies</strong></p>
+                            <p class="tnc">Type: Session Cookies</p>
+                            <p class="tnc">Administered by: Us</p>
+                            <p class="tnc">Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Cookies Policy / Notice Acceptance Cookies</strong></p>
+                            <p class="tnc">Type: Persistent Cookies</p>
+                            <p class="tnc">Administered by: Us</p>
+                            <p class="tnc">Purpose: These Cookies identify if users have accepted the use of cookies on the Website.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>Functionality Cookies</strong></p>
+                            <p class="tnc">Type: Persistent Cookies</p>
+                            <p class="tnc">Administered by: Us</p>
+                            <p class="tnc">Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.</p>
+                        </li>
                     </ul>
                     <p class="tnc">For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
                     <h2 class="tnc">Use of Your Personal Data</h2>
                     <p class="tnc">The Company may use Personal Data for the following purposes:</p>
                     <ul>
-                    <li>
-                    <p class="tnc"><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>To provide You</strong> with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</p>
-                    </li>
-                    <li>
-                    <p class="tnc"><strong>For other purposes</strong>: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</p>
-                    </li>
+                        <li>
+                            <p class="tnc"><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>To provide You</strong> with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</p>
+                        </li>
+                        <li>
+                            <p class="tnc"><strong>For other purposes</strong>: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</p>
+                        </li>
                     </ul>
                     <p class="tnc">We may share Your personal information in the following situations:</p>
                     <ul>
-                    <li class="tnc"><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service,  to contact You.</li>
-                    <li class="tnc"><strong>For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
-                    <li class="tnc"><strong>With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
-                    <li class="tnc"><strong>With business partners:</strong> We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
-                    <li class="tnc"><strong>With other users:</strong> when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.</li>
-                    <li class="tnc"><strong>With Your consent</strong>: We may disclose Your personal information for any other purpose with Your consent.</li>
+                        <li class="tnc"><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
+                        <li class="tnc"><strong>For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
+                        <li class="tnc"><strong>With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
+                        <li class="tnc"><strong>With business partners:</strong> We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
+                        <li class="tnc"><strong>With other users:</strong> when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.</li>
+                        <li class="tnc"><strong>With Your consent</strong>: We may disclose Your personal information for any other purpose with Your consent.</li>
                     </ul>
                     <h2 class="tnc">Retention of Your Personal Data</h2>
                     <p class="tnc">The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
@@ -454,11 +453,11 @@ include('indexsearch_trip.php');
                     <h3 class="tnc">Other legal requirements</h3>
                     <p class="tnc">The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:</p>
                     <ul class="tnc">
-                    <li class="tnc">Comply with a legal obligation</li>
-                    <li class="tnc">Protect and defend the rights or property of the Company</li>
-                    <li class="tnc">Prevent or investigate possible wrongdoing in connection with the Service</li>
-                    <li class="tnc">Protect the personal safety of Users of the Service or the public</li>
-                    <li class="tnc">Protect against legal liability</li>
+                        <li class="tnc">Comply with a legal obligation</li>
+                        <li class="tnc">Protect and defend the rights or property of the Company</li>
+                        <li class="tnc">Prevent or investigate possible wrongdoing in connection with the Service</li>
+                        <li class="tnc">Protect the personal safety of Users of the Service or the public</li>
+                        <li class="tnc">Protect against legal liability</li>
                     </ul>
                     <h2 class="tnc">Security of Your Personal Data</h2>
                     <p class="tnc">The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</p>
@@ -478,43 +477,47 @@ include('indexsearch_trip.php');
                         <li class="tnc">By email: bookings.tribe@gmail.com</li>
                     </ul>
                 </div>
-            </div>  
+            </div>
         </div>
     </footer>
 
     <script>
-    // Get the modal
-    var ebModal = document.getElementById('mySizeChartModal');
-    var modalContent1 = document.getElementById('tnc-content');
-    var modalContent2 = document.getElementById('pp-content');
-    // Get the button that opens the modal
-    var ebBtn1 = document.getElementById("tncbtn");
-    var ebBtn2 = document.getElementById("ppbtn");
-    // Get the <span> element that closes the modal
-    var ebSpan = document.getElementsByClassName("ebcf_close")[0];
-    // When the user clicks the button, open the modal 
-    ebBtn1.onclick = function() {
-        ebModal.style.display = "block";
-        modalContent1.style.display = "block"
-    }
-    ebBtn2.onclick = function() {
-        ebModal.style.display = "block";
-        modalContent2.style.display = "block"
-    }
-    // When the user clicks on <span> (x), close the modal
-    ebSpan.onclick = function() {
-        ebModal.style.display = "none";
-        modalContent1.style.display = "none"
-        modalContent2.style.display = "none"
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == ebModal) {
+        // Get the modal
+        var ebModal = document.getElementById('mySizeChartModal');
+        var modalContent1 = document.getElementById('tnc-content');
+        var modalContent2 = document.getElementById('pp-content');
+        // Get the button that opens the modal
+        var ebBtn1 = document.getElementById("tncbtn");
+        var ebBtn2 = document.getElementById("ppbtn");
+        // Get the <span> element that closes the modal
+        var ebSpan = document.getElementsByClassName("ebcf_close")[0];
+        // When the user clicks the button, open the modal 
+        ebBtn1.onclick = function() {
+            ebModal.style.display = "block";
+            modalContent1.style.display = "block"
+        }
+        ebBtn2.onclick = function() {
+            ebModal.style.display = "block";
+            modalContent2.style.display = "block"
+        }
+        // When the user clicks on <span> (x), close the modal
+        ebSpan.onclick = function() {
             ebModal.style.display = "none";
             modalContent1.style.display = "none"
             modalContent2.style.display = "none"
         }
-    }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == ebModal) {
+                ebModal.style.display = "none";
+                modalContent1.style.display = "none"
+                modalContent2.style.display = "none"
+            }
+        }
+        var submit = document.getElementsByTagName('form')[0];
+        submit.onsubmit = function() {
+            document.getElementById('loading-modal').style.display='flex';
+        }
     </script>
 </body>
 

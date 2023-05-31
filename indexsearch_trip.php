@@ -3,6 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 date_default_timezone_set("Asia/Manila");
 session_start();
 require('db.php');
@@ -448,6 +451,60 @@ if (isset($_POST['ticket-confirmed'])) {
 					$mail->Subject = $subject;
 					$mail->Body = $message;
 
+					require __DIR__ . "/vendor/autoload.php";
+
+
+					$date = strval(date("m/d/y", strtotime($_SESSION['date_depart'])));
+					$time = strval(date('h:i A', strtotime($_SESSION['trip_time'])));
+					$origin = strval($_SESSION['origin']);
+					$destination = strval($_SESSION['destination']);
+					$tripID = strval($_SESSION['selected_tID']);
+					$seat = strval($_SESSION['seat_reserve']);
+					$busCode = strval($_SESSION['bus_code']);
+					$busPlate = strval($_SESSION['bus_plate']);
+					$fname = strval($_SESSION['pFname']);
+					$mname = strval($_SESSION['pMname']);
+					$lname = strval($_SESSION['pLname']);
+					$gender = strval($_SESSION['pGender']);
+					$email = strval($_SESSION['pEmail']);
+					$contact = strval($_SESSION['pMobile']);
+					$city = strval($_SESSION['pCity']);
+					$province = strval($_SESSION['pProvince']);
+					$fare = strval($_SESSION['trip_fare']);
+					$payable = strval(sprintf('%.2f', $_SESSION['payable']));
+					$reserveTime = strval($_SESSION['reservation_time']);
+
+					$options = new Options;
+					$options->setChroot(__DIR__);
+					$options->setIsRemoteEnabled(true);
+
+					$dompdf = new Dompdf($options);
+					$dompdf->setPaper('Letter', "portrait");
+
+					$html = file_get_contents("reservationticket.html");
+
+					$html = str_replace(
+						[
+							"{{ origin }}", "{{ destination }}", "{{ date }}", "{{ time }}", "{{ seat no }}", "{{ trip id }}", "{{ bus code }}",
+							"{{ bus plate }}", "{{ fname }}", "{{ mname }}", "{{ lname }}", "{{ gender }}", "{{ email }}", "{{ contact }}", "{{ city }}",
+							"{{ province }}", "{{ fare }}", "{{ payable }}", "{{ reserve-time }}"
+						],
+						[
+							$origin, $destination, $date, $time, $seat, $tripID, $busCode, $busPlate, $fname, $mname, $lname, $gender, $email, $contact,
+							$city, $province, $fare, $payable, $reserveTime
+						],
+						$html
+					);
+
+					$dompdf->loadHtml($html);
+					//$dompdf->loadHtmlFile("reservationticket.html");
+					$dompdf->render();
+					$dompdf->addInfo("Title", "Reservation Ticket");
+					$dompdf->addInfo("Author", "Tribe Transport");
+					$pdfString = $dompdf->output();
+
+					$mail->addStringAttachment($pdfString, 'ticket.pdf');
+
 					if (!$mail->Send()) {
 						//do nothing.
 					}
@@ -459,6 +516,7 @@ if (isset($_POST['ticket-confirmed'])) {
 				echo "<script>
                     alert('TRIP RESERVATION CONFIRMED.');
                     </script>";
+				echo "<script>window.location.href='reservationticket.php';</script>";
 			} else {
 				echo "<script>
 					alert('ERROR: Could not able to execute $trip_update');

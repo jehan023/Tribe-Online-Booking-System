@@ -11,6 +11,18 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+#loading-modal {
+  background-color: #293241c6;
+  color: white;
+  min-width: 100%;
+  height: 100vh;
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+}
 /*----------NAVIGATION------------------------------------------*/
 
 nav {

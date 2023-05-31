@@ -199,9 +199,6 @@ include('indexsearch_trip.php');
                         <td class='announcement-data-title'>" . $row['title'] . "</td>
                     </tr>
                     <tr>
-                        <td class='announcement-data-date'>" . date('F d, Y', strtotime($row['post_time'])) . "</td>
-                    </tr>
-                    <tr>
                         <td class='announcement-data-context'><ul><li>" . $row['context'] . "</li></ul></td>
                     </tr>
                     </table>";
