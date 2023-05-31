@@ -39,7 +39,7 @@ include("indexsearch_trip.php");
         }
 
         .notif {
-            padding: 15px 20px; 
+            padding: 15px 20px;
         }
 
         h2 {
@@ -87,15 +87,15 @@ include("indexsearch_trip.php");
 <body>
     <div class="container">
         <div class="notif">
-            <h2>A copy of your reservation ticket is sent to your email.</h2>
+            <h2>Your reservation ticket is sent to your email. Thank you!</h2>
         </div>
-        <div class="back-button-content">
+        <!-- <div class="back-button-content">
             <a href="generate-ticket.php" rel="noopener noreferrer" class="download-btn">
                 <button class="back-to-index-btn">
                     Download Ticket
                 </button>
             </a>
-        </div>
+        </div> -->
 
         <div class="back-button-content">
             <button class="back-to-index-btn" onclick="backtoIndex()">Back to Main</button>
